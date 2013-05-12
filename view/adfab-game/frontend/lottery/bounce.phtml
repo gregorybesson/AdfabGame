@@ -1,0 +1,101 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame');// Pour le texte ?>
+<?php $game = $this->game;?>
+<?php $user = $this->user;?>
+<?php $availableGames = $this->availableGames?>
+
+<div class="game-lottery row-fluid recirculation">
+	
+	<?php if(!$game->getPartner() || !$game->getPartner()->getBouncePage()):?>
+		<div class="mobile">
+			<img src="<?php echo $this->basePath('images/common/logo-hd.png')?>" border="0" width="137" alt="Club Playground" />
+		</div>
+	    <h1>Ce tirage au sort vous a été offert par <span class="mobile name-partner">Club Playground</span></h1>
+	      
+	    <div class="row-fluid offer">
+	    	<div class="span3 no-mobile">
+				<img src="<?php echo $this->basePath('images/common/logo-hd.png')?>" border="0" width="137" alt="Club Playground" />
+			</div>
+			<?php if(!$user->getAvatar() || !$user->getAddress() || !$user->getCity() || !$user->getTelephone() || !$user->getChildren()):?>
+				<div class="span3<?php if($this->layout()->facebooktemplate): echo ' fb-target'; endif ?>">
+			    	<a href="<?php echo $this->url('zfcuser/profile');?>">
+				        <img src="<?php echo $this->basePath('images/common/round-pencil.png')?>" border="0" width="70" height="70" />
+		                <div>Remplir mes <br> coordonnées<br><span class="points">et gagner des points</span></div>
+		           	</a>
+		    	</div>
+		    <?php endif;?>
+		    <?php if(!$user->getOptin()):?>
+		    	<div class="span3">
+		    		<div class="bounce-newsform">
+					    <form action="<?php echo $this->url('zfcuser/ajax_newsletter');?>" method="POST" id="ajax-newsletter">
+					        <input type="hidden" value="1" name="optin" />
+					    	<input class="bounce-newssubscribe" type="submit" value="S'inscrire à la newsletter"/>
+					    </form>
+					</div>
+					<div class="bounce-newssuccess">Inscription prise<br/>en compte!</div>
+				</div>
+		    <?php endif;?>
+		    <div class="span3">
+		    	<a href="http://www.facebook.com/playground" target="_blank" class="facebook">
+	                <img src="<?php echo $this->basePath('images/common/round-facebook-circle.png')?>" border="0" width="70" height="70" />
+	                <div>Devenir fan<br/>sur Facebook</div>
+	            </a>
+		    </div>
+	    </div>
+	<?php else:?>
+		<?php $isSubscriber = $this->partnerSubscriber($game->getPartner(), $user);?>
+	    <h1>Ce tirage au sort vous a été offert par <?php echo $game->getPartner()->getName();?></h1>
+	    
+	    <div class="row-fluid offer partner">
+			<?php if($this->game->getPartner()->getLogo() !=''):?>
+				<div class="span3">
+					<img src="<?php echo $this->basePath($game->getPartner()->getLogo())?>" border="0" width="137" alt="<?php echo $game->getPartner()->getName();?>" />
+				</div>
+			<?php endif;?>
+			<?php if($game->getPartner()->getNewsletter() && !$isSubscriber):?>
+			    <div class="span3">
+		    		<div class="bounce-newsform">
+					    <form action="<?php echo $this->url('partnership/ajax_newsletter', array('id'=>$game->getPartner()->getId()));?>" method="POST" id="ajax-newsletter">
+					        <input type="hidden" value="1" name="optin" />
+					        <input type="hidden" value="<?php echo $game->getId();?>" name="gameId" />
+					    	<input class="bounce-newssubscribe" type="submit" value="S'inscrire à la newsletter"/>
+					    </form>
+					</div>
+					<div class="bounce-newssuccess">Inscription prise<br/>en compte!</div>
+				</div>
+			<?php endif;?>
+			<?php if($game->getPartner()->getWebsite()):?>
+				<div class="span3">
+			    	<a href="<?php echo $game->getPartner()->getWebsite()?>" target="_blank" class="website">
+						<div>Voir le<br/>site Internet</div>
+					</a>
+				</div>
+			<?php endif;?>
+			<?php if($game->getPartner()->getFacebook()):?>
+				<div class="span3">
+			        <a href="<?php echo $game->getPartner()->getFacebook()?>" target="_blank" class="facebook">
+						<div>Devenir fan<br/>sur Facebook</div>
+					</a>
+				</div> 
+			<?php endif;?>
+		</div>  
+	    
+	<?php endif;?>
+	
+	<?php if(!$this->layout()->facebooktemplate){?>
+	<div class="row-fluid other-games">
+		<h2 class="title">
+			<?php if($availableGames): ?>
+				<?php echo $this->translate('Tentez votre chance avec d\'autres jeux'); ?> Club Playground
+			<?php else: ?>
+				<?php echo $this->translate('Vous avez joué à tous les jeux'); ?> ! <br/>
+				<?php echo $this->translate('Revenez très bientôt'); ?>
+			<?php endif; ?>
+		</h2>
+		<?php $this->partialLoop()->setObjectKey('game')?>
+		<?php echo $this->partialLoop('adfab-game/frontend/partial/game.phtml', $availableGames) ?>
+	</div>
+	<?php } ?>
+	
+	<?php echo $this->partial('adfab-game/frontend/partial/news-feed', array('rssUrl' => $this->rssUrl)); ?>
+
+</div>

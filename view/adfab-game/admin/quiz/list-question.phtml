@@ -1,0 +1,48 @@
+<?php
+/*$fm = $this->flashMessenger()->setNamespace('adfabgame')->getMessages();
+if (isset($fm[0]))
+{
+    print '<span class=>' . $fm[0] . '</span>';
+}*/
+?>
+<?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame'); ?>
+<?php $addLink = $this->url('zfcadmin/adfabgame/quiz-question-add', array('quizId' => $this->quiz_id)); ?>
+
+
+<ul class="liste-buttons">
+	<li class="btn-admin"><a href="<?php echo $addLink;?>"><?php echo $this->translate('Add new question'); ?></a></li>
+	<!--<li class="btn-admin"><a href="<?php echo $this->url('zfcadmin/adfabgame/list');?>"><?php echo $this->translate('Retour'); ?></a></li>-->
+</ul>
+
+<h1>Liste des questions</h1>
+
+<table class="table">
+    <tr>
+        <!--<th><?php echo $this->translate('Id'); ?></th>-->
+        <th><?php echo $this->translate('Question'); ?></th>
+        <th><?php echo $this->translate('Answers'); ?></th>
+        <th></th>
+    </tr>
+    <tbody>
+    <?php foreach ($this->questions as $question): ?>
+    	<?php $editLink   = $this->url('zfcadmin/adfabgame/quiz-question-edit', array('questionId' => $question->getId()));?>
+        <?php $deleteLink = $this->url('zfcadmin/adfabgame/quiz-question-remove', array('questionId' => $question->getId()));?>
+    	<tr class="sortable" id="<?php echo $question->getId() ?>" 
+    		data-url="<?php echo $editLink; ?>">
+            <!--<td><?php echo $question->getId() ?></td>-->
+            <td><?php echo $question->getQuestion() ?></td>
+            <td><?php echo count($question->getAnswers()); ?></td>
+            
+            <td>
+                <a href='<?php echo $editLink ?>'><?php echo $this->translate('Edit'); ?></a> | <a href='<?php echo $deleteLink ?>'><?php echo $this->translate('Delete'); ?></a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<ul class="liste-buttons bottom">
+	<li class="btn-admin bottom"><a href="<?php echo $addLink;?>"><?php echo $this->translate('Add new question'); ?></a></li>
+</ul>
+
+<?php //echo $this->paginationControl($this->pages, 'Sliding', 'adfab-cms/page/pagination_pagelist.phtml'); ?>

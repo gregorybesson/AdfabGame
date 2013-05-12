@@ -1,0 +1,113 @@
+<?php
+
+namespace AdfabGame\Mapper;
+
+use Doctrine\ORM\EntityManager;
+use AdfabGame\Options\ModuleOptions;
+
+class InstantWinOccurrence
+{
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $em;
+
+    /**
+     * @var \Doctrine\ORM\EntityRepository
+     */
+    protected $er;
+
+    /**
+     * @var \AdfabGame\Options\ModuleOptions
+     */
+    protected $options;
+
+    public function __construct(EntityManager $em, ModuleOptions $options)
+    {
+        $this->em      = $em;
+        $this->options = $options;
+    }
+
+    public function findById($id)
+    {
+        return $this->getEntityRepository()->find($id);
+    }
+
+    public function findByGameId($instant_win, $sortArray = array())
+    {
+        return $this->getEntityRepository()->findBy(array('instantwin' => $instant_win), $sortArray);
+    }
+
+    public function findBy($array = array(), $sortArray = array())
+    {
+        return $this->getEntityRepository()->findBy($array, $sortArray);
+    }
+
+    public function checkInstantWinByGameId($instant_win, $user)
+    {
+        $now = new \DateTime("now");
+        $now = $now->format('Y-m-d H:i:s');
+
+        $query = $this->em->createQuery(
+                'SELECT i FROM AdfabGame\Entity\InstantWinOccurrence i
+                WHERE i.instantwin = :game
+                AND i.active = 1
+                AND i.occurrence_date <= :now
+                ORDER BY i.occurrence_date DESC
+                '
+        );
+        $query->setParameter('game', $instant_win);
+        $query->setParameter('now', $now);
+        $query->setMaxResults(1);
+        $result = $query->getResult();
+
+        if (count($result) == 1) {
+            $winOccurrence = $result[0];
+            $winOccurrence->setUser($user);
+            $winOccurrence->setActive(0);
+            $this->update($winOccurrence);
+
+            return $winOccurrence;
+        } else {
+            return null;
+        }
+    }
+
+    public function insert($entity)
+    {
+        return $this->persist($entity);
+    }
+
+    public function update($entity)
+    {
+        return $this->persist($entity);
+    }
+
+    protected function persist($entity)
+    {
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity;
+    }
+
+    public function findAll()
+    {
+        return $this->getEntityRepository()->findAll();
+    }
+
+    public function remove($entity)
+    {
+        $this->em->remove($entity);
+        $this->em->flush();
+    }
+
+    public function getEntityRepository()
+    {
+        if (null === $this->er) {
+            $this->er = $this->em->getRepository('AdfabGame\Entity\InstantWinOccurrence');
+        }
+
+        return $this->er;
+    }
+}

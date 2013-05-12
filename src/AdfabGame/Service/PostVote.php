@@ -1,0 +1,376 @@
+<?php
+
+namespace AdfabGame\Service;
+
+use Zend\ServiceManager\ServiceManagerAwareInterface;
+use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ErrorHandler;
+
+use Zend\File\Transfer\Adapter\Http;
+use Zend\Validator\File\Size;
+use Zend\Validator\File\IsImage;
+
+class PostVote extends Game implements ServiceManagerAwareInterface
+{
+
+    protected $postvoteMapper;
+    protected $postvoteformMapper;
+    protected $postVotePostMapper;
+    protected $postVoteVoteMapper;
+    protected $postVotePostElementMapper;
+
+    public function getGameEntity()
+    {
+        return new \AdfabGame\Entity\PostVote;
+    }
+
+    public function uploadFileToPost($data, $game, $user)
+    {
+        $postvotePostMapper = $this->getPostVotePostMapper();
+        $postVotePostElementMapper = $this->getPostVotePostElementMapper();
+
+        $entryMapper = $this->getEntryMapper();
+        $entry = $entryMapper->findLastActiveEntryById($game, $user);
+
+        if (!$entry) {
+            return 'falsefin0';
+        }
+
+        $post = $postvotePostMapper->findOneBy(array('entry' => $entry));
+
+        if (! $post) {
+            $post = new \AdfabGame\Entity\PostVotePost();
+            $post->setPostvote($game);
+            $post->setUser($user);
+            $post->setEntry($entry);
+            $post = $postvotePostMapper->insert($post);
+        }
+
+        $path = $this->getOptions()->getMediaPath() . DIRECTORY_SEPARATOR . 'game' . $game->getId() . '_post'. $post->getId() . '_';
+        $media_url = $this->getOptions()->getMediaUrl() . '/' . 'game' . $game->getId() . '_post'. $post->getId() . '_';
+
+        $key = key($data);
+        $uploadFile = $this->uploadFile($path, $data[$key]);
+
+        if ($uploadFile) {
+            $postElement = $postVotePostElementMapper->findOneBy(array('post' => $post, 'name' => $key));
+            if (! $postElement) {
+                $postElement = new \AdfabGame\Entity\PostVotePostElement();
+            }
+            $postElement->setName($key);
+            $postElement->setPosition(0);
+            $postElement->setValue($media_url.$uploadFile);
+            $postElement->setPost($post);
+            $postElement = $postVotePostElementMapper->insert($postElement);
+
+            return $media_url.$uploadFile;
+
+        } else {
+            return false;
+        }
+    }
+    /**
+     *
+     *
+     *
+     * @param  array                  $data
+     * @param  string                 $entityClass
+     * @param  string                 $formClass
+     * @return \AdfabGame\Entity\Game
+     */
+    public function createPost(array $data, $game, $user, $form)
+    {
+
+        $postvotePostMapper = $this->getPostVotePostMapper();
+        $postVotePostElementMapper = $this->getPostVotePostElementMapper();
+
+        $entryMapper = $this->getEntryMapper();
+        $entry = $entryMapper->findLastActiveEntryById($game, $user);
+
+        if (!$entry) {
+            return false;
+        }
+
+        $post = $postvotePostMapper->findOneBy(array('entry' => $entry));
+
+        if (! $post) {
+            $post = new \AdfabGame\Entity\PostVotePost();
+            $post->setPostvote($game);
+            $post->setUser($user);
+            $post->setEntry($entry);
+            $post = $postvotePostMapper->insert($post);
+        }
+
+        //print_r($data);
+        //die('FIN');
+
+        $path = $this->getOptions()->getMediaPath() . DIRECTORY_SEPARATOR . 'game' . $game->getId() . '_post'. $post->getId() . '_';
+        $media_url = $this->getOptions()->getMediaUrl() . '/' . 'game' . $game->getId() . '_post'. $post->getId() . '_';
+        $position=1;
+        //$postVotePostElementMapper->removeAll($post);
+        foreach ($data as $name => $value) {
+            // TODO : Manage uploads
+            if (is_array($value)) {
+                if (!empty($value['tmp_name'])) {
+
+                    ErrorHandler::start();
+/*
+                    $adapter = new \Zend\File\Transfer\Adapter\Http();
+                    // 400ko
+                    $size = new Size(array('max'=>400000));
+                    $is_image = new IsImage('jpeg,png,gif,jpg');
+                    $adapter->setValidators(array($size, $is_image), $value['name']);
+
+                    if (!$adapter->isValid()) {
+                        $dataError = $adapter->getMessages();
+                        $error = array();
+                        foreach ($dataError as $key=>$row) {
+                            // TODO : remove the exception below once understood why it appears
+                            if ($key != 'fileUploadErrorNoFile') {
+                                $error[] = $row;
+                            }
+                        }
+
+                        $form->setMessages(array($name=>$error ));
+
+                        return false;
+                    }
+*/
+                    move_uploaded_file($value['tmp_name'], $path . $value['name']);
+                    $postElement = $postVotePostElementMapper->findOneBy(array('post' => $post, 'name' => $name));
+                    if (! $postElement) {
+                        $postElement = new \AdfabGame\Entity\PostVotePostElement();
+                    }
+                    $postElement->setName($name);
+                    $postElement->setPosition($position);
+                    $postElement->setValue($media_url . $value['name']);
+                    $postElement->setPost($post);
+                    $postElement = $postVotePostElementMapper->insert($postElement);
+                    ErrorHandler::stop(true);
+                }
+            } else {
+                $postElement = $postVotePostElementMapper->findOneBy(array('post' => $post, 'name' => $name));
+                if (! $postElement) {
+                    $postElement = new \AdfabGame\Entity\PostVotePostElement();
+                }
+                $postElement->setName($name);
+                $postElement->setPosition($position);
+                $postElement->setValue($value);
+                $postElement->setPost($post);
+                $postElement = $postVotePostElementMapper->insert($postElement);
+            }
+            $position++;
+        }
+        $postvotePostMapper->update($post);
+
+        return $post;
+    }
+
+    /**
+     *
+     * @param  string                 $entityClass
+     * @param  string                 $formClass
+     * @return \AdfabGame\Entity\Game
+     */
+    public function confirmPost($game, $user)
+    {
+        $postvotePostMapper = $this->getPostVotePostMapper();
+
+        $entryMapper = $this->getEntryMapper();
+        $entry = $entryMapper->findLastActiveEntryById($game, $user);
+
+        if (!$entry) {
+            return false;
+        }
+
+        $post = $postvotePostMapper->findOneBy(array('entry' => $entry));
+
+        if (! $post) {
+            return false;
+        }
+
+        // The post is confirmed by user. I update the status and close the associated entry
+        // Post validated by default, then the admin change the status
+        $post->setStatus(2);
+        $postvotePostMapper->update($post);
+
+        $entry->setActive(0);
+        $entryMapper->update($entry);
+
+        return $post;
+    }
+
+    /**
+     *
+     * This service is ready for all types of games
+     *
+     * @param  array                  $data
+     * @param  string                 $entityClass
+     * @param  string                 $formClass
+     * @return \AdfabGame\Entity\Game
+     */
+    public function createForm(array $data, $game, $form=null)
+    {
+
+        $title ='';
+        $description = '';
+
+        if ($data['form_jsonified']) {
+            $jsonPV = json_decode($data['form_jsonified']);
+            foreach ($jsonPV as $element) {
+                if ($element->form_properties) {
+                    $attributes  = $element->form_properties[0];
+                    $title       = $attributes->title;
+                    $description = $attributes->description;
+
+                    break;
+                }
+            }
+        }
+        if (!$form) {
+            $form = new \AdfabGame\Entity\PostVoteForm();
+        }
+        $form->setPostvote($game);
+        $form->setTitle($title);
+        $form->setDescription($description);
+        $form->setForm($data['form_jsonified']);
+        $form->setFormTemplate($data['form_template']);
+
+        $form = $this->getPostVoteFormMapper()->insert($form);
+
+        return $form;
+    }
+
+    public function findArrayOfValidatedPosts($game)
+    {
+        $posts = $this->getPostVotePostMapper()->findBy(array('postvote'=> $game, 'status' => 2));
+        $arrayPosts = array();
+        $i=0;
+        foreach ($posts as $post) {
+            $data = array();
+            foreach ($post->getPostElements() as $element) {
+                $data[$element->getPosition()] = $element->getValue();
+            }
+            $arrayPosts[$i]['data']  = $data;
+            $arrayPosts[$i]['votes'] = count($post->getVotes());
+            $arrayPosts[$i]['id']    = $post->getId();
+            $arrayPosts[$i]['user']  = $post->getUser();
+            $i++;
+        }
+
+        return $arrayPosts;
+    }
+
+    public function addVote($user = null, $ipAddress = '', $post)
+    {
+        $postvoteVoteMapper = $this->getPostVoteVoteMapper();
+        $postId = $post->getId();
+
+        if ($user) {
+            $userId = $user->getId();
+            $entryUser = count($postvoteVoteMapper->findBy(array('userId' => $userId, 'post' =>$postId)));
+        } else {
+            $entryUser =count($postvoteVoteMapper->findBy(array('ip' => $ipAddress, 'post' =>$postId)));
+        }
+        if ($entryUser && $entryUser > 0) {
+            return false;
+        } else {
+            $vote = new \AdfabGame\Entity\PostVoteVote();
+            $vote->setPost($post);
+            $vote->setIp($ipAddress);
+            if ($user) {
+                $vote->setUserId($user->getId());
+            }
+
+            $postvoteVoteMapper->insert($vote);
+
+            return true;
+        }
+    }
+
+    public function getPostVoteFormMapper()
+    {
+        if (null === $this->postvoteformMapper) {
+            $this->postvoteformMapper = $this->getServiceManager()->get('adfabgame_postvoteform_mapper');
+        }
+
+        return $this->postvoteformMapper;
+    }
+
+    public function setPostVoteFormMapper($postvoteformMapper)
+    {
+        $this->postvoteformMapper = $postvoteformMapper;
+
+        return $this;
+    }
+
+    public function getPostVotePostElementMapper()
+    {
+        if (null === $this->postVotePostElementMapper) {
+            $this->postVotePostElementMapper = $this->getServiceManager()->get('adfabgame_postvotepostelement_mapper');
+        }
+
+        return $this->postVotePostElementMapper;
+    }
+
+    public function setPostVotePostElementMapper($postVotePostElementMapper)
+    {
+        $this->postVotePostElementMapper = $postVotePostElementMapper;
+
+        return $this;
+    }
+
+    public function getPostVoteVoteMapper()
+    {
+        if (null === $this->postVoteVoteMapper) {
+            $this->postVoteVoteMapper = $this->getServiceManager()->get('adfabgame_postvotevote_mapper');
+        }
+
+        return $this->postVoteVoteMapper;
+    }
+
+    public function setPostVoteVoteMapper($postVoteVoteMapper)
+    {
+        $this->postVoteVoteMapper = $postVoteVoteMapper;
+
+        return $this;
+    }
+
+    public function getPostVotePostMapper()
+    {
+        if (null === $this->postVotePostMapper) {
+            $this->postVotePostMapper = $this->getServiceManager()->get('adfabgame_postvotepost_mapper');
+        }
+
+        return $this->postVotePostMapper;
+    }
+
+    public function setPostVotePostMapper($postVotePostMapper)
+    {
+        $this->postVotePostMapper = $postVotePostMapper;
+
+        return $this;
+    }
+
+    public function getPostVoteMapper()
+    {
+        if (null === $this->postvoteMapper) {
+            $this->postvoteMapper = $this->getServiceManager()->get('adfabgame_postvote_mapper');
+        }
+
+        return $this->postvoteMapper;
+    }
+
+    /**
+     * setQuizQuestionMapper
+     *
+     * @param  QuizQuestionMapperInterface $quizquestionMapper
+     * @return QuizQuestion
+     */
+    public function setPostVoteMapper($postvoteMapper)
+    {
+        $this->postvoteMapper = $postvoteMapper;
+
+        return $this;
+    }
+}
