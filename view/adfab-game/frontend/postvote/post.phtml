@@ -56,13 +56,18 @@
            		<?php echo $this->partial('adfab-game/frontend/postvote/templates/' . $this->game->getTemplate(), array('data'=>$data, 'post' => $post->getId()));?>
 				<?php echo $this->partial('adfab-game/frontend/partial/name.phtml', array('post' => $post->getUser(), 'game' => $game, 'urlPost' => $this->url('postvote/post', array('id' => $this->game->getIdentifier(),  'post' => $post->getId()), array('force_canonical' => true)), 'postTitle' => $data[1]));?>
        		</div>
-       		<?php $formModeration = $this->formModeration;?>
-			<?php $formModeration->prepare();?>
-       		<?php echo $this->form()->openTag($formModeration) ?>
-				<?php echo $this->formInput($formModeration->get('moderation')); ?>
-				<input type="hidden" name="link" value="<?php echo $this->url('postvote/post', array('id' => $this->game->getIdentifier(), 'post' => $post->getId()))?>" />
-				<p class="alert-link"><a href="#">Signaler</a></p>
-			<?php echo $this->form()->closeTag($formModeration) ?>
+       		<?php if($this->statusMail && ($post->getId() == $this->reportId )) : ?>
+				<p class="report-result">Merci d'avoir signalé.</p>
+			<?php else : ?>
+	       		<?php $formModeration = $this->formModeration;?>
+				<?php $formModeration->prepare();?>
+	       		<?php echo $this->form()->openTag($formModeration) ?>
+					<?php echo $this->formInput($formModeration->get('moderation')); ?>
+					<input type="hidden" name="link" value="<?php echo $this->url('postvote/post', array('id' => $this->game->getIdentifier(), 'post' => $post->getId()))?>" />
+					<input type="hidden" name="reportid" value="<?php echo $post->getId() ?>" />
+					<p class="alert-link"><a href="#">Signaler</a></p>
+				<?php echo $this->form()->closeTag($formModeration) ?>
+			<?php endif; ?>
        </div>
        <div class="span2">
            <?php 
