@@ -41,9 +41,11 @@
 		<div class="span4">
 			<a href="<?php echo $this->url('postvote/list', array('id' => $this->game->getIdentifier()))?>"><button class="btn btn-inverse">Voir les participations</button></a>
 		</div>
+		<?php if($game->isStarted()):?>
 		<div class="span3">
 			<a href="<?php echo $this->url('postvote/play', array('id' => $this->game->getIdentifier()))?>"><button class="btn btn-warning">Participer</button></a>
 		</div>
+		<?php endif ?>
 	</div>
 
     <!-- BLOCK CONTENT -->
@@ -56,19 +58,23 @@
            		<?php echo $this->partial('adfab-game/frontend/postvote/templates/' . $this->game->getTemplate(), array('data'=>$data, 'post' => $post->getId()));?>
 				<?php echo $this->partial('adfab-game/frontend/partial/name.phtml', array('post' => $post->getUser(), 'game' => $game, 'urlPost' => $this->url('postvote/post', array('id' => $this->game->getIdentifier(),  'post' => $post->getId()), array('force_canonical' => true)), 'postTitle' => $data[1]));?>
        		</div>
-       		<?php if($this->statusMail && ($post->getId() == $this->reportId )) : ?>
-				<p class="report-result">Merci d'avoir signalé.</p>
-			<?php else : ?>
-	       		<?php $formModeration = $this->formModeration;?>
-				<?php $formModeration->prepare();?>
-	       		<?php echo $this->form()->openTag($formModeration) ?>
-					<?php echo $this->formInput($formModeration->get('moderation')); ?>
-					<input type="hidden" name="link" value="<?php echo $this->url('postvote/post', array('id' => $this->game->getIdentifier(), 'post' => $post->getId()))?>" />
-					<input type="hidden" name="reportid" value="<?php echo $post->getId() ?>" />
-					<p class="alert-link"><a href="#">Signaler</a></p>
-				<?php echo $this->form()->closeTag($formModeration) ?>
-			<?php endif; ?>
+       		<?php if($game->isStarted()):?>
+	       		<?php if($this->statusMail && ($post->getId() == $this->reportId )) : ?>
+					<p class="report-result">Merci d'avoir signalé.</p>
+				<?php else : ?>
+		       		<?php $formModeration = $this->formModeration;?>
+					<?php $formModeration->prepare();?>
+		       		<?php echo $this->form()->openTag($formModeration) ?>
+						<?php echo $this->formInput($formModeration->get('moderation')); ?>
+						<input type="hidden" name="link" value="<?php echo $this->url('postvote/post', array('id' => $this->game->getIdentifier(), 'post' => $post->getId()))?>" />
+						<input type="hidden" name="reportid" value="<?php echo $post->getId() ?>" />
+						<p class="alert-link"><a href="#">Signaler</a></p>
+					<?php echo $this->form()->closeTag($formModeration) ?>
+				<?php endif; ?>
+			<?php endif ?>
        </div>
+       
+       <?php if($game->isStarted()):?>
        <div class="span2">
            <?php 
                 $form = $this->form;
@@ -100,5 +106,6 @@
                 <span class="text-error">*</span> Pour prendre en compte votre vote, nous devons vérifer que vous êtes bien un être humain ;-)
             <?php endif ?>
         </div>
+        <?php endif ?>
     </div>
 </div>
