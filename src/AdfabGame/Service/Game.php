@@ -620,7 +620,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $mailService = $this->getServiceManager()->get('adfabgame_message');
         $from 		 = '';
         $to          = $user->getEmail();
-        $subject 	 = 'Playground';
+        $subject 	 = 'Club Metro';
 
         $config 	 = $this->getServiceManager()->get('config');
 
