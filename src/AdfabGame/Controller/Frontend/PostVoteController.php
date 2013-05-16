@@ -335,10 +335,10 @@ class PostVoteController extends GameController
             $to = $config['moderation']['email'];
         }
 
-        $game = $sg->checkGame($identifier);
-        if (! $game) {
+        $game = $sg->checkGame($identifier, false);
+        /*if (! $game) {
             return $this->notFoundAction();
-        }
+        }*/
 
         if (! $postId) {
             return $this->notFoundAction();
@@ -626,10 +626,10 @@ class PostVoteController extends GameController
 
         $request = $this->getRequest();
 
-        $game = $sg->checkGame($identifier);
-        if (! $game) {
+        $game = $sg->checkGame($identifier, false);
+        /*if (! $game) {
             return $this->notFoundAction();
-        }
+        }*/
 
         // Je recherche les posts validés associés à ce jeu
         $posts = $sg->findArrayOfValidatedPosts($game);

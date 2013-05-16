@@ -11,6 +11,8 @@
 	    <?php endif;?>
 	    <?php echo $this->post->getUsername(); ?>
     </div>
+    
+    <?php if($game->isStarted()):?>
     <div class="span3 offset5">
     	<?php //echo $this->partial('adfab-game/frontend/partial/share.phtml', array( 'color' => 'grey', 'game'=>$this->game, 'url'=>$this->url($game->getClassType(), array('id' => $this->game->getIdentifier()), array('force_canonical' => true)), 'urlPost' => $this->urlPost));?>
     
@@ -25,4 +27,5 @@
 		</div>
     
     </div>
+    <?php endif ?>
 </div>
