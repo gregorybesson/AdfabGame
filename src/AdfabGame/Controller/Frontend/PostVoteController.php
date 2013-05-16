@@ -447,7 +447,7 @@ class PostVoteController extends GameController
         }*/
 
         // Has the user finished the game ?
-        $lastEntry = $this->getGameService()->getEntryMapper()->findBy(array('game' => $game, 'user' => $this->zfcUserAuthentication()->getIdentity()), array('created_at' => 'DESC'), 1, 0);
+        $lastEntry = $this->getGameService()->getEntryMapper()->findLastInactiveEntryById($game, $user);
 
         if ($lastEntry == null) {
             return $this->redirect()->toUrl($this->url()->fromRoute('postvote', array('id' => $identifier)));
@@ -466,9 +466,11 @@ class PostVoteController extends GameController
                 }
             }
         }
+		
+		$post = $this->getGameService()->getPostVotePostMapper()->findOneBy(array('entry' => $lastEntry, 'status' => 2));
 
         // send mail for participation
-        $this->getGameService()->sendGameMail($game, $user, 'postvote');
+        $this->getGameService()->sendGameMail($game, $user, $post, 'postvote');
 
         $viewModel = $this->buildView($game);
         $viewModel->setVariables(array(
