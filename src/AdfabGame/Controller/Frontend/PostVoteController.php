@@ -369,27 +369,33 @@ class PostVoteController extends GameController
         }
 
         $alreadyVoted = '';
+		$reportId = '';
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setData($request->getPost());
-            if ($form->isValid()) {
-                if ($sg->addVote($user, $this->getRequest()->getServer('REMOTE_ADDR'), $post)) {
-                    $voted = true;
-                } else {
-                    $alreadyVoted = 'Vous avez déjà voté!';
-                }
-            }
-
-            $data = $request->getPost()->toArray();
+			$data = $request->getPost()->toArray();
             if (isset($data['moderation'])) {
-                $from = $to;
-                $subject= 'Moderation Post and Vote';
-                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data));
-                if ($result) {
-                    $statusMail = true;
-                }
-            }
+	            $formModeration->setData($data);
+				if ($formModeration->isValid()) {
+	                $from = $to;
+	                $subject= 'Moderation Post and Vote';
+	                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data));
+					$mailService->send($result);
+	                if ($result) {
+	                    $statusMail = true;
+						$reportId = $data['reportid'];
+	                }
+	            }
+			} else {
+				$form->setData($request->getPost());
+	            if ($form->isValid()) {
+	                if ($sg->addVote($user, $this->getRequest()->getServer('REMOTE_ADDR'), $post)) {
+	                    $voted = true;
+	                } else {
+	                    $alreadyVoted = 'Vous avez déjà voté!';
+	                }
+	            }
+			}
         }
 
         $viewModel = $this->buildView($game);
@@ -403,6 +409,7 @@ class PostVoteController extends GameController
                 'statusMail' => $statusMail,
                 'flashMessages' => $this->flashMessenger()->getMessages(),
                 'alreadyVoted' => $alreadyVoted,
+                'reportId' => $reportId,
             )
         );
 
@@ -643,19 +650,23 @@ class PostVoteController extends GameController
                 'value' => '1'
             ),
         ));
-
+		
+		$reportId ='';
+		
         if ($request->isPost()) {
             $data = $request->getPost()->toArray();
 
             if (isset($data['moderation'])) {
-
                 $from = $to;
                 $subject= 'Moderation Post and Vote';
                 $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data));
+				$mailService->send($result);
                 if ($result) {
                     $statusMail = true;
+					$reportId = $data['reportid'];
                 }
             }
+
 
         }
 
@@ -665,6 +676,7 @@ class PostVoteController extends GameController
                 'posts' => $paginator,
                 'form' => $form,
                 'statusMail' => $statusMail,
+                'reportId' => $reportId,
             )
         );
 

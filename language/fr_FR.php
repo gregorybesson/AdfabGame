@@ -105,5 +105,8 @@ return array(
         'Add occurrence'	=> 'Ajouter un instant gagnant',
         'Occurrence Date' 	=> 'Date de l\'instant gagnant',
         'Edit occurrence'	=> 'Editer un instant gagnant',
+        
+		// Front post&vote email moderation
+		'This post has been reported in a game.' => 'Ce post a été signalé dans un jeu.',
 
 );
