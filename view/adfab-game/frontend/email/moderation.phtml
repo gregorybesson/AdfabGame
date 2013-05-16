@@ -1,3 +1,5 @@
 <?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame');// Pour le texte ?>
 
-<a href="<?php echo rtrim($this->skinUrl,'/').$this->data['link'] ;?>"><b><?php echo $this->translate('This post has been reported in a game') ?></b></a>
+<?php $skinUrl = $this->url('home', array(), array('force_canonical' => true)); ?>
+
+<a href="<?php echo rtrim($skinUrl,'/').$this->data['link'] ;?>"><b><?php echo $this->translate('This post has been reported in a game') ?></b></a>

@@ -377,11 +377,9 @@ class PostVoteController extends GameController
             if (isset($data['moderation'])) {
 	            $formModeration->setData($data);
 				if ($formModeration->isValid()) {
-	            	$renderer = $this->getGameService()->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
-	        		$skinUrl = $renderer->url('home', array(), array('force_canonical' => true));
 	                $from = $to;
 	                $subject= 'Moderation Post and Vote';
-	                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data, 'skinUrl' => $skinUrl));
+	                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data));
 					$mailService->send($result);
 	                if ($result) {
 	                    $statusMail = true;
@@ -659,11 +657,9 @@ class PostVoteController extends GameController
             $data = $request->getPost()->toArray();
 
             if (isset($data['moderation'])) {
-				$renderer = $this->getGameService()->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
-        		$skinUrl = $renderer->url('home', array(), array('force_canonical' => true));
                 $from = $to;
                 $subject= 'Moderation Post and Vote';
-                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data, 'skinUrl' => $skinUrl));
+                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data));
 				$mailService->send($result);
                 if ($result) {
                     $statusMail = true;
