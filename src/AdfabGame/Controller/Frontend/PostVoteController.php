@@ -330,6 +330,7 @@ class PostVoteController extends GameController
         $statusMail = false;
         $mailService = $this->getServiceLocator()->get('adfabgame_message');
         $to = '';
+		$skinUrl = $sg->getServiceManager()->get('ViewRenderer')->url('home', array(), array('force_canonical' => true));
         $config = $this->getGameService()->getServiceManager()->get('config');
         if (isset($config['moderation']['email'])) {
             $to = $config['moderation']['email'];
@@ -379,7 +380,7 @@ class PostVoteController extends GameController
 				if ($formModeration->isValid()) {
 	                $from = $to;
 	                $subject= 'Moderation Post and Vote';
-	                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data));
+	                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data, 'skinUrl' => $skinUrl));
 					$mailService->send($result);
 	                if ($result) {
 	                    $statusMail = true;
@@ -619,6 +620,7 @@ class PostVoteController extends GameController
         $statusMail = false;
         $mailService = $this->getServiceLocator()->get('adfabgame_message');
         $to = '';
+		$skinUrl = $sg->getServiceManager()->get('ViewRenderer')->url('home', array(), array('force_canonical' => true));
         $config = $this->getGameService()->getServiceManager()->get('config');
         if (isset($config['moderation']['email'])) {
             $to = $config['moderation']['email'];
@@ -661,7 +663,7 @@ class PostVoteController extends GameController
             if (isset($data['moderation'])) {
                 $from = $to;
                 $subject= 'Moderation Post and Vote';
-                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data));
+                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data, 'skinUrl' => $skinUrl));
 				$mailService->send($result);
                 if ($result) {
                     $statusMail = true;
