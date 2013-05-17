@@ -1,5 +1,4 @@
 <?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame');// Pour le texte ?>
-<?php $skinUrl = $this->url('home', array(), array('force_canonical' => true)); ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 4.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
@@ -17,7 +16,7 @@
 								<table width="516" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF">
 									<tr height="767" align="left">
 										<td height="767" width="18" style="font-size:0" valign="top">
-											<img border="0" src="<?php echo $skinUrl.'images/content/email/email1-m.jpg';?>" alt="" height="767" width="18"/>
+											<img border="0" src="<?php echo $this->skinUrl.'images/content/email/email1-m.jpg';?>" alt="" height="767" width="18"/>
 										</td>
 										<td height="767" width="480" style="font-size:0" valign="top">
 											<table width="480" cellpadding="0" cellspacing="0" border="0">
@@ -25,8 +24,8 @@
 													<td height="102" width="480" valign="top">
 														<table width="480" cellpadding="0" cellspacing="0" border="0">
 															<tr height="102">
-																<td height="102" width="417" style="font-size:0"><img border="0" src="<?php echo $skinUrl.'images/content/email/email3.jpg';?>" alt="" height="102" width="417"/></td>
-																<td height="102" width="63" style="font-size:0"><a href="http://facebook.com/playground/"><img border="0" src="<?php echo $skinUrl.'images/content/email/email4.jpg';?>" alt="" height="102" width="63"/></a></td>
+																<td height="102" width="417" style="font-size:0"><img border="0" src="<?php echo $this->skinUrl.'images/content/email/email3.jpg';?>" alt="" height="102" width="417"/></td>
+																<td height="102" width="63" style="font-size:0"><a href="http://facebook.com/playground/"><img border="0" src="<?php echo $this->skinUrl.'images/content/email/email4.jpg';?>" alt="" height="102" width="63"/></a></td>
 															</tr>
 														</table>
 													</td>
@@ -34,7 +33,7 @@
 												<tr height="487">
 													<td height="487" width="480" style="font-size:0">
 														<table width="480" cellpadding="0" cellspacing="0" border="0">
-															<td height="487" width="15" valign="bottom" style="font-size:0"><img border="0" src="<?php echo $$skinUrl.'images/content/email/email5.jpg';?>" alt="" height="487" width="15"/></td>
+															<td height="487" width="15" valign="bottom" style="font-size:0"><img border="0" src="<?php echo $$this->skinUrl.'images/content/email/email5.jpg';?>" alt="" height="487" width="15"/></td>
 															<td height="487" width="450">
 																<table width="450" cellpadding="0" cellspacing="0" border="0">
 																	<tr height="487">
@@ -53,7 +52,7 @@
 																				</tr>
 																				<tr height="115">
 																					<td height="115" width="450" style="font-size:0px;">
-																						<img border="0" src="<?php echo $skinUrl . $this->game->getMainImage(); ?>" alt="<?php echo $this->game->getTitle(); ?>" height="115" width="450" style="-moz-border-radius: 8px; -webkit-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px;" />
+																						<img border="0" src="<?php echo $this->skinUrl . $this->game->getMainImage(); ?>" alt="<?php echo $this->game->getTitle(); ?>" height="115" width="450" style="-moz-border-radius: 8px; -webkit-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px;" />
 																					</td>
 																				</tr>
 																				<tr height="55">
@@ -66,7 +65,7 @@
 																									</b></font>
 																								</td>
 																								<td height="55" width="152" style="font-size:0px">
-																									<a href="<?php echo rtrim($skinUrl,'/')  . $this->url($this->game->getClassType()) . '/' . $this->game->getIdentifier();?>?key=<?php echo $this->secretKey ?>"><img border="0" src="<?php echo $skinUrl.'images/content/email/jouer.jpg';?>" alt="Jouer" height="45" width="152"/></a>
+																									<a href="<?php echo rtrim($this->skinUrl,'/')  . $this->url($this->game->getClassType()) . '/' . $this->game->getIdentifier();?>?key=<?php echo $this->secretKey ?>"><img border="0" src="<?php echo $this->skinUrl.'images/content/email/jouer.jpg';?>" alt="Jouer" height="45" width="152"/></a>
 																								</td>
 																							</tr>
 																						</table>
@@ -74,7 +73,7 @@
 																				</tr>
 																				<tr height="35">
 																					<td height="35" width="450" style="font-size:0">
-																						<img border="0" src="<?php echo $skinUrl.'images/content/email/email7.jpg';?>" alt="" height="35" width="450"/>
+																						<img border="0" src="<?php echo $this->skinUrl.'images/content/email/email7.jpg';?>" alt="" height="35" width="450"/>
 																					</td>
 																				</tr>
 																				<tr height="150">
@@ -82,12 +81,12 @@
 																						<table width="450" cellpadding="0" cellspacing="0" border="0">
 																							<tr height="150">
 																								<td height="150" width="100" style="font-size:0px" valign="top">
-																									<img border="0" src="<?php echo $skinUrl.'images/content/email/logo.jpg';?>" alt="" height="100" width="105"/>
+																									<img border="0" src="<?php echo $this->skinUrl.'images/content/email/logo.jpg';?>" alt="" height="100" width="105"/>
 																								</td>
 																								<td height="77" width="350" style="font-size:14px" valign="top">
 																									<font face="Arial" color="#000000" style="font-size:22px;line-height:35px;">Connaissez-vous le Club Playground ?</font><br/>
 																									<font face="Arial" color="#000000">Participez &agrave; nos jeux et tentez de remporter un max de<br/>cadeaux ! High tech, culture, voyages... Il y en a pour<br/>tous les go&ucirc;ts !</font><br/>
-																									<a href="<?php echo $skinUrl; ?>?key=<?php echo $this->secretKey ?>" style="color:#017F40;"><font face="Arial" color="#017F40" style="font-size:14px;line-height:50px;">&gt; Voir les jeux en cours</font></a><br/>
+																									<a href="<?php echo $this->skinUrl; ?>?key=<?php echo $this->secretKey ?>" style="color:#017F40;"><font face="Arial" color="#017F40" style="font-size:14px;line-height:50px;">&gt; Voir les jeux en cours</font></a><br/>
 																								</td>
 																							</tr>
 																						</table>
@@ -95,7 +94,7 @@
 																				</tr>
 																				<tr height="35">
 																					<td height="35" width="450" style="font-size:0">
-																						<img border="0" src="<?php echo $skinUrl.'images/content/email/email7.jpg';?>" alt="" height="35" width="450"/>
+																						<img border="0" src="<?php echo $this->skinUrl.'images/content/email/email7.jpg';?>" alt="" height="35" width="450"/>
 																					</td>
 																				</tr>
 																				<tr height="67">
@@ -105,7 +104,7 @@
 																				</tr>
 																				<tr height="20">
 																					<td height="20" width="450" style="font-size:0">
-																						<img border="0" src="<?php echo $skinUrl.'images/content/email/email8.jpg';?>" alt="" height="20" width="450"/>
+																						<img border="0" src="<?php echo $this->skinUrl.'images/content/email/email8.jpg';?>" alt="" height="20" width="450"/>
 																					</td>
 																				</tr>
 																				<tr height="38">
@@ -117,7 +116,7 @@
 																									<table width="208" cellpadding="0" cellspacing="0" border="0">
 																										<tr height="38">
 																											<td height="38" width="34" style="font-size:0">
-																												<img border="0" src="<?php echo $skinUrl.'images/content/email/email9.jpg';?>" alt="" height="38" width="34"/>
+																												<img border="0" src="<?php echo $this->skinUrl.'images/content/email/email9.jpg';?>" alt="" height="38" width="34"/>
 																											</td>
 																											<td height="38" width="174" style="font-size:14px">
 																												<a href="http://www.facebook.com/playground/" style="color:#3B5A99;"><font face="Arial" color="#3B5A99">Suivez-nous sur Facebook</font></a>
@@ -135,14 +134,14 @@
 																	</tr>
 																</table>
 															</td>
-															<td height="487" width="15" valign="bottom" style="font-size:0"><img border="0" src="<?php echo $skinUrl.'images/content/email/email5.jpg';?>" alt="" height="487" width="15"/></td>
+															<td height="487" width="15" valign="bottom" style="font-size:0"><img border="0" src="<?php echo $this->skinUrl.'images/content/email/email5.jpg';?>" alt="" height="487" width="15"/></td>
 														</table>
 													</td>
 												</tr>
 											</table>
 										</td>
 										<td height="767" width="18" style="font-size:0" valign="top">
-											<img border="0" src="<?php echo $skinUrl.'images/content/email/email2-m.jpg';?>" alt="" height="767" width="18"/>
+											<img border="0" src="<?php echo $this->skinUrl.'images/content/email/email2-m.jpg';?>" alt="" height="767" width="18"/>
 										</td>	
 									</tr>	
 								</table>
