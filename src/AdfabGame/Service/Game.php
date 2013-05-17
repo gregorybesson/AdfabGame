@@ -856,22 +856,57 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         return $this->getEntryMapper()->findAll();
     }
 
-    public function GetOrderType($type= '', $order='DESC')
-    {
-        switch ($type) {
-            case 'beginDate' :
-                $orderType = array('startDate' => $order);
+    public function getGamesOrderBy($type='createdAt', $order='DESC')
+	{
+		$em = $this->getServiceManager()->get('zfcuser_doctrine_em');
+		$today = new \DateTime("now");
+		$today = $today->format('Y-m-d') . ' 23:59:59';
+		
+		$onlineGames = '(
+			(
+				CASE WHEN (
+					g.active = 1
+					AND g.broadcastPlatform = 1
+					AND (g.startDate <= :date OR g.startDate IS NULL)
+					AND (g.closeDate >= :date OR g.closeDate IS NULL)
+				) THEN 1 ELSE 0 END
+			) +
+			(
+				CASE WHEN (
+					g.active = 0
+					AND (g.broadcastPlatform = 0 OR g.broadcastPlatform IS NULL)
+					AND g.startDate > :date
+					AND g.closeDate < :date
+				) THEN 1 ELSE 0 END
+			)
+		)';
+		
+		switch ($type) {
+			case 'startDate' :
+				$filter = 'g.startDate';
+				break;
+            case 'activeGames' :
+				$filter = 'g.active';
+				break;
+			case 'onlineGames' :
+				$filter = $onlineGames;
+				break;
+			case 'createdAt' :
+                $filter = 'g.createdAt';
                 break;
-            case 'activeGame' :
-                $orderType = array('active' => $order);
-                break;
-            case 'createdDate' :
-                $orderType = array('createdAt' => $order);
-                break;
-        }
+		}
+		
+		$query = $em->createQuery('
+			SELECT g FROM AdfabGame\Entity\Game g
+			ORDER BY '.$filter.' '.$order.'
+		');
+		if($filter == $onlineGames) {
+			$query->setParameter('date', $today);
+		}
+        $games = $query->getResult();
 
-        return $this->getGameMapper()->findBy(array(), $orderType);
-    }
+        return $games;
+	}
 
     /**
      * getGameMapper
