@@ -45,14 +45,7 @@ class AdminController extends AbstractActionController
         $type	= $this->getEvent()->getRouteMatch()->getParam('type');
 
         $service 	= $this->getAdminGameService();
-
-        if ($type == 'activeGame') {
-            $games 	= $service->GetOrderType('activeGame', $filter);
-        } elseif ($type == 'beginDate') {
-            $games 	= $service->GetOrderType('beginDate', $filter);
-        } else {
-            $games 	= $service->GetOrderType('createdDate', $filter);
-        }
+		$games 	= $service->getGamesOrderBy($type, $filter);
 
         foreach ($games as $game) {
             $game->leaderboard = $this->getAdminGameService()->getEntryMapper()->findBy(array('game' => $game->getId()));
