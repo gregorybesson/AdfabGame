@@ -856,7 +856,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         return $this->getEntryMapper()->findAll();
     }
 
-    public function getGamesOrderBy($type='createdDate', $order='DESC')
+    public function getGamesOrderBy($type='createdAt', $order='DESC')
 	{
 		$em = $this->getServiceManager()->get('zfcuser_doctrine_em');
 		$today = new \DateTime("now");
