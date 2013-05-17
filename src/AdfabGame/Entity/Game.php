@@ -554,6 +554,8 @@ class Game implements InputFilterAwareInterface
             ($this->getPublicationDate() && $this->getPublicationDate()->setTime(0,0,0) > $today->setTime(0,0,0))
             ||
             !$this->getActive()
+			||
+			!$this->getBroadcastPlatform()
         ){
             return true;
         }

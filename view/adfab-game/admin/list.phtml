@@ -16,30 +16,16 @@ if (isset($fm[0]))
 
 <h1>Liste des jeux</h1>
 
+<div class="sortby-role">Tri par : <a href="<?php echo $this->url('zfcadmin/adfabgame/list', array('type' => 'startDate', 'filter' => 'DESC')); ?>">Date début</a> | <a href="<?php echo $this->url('zfcadmin/adfabgame/list', array('type' => 'activeGames', 'filter' => 'DESC')); ?>">Actif</a> | <a href="<?php echo $this->url('zfcadmin/adfabgame/list', array('type' => 'onlineGames', 'filter' => 'DESC')); ?>">Online</a></div>
+
 <table class="table">
     <tr>
     	<!-- <th><?php echo $this->translate('Created at'); ?></th> -->
         <th><?php echo $this->translate('Id'); ?></th>
         <th><?php echo $this->translate('Title'); ?></th>
-        <th class="listgame-beginth">
-        	<?php echo $this->translate('Start Date'); ?>
-    	    <a href="<?php echo $this->url('zfcadmin/adfabgame/list', array('type' => 'beginDate', 'filter' => 'DESC')); ?>">
-    	    	<img src="/images/admin/arrow-down.png" alt="" />
-    	    </a>
-			<a href="<?php echo $this->url('zfcadmin/adfabgame/list', array('type' => 'beginDate', 'filter' => 'ASC')); ?>">
-				<img src="/images/admin/arrow-up.png" alt="" />
-			</a>
-        </th>
+        <th><?php echo $this->translate('Start Date'); ?></th>
         <th><?php echo $this->translate('End Date'); ?></th>
-        <th class="listgame-activeth">
-        	<?php echo $this->translate('Active'); ?>
-    	    <a href="<?php echo $this->url('zfcadmin/adfabgame/list', array('type' => 'activeGame', 'filter' => 'DESC')); ?>">
-    	    	<img src="/images/admin/arrow-down.png" alt="" />
-    	    </a>
-			<a href="<?php echo $this->url('zfcadmin/adfabgame/list', array('type' => 'activeGame', 'filter' => 'ASC')); ?>">
-				<img src="/images/admin/arrow-up.png" alt="" />
-			</a>
-        </th>
+        <th><?php echo $this->translate('Active'); ?></th>
         <th><?php echo $this->translate('Online'); ?></th>
         <th><?php echo $this->translate('Type'); ?></th>
         <th><?php echo $this->translate('Slug'); ?></th>
