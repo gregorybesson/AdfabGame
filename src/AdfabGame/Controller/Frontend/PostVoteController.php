@@ -614,8 +614,10 @@ class PostVoteController extends GameController
     public function listAction()
     {
         $identifier = $this->getEvent()->getRouteMatch()->getParam('id');
-        $user = $this->zfcUserAuthentication()->getIdentity();
-        $sg = $this->getGameService();
+		$filter		= $this->getEvent()->getRouteMatch()->getParam('filter');
+        $search 	= $this->params()->fromQuery('name');
+        $user 		= $this->zfcUserAuthentication()->getIdentity();
+        $sg 		= $this->getGameService();
 
         $statusMail = false;
         $mailService = $this->getServiceLocator()->get('adfabgame_message');
@@ -634,7 +636,7 @@ class PostVoteController extends GameController
         }*/
 
         // Je recherche les posts validés associés à ce jeu
-        $posts = $sg->findArrayOfValidatedPosts($game);
+        $posts = $sg->findArrayOfValidatedPosts($game, $filter, $search);
 
         if (is_array($posts)) {
             $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($posts));
@@ -671,7 +673,6 @@ class PostVoteController extends GameController
                 }
             }
 
-
         }
 
         $viewModel = $this->buildView($game);
@@ -681,6 +682,8 @@ class PostVoteController extends GameController
                 'form' => $form,
                 'statusMail' => $statusMail,
                 'reportId' => $reportId,
+                'filter' => $filter,
+                'search' => $search,
             )
         );
 

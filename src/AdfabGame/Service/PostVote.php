@@ -241,13 +241,48 @@ class PostVote extends Game implements ServiceManagerAwareInterface
         return $form;
     }
 
-    public function findArrayOfValidatedPosts($game)
+    public function findArrayOfValidatedPosts($game, $filter, $search='')
     {
-        $posts = $this->getPostVotePostMapper()->findBy(array('postvote'=> $game, 'status' => 2));
+        //$posts = $this->getPostVotePostMapper()->findBy(array('postvote'=> $game, 'status' => 2));
+		$em = $this->getServiceManager()->get('adfabgame_doctrine_em');
+		$postSort = '';
+		$filterSearch = '';
+		switch ($filter) {
+			case 'random' :
+				$postSort = 'ORDER BY e.value ASC';
+				break;
+			case 'vote' :
+				$postSort = 'ORDER BY votesCount DESC';
+				break;
+			case 'date' :
+				$postSort = 'ORDER BY p.createdAt DESC';
+		}
+		
+		if ($search != '') {
+            $filterSearch = " AND (u.username like '%" . $search . "%' OR u.lastname like '%" . $search . "%' OR u.firstname like '%" . $search . "%' OR e.value like '%" . $search . "%')";
+        }
+		
+		$query = $em->createQuery('
+			SELECT p, COUNT(v) AS votesCount
+			FROM AdfabGame\Entity\PostVotePost p
+			JOIN p.postvote g
+			JOIN p.user u
+			JOIN p.postElements e
+			LEFT JOIN p.votes v
+			WHERE g.id = :game
+			' . $filterSearch . '
+			AND p.status = 2
+			GROUP BY p.id
+			' . $postSort . '
+		');
+
+		$query->setParameter('game', $game);
+		$posts = $query->getResult();
         $arrayPosts = array();
         $i=0;
-        foreach ($posts as $post) {
+        foreach ($posts as $postRaw) {
             $data = array();
+			$post = $postRaw[0];
             foreach ($post->getPostElements() as $element) {
                 $data[$element->getPosition()] = $element->getValue();
             }
