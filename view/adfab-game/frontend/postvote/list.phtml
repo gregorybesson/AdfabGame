@@ -32,7 +32,7 @@
 			<a href="<?php echo $this->url('postvote', array('id' => $this->game->getIdentifier()))?>"><button class="btn btn-inverse active">Accueil</button></a>
 		</div>
 		<div class="span4">
-			<a href="<?php echo $this->url('postvote/list', array('id' => $this->game->getIdentifier()))?>"><button class="btn btn-inverse">Voir les participations</button></a>
+			<a href="<?php echo $this->url('postvote/list', array('id' => $this->game->getIdentifier(), 'filter' => $this->game->getPostDisplayMode()))?>"><button class="btn btn-inverse">Voir les participations</button></a>
 		</div>
 		<?php if($game->isStarted()):?>
 			<div class="span3">
@@ -46,13 +46,13 @@
 
 	<div class="row-fluid search-bar">
         <div class="span3">
-            <select name="">
-                <option value="">Plus récents</option>
-                <option value="">Aléatoire</option>
-                <option value="">Plus populaires</option>
+            <select name="filter-postvote" id="filter-postvote">
+                <option value="<?php echo $this->url('postvote/list', array('id' => $this->game->getIdentifier(), 'filter' => 'date'))?>"<?php if($this->filter == 'date') : echo ' selected'; endif; ?>>Plus récents</option>
+                <option value="<?php echo $this->url('postvote/list', array('id' => $this->game->getIdentifier(), 'filter' => 'random'))?>"<?php if($this->filter == 'random') : echo ' selected'; endif; ?>>Aléatoire</option>
+                <option value="<?php echo $this->url('postvote/list', array('id' => $this->game->getIdentifier(), 'filter' => 'vote'))?>"<?php if($this->filter == 'vote') : echo ' selected'; endif; ?>>Plus populaires</option>
             </select>
         </div>
-        <form action="<?php echo $this->url('postvote/list', array('id' => $this->game->getIdentifier())); ?>" method="GET" class="row-fluid">
+        <form action="<?php echo $this->url('postvote/list', array('id' => $this->game->getIdentifier(), 'filter' => $this->filter)); ?>" method="GET" class="row-fluid">
 	        <div class="span4 offset4">	            
 				<input type="text" name="name" id="" placeholder="Rechercher" value="<?php echo $this->search?>"/>
 	        </div>
@@ -63,7 +63,7 @@
         </form>
     </div>
 
-	<?php echo $this->paginationControl($this->posts, 'Sliding', 'adfab-game/frontend/postvote/pagination_list.phtml', array('id' => $this->game->getIdentifier())); ?>
+	<?php echo $this->paginationControl($this->posts, 'Sliding', 'adfab-game/frontend/postvote/pagination_list.phtml', array('id' => $this->game->getIdentifier(), 'filter' => $this->filter)); ?>
 	
 	<?php $form = $this->form;?>
 	<?php $form->prepare();?>
@@ -163,6 +163,6 @@
 	 </div>
 
 
-	<?php echo $this->paginationControl($this->posts, 'Sliding', 'adfab-game/frontend/postvote/pagination_list.phtml', array('id' => $this->game->getIdentifier())); ?>
+	<?php echo $this->paginationControl($this->posts, 'Sliding', 'adfab-game/frontend/postvote/pagination_list.phtml', array('id' => $this->game->getIdentifier(), 'filter' => $this->filter)); ?>
 
 </div>

@@ -528,10 +528,11 @@ return array(
                     'list' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/liste',
+                            'route' => '/liste/:filter',
                             'defaults' => array(
                                 'controller' => 'adfabgame_postvote',
                                 'action'     => 'list',
+                                'filter' 	 => 0,
                             ),
                         ),
                         'may_terminate' => true,
