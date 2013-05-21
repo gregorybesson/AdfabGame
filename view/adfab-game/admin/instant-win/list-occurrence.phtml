@@ -12,7 +12,9 @@ if (isset($fm[0]))
 	<li class="btn-admin"><a href="<?php echo $addLink;?>"><?php echo $this->translate('Add new occurrence'); ?></a></li>
 </ul>
 
-<h1><?php echo $this->translate('Liste des Instant gagnants'); ?></h1>
+<h1><a href="<?php echo $this->url('zfcadmin/adfabgame/edit-instantwin', array('gameId' => $this->gameId)) ?>"><?php echo $this->game->getTitle(); ?></a></h1>
+
+<h3><?php echo $this->translate('Liste des Instant gagnants'); ?></h3>
 
 <table class="table">
     <tr>

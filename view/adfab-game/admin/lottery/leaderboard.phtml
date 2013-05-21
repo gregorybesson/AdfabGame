@@ -9,6 +9,10 @@ if (isset($fm[0]))
     print '<span class=>' . $fm[0] . '</span>';
 }*/
 ?>
+<h1><a href="<?php echo $this->url('zfcadmin/adfabgame/edit-lottery', array('gameId' => $this->gameId)) ?>"><?php echo $this->game->getTitle(); ?></a></h1>
+
+<h3><?php echo $this->translate('Liste des Participants'); ?></h3>
+
 <a href='<?php echo $downloadLink ?>'>Export CSV</a>
 <?php if($this->game->getDrawAuto()): ?>
 | <a href='<?php echo $drawLink ?>'>Tirage au sort automatique</a>

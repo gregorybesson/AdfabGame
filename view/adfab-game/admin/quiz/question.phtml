@@ -103,21 +103,17 @@ $form->prepare();
             
         </div>
         <div class="tab-pane" id="answers">
-			<a class="f-right" href="#" onclick="add_answer()">
-				<div class="btn-admin">
-					Ajouter une réponse
-				</div>
-			</a>
+			<ul class="liste-buttons">
+				<li class="btn-admin"><a href="#" onclick="add_answer()"><?php echo $this->translate('Ajouter une réponse'); ?></a></li>
+			</ul>
 			
             <div id="answer_entry" class="control-group">
             <?php echo $this->formCollection($form->get('answers'));?>
             </div>
             
-            <a href="#" onclick="add_answer()">
-				<div class="btn-admin">
-					Ajouter une réponse
-				</div>
-			</a>
+            <ul class="liste-buttons">
+				<li class="btn-admin"><a href="#" onclick="add_answer()"><?php echo $this->translate('Ajouter une réponse'); ?></a></li>
+			</ul>
         </div>
     </div>
 </div>

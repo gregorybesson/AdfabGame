@@ -42,7 +42,12 @@ class PostVoteController extends AbstractActionController
             $formTemplate = $form->getFormTemplate();
         }
 
-        return array('form' => $form, 'formTemplate' => $formTemplate, 'gameId' => $gameId);
+        return array(
+        	'form' => $form,
+        	'formTemplate' => $formTemplate,
+        	'gameId' => $gameId,
+        	'game' => $game,
+		);
     }
 
     public function createPostVoteAction()
@@ -78,7 +83,7 @@ class PostVoteController extends AbstractActionController
         $gameForm->setVariables(array('form' => $form));
         $viewModel->addChild($gameForm, 'game_form');
 
-        return $viewModel->setVariables(array('form' => $form));
+        return $viewModel->setVariables(array('form' => $form, 'title' => 'Create Post & Vote'));
     }
 
     public function editPostVoteAction()
@@ -128,7 +133,7 @@ class PostVoteController extends AbstractActionController
         $gameForm->setVariables(array('form' => $form));
         $viewModel->addChild($gameForm, 'game_form');
 
-        return $viewModel->setVariables(array('form' => $form));
+        return $viewModel->setVariables(array('form' => $form, 'title' => 'Edit Post & Vote'));
     }
 
     public function modListAction()
