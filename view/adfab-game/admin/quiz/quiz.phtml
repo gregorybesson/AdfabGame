@@ -6,7 +6,7 @@ $form->prepare();
 
 <div class="return"><a href="<?php echo $this->url('zfcadmin/adfabgame/list');?>"><?php echo $this->translate('Retour'); ?></a></div>
 
-<h1><?php echo $this->translate('Quiz game'); ?></h1>
+<h1><?php echo $this->translate($this->title); ?></h1>
 
 <?php echo $this->form()->openTag($form) ?>
 <?php echo $this->formButton($form->get('submit')) ?>

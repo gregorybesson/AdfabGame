@@ -1392,33 +1392,79 @@ return array(
                         'resource'  => 'game',
                         'privilege' => 'add',
                     ),
+                    'edit-lottery' => array(
+                        'label'     => 'Editer un tirage au sort',
+                        'route'     => 'zfcadmin/adfabgame/edit-lottery',
+                        'resource'  => 'game',
+                        'privilege' => 'edit',
+                    ),
+                    'leaderboard-lottery' => array(
+						'label' 	=> 'Participants',
+						'route' 	=> 'zfcadmin/lottery/leaderboard',
+						'privilege' => 'list',
+					),
                     'create-quiz' => array(
                         'label'     => 'Créer un quiz',
                         'route'     => 'zfcadmin/adfabgame/create-quiz',
                         'resource'  => 'game',
                         'privilege' => 'add',
                     ),
+                    'edit-quiz' => array(
+                        'label'     => 'Editer un quiz',
+                        'route'     => 'zfcadmin/adfabgame/edit-quiz',
+                        'privilege' => 'edit',
+                    ),
+                    'leaderboard-quiz' => array(
+						'label' 	=> 'Participants',
+						'route' 	=> 'zfcadmin/quiz/leaderboard',
+						'privilege' => 'list',
+					),
                     'create-postvote' => array(
                         'label'     => 'Créer un Post & Vote',
                         'route'     => 'zfcadmin/adfabgame/create-postvote',
                         'resource'  => 'game',
                         'privilege' => 'add',
                     ),
+                    'edit-postvote' => array(
+                        'label'     => 'Editer un Post & Vote',
+                        'route'     => 'zfcadmin/adfabgame/edit-postvote',
+                        'privilege' => 'edit',
+                    ),
+                    'leaderboard-postvote' => array(
+						'label' 	=> 'Participants',
+						'route' 	=> 'zfcadmin/postvote/leaderboard',
+						'privilege' => 'list',
+					),
                     'create-instantwin' => array(
                         'label'     => 'Créer un instant gagnant',
                         'route'     => 'zfcadmin/adfabgame/create-instantwin',
                         'resource'  => 'game',
                         'privilege' => 'add',
                     ),
+                    'edit-instantwin' => array(
+                        'label'     => 'Editer un instant gagnant',
+                        'route'     => 'zfcadmin/adfabgame/edit-instantwin',
+                        'privilege' => 'edit',
+                    ),
+                    'leaderboard-instantwin' => array(
+						'label' 	=> 'Participants',
+						'route' 	=> 'zfcadmin/instantwin/leaderboard',
+						'privilege' => 'list',
+					),
                     'quiz-question-list' => array(
                         'label'     => 'Liste des questions',
                         'route'     => 'zfcadmin/adfabgame/quiz-question-list',
                         'privilege' => 'list',
                         'pages' => array(
-                               'quiz-question-add' => array(
-                            'label'     => 'Ajouter des questions',
-                            'route'     => 'zfcadmin/adfabgame/quiz-question-add',
-                            'privilege' => 'add',
+                            'quiz-question-add' => array(
+                            	'label'     => 'Ajouter des questions',
+                            	'route'     => 'zfcadmin/adfabgame/quiz-question-add',
+                            	'privilege' => 'add',
+                            ),
+                            'quiz-question-edit' => array(
+	                            'label'     => 'Editer une question',
+	                            'route'     => 'zfcadmin/adfabgame/quiz-question-edit',
+	                            'privilege' => 'edit',
                             ),
                         ),
                     ),
@@ -1452,6 +1498,11 @@ return array(
                                 'privilege' => 'edit',
                             ),
                         ),
+                    ),
+                    'postvote-form' => array(
+                    	'label'     => 'Options du Post & vote',
+                        'route'     => 'zfcadmin/adfabgame/postvote-form',
+                        'privilege' => 'list',
                     ),
                 ),
             ),

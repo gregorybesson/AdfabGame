@@ -66,7 +66,12 @@ class InstantWinController extends AbstractActionController
         $gameForm->setVariables(array('form' => $form));
         $viewModel->addChild($gameForm, 'game_form');
 
-        return $viewModel->setVariables(array('form' => $form));
+        return $viewModel->setVariables(
+        	array(
+        		'form' => $form,
+        		'title' => 'Create instant win',
+			)
+		);
     }
 
     public function editInstantWinAction()
@@ -116,7 +121,12 @@ class InstantWinController extends AbstractActionController
         $gameForm->setVariables(array('form' => $form));
         $viewModel->addChild($gameForm, 'game_form');
 
-        return $viewModel->setVariables(array('form' => $form));
+        return $viewModel->setVariables(
+        	array(
+        		'form' => $form,
+        		'title' => 'Edit instant win',
+			)
+		);
     }
 
     public function listOccurrenceAction()
@@ -131,6 +141,7 @@ class InstantWinController extends AbstractActionController
 
         //$instantwin = $service->getGameMapper()->findById($gameId);
         $occurrences = $service->getInstantWinOccurrenceMapper()->findByGameId($gameId, array('occurrence_date' => $filter));
+		$game = $service->getGameMapper()->findById($gameId);
 
         if (is_array($occurrences)) {
             $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($occurrences));
@@ -145,6 +156,7 @@ class InstantWinController extends AbstractActionController
                 'occurrences' => $paginator,
                 'gameId' 	  => $gameId,
                 'filter'	  => $filter,
+                'game' 		  => $game,
             )
         );
     }

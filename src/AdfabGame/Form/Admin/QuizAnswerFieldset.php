@@ -66,8 +66,10 @@ class QuizAnswerFieldset extends Fieldset
             'name' => 'remove',
             'options' => array(
                 'label' => $translator->translate('Supprimer', 'adfabgame'),
-
-            )
+            ),
+			'attributes' => array(
+				'class' => 'delete-button',
+			)
         ));
 /*
         $this->add(array(
