@@ -52,7 +52,7 @@ class LotteryController extends AbstractActionController
         $gameForm->setVariables(array('form' => $form));
         $viewModel->addChild($gameForm, 'game_form');
 
-        return $viewModel->setVariables(array('form' => $form));
+        return $viewModel->setVariables(array('form' => $form, 'title' => 'Create lottery'));
     }
 
     public function editLotteryAction()
@@ -110,7 +110,7 @@ class LotteryController extends AbstractActionController
         $gameForm->setVariables(array('form' => $form));
         $viewModel->addChild($gameForm, 'game_form');
 
-        return $viewModel->setVariables(array('form' => $form));
+        return $viewModel->setVariables(array('form' => $form, 'title' => 'Edit lottery'));
     }
 
     public function leaderboardAction()

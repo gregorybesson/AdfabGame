@@ -37,7 +37,11 @@ class QuizController extends AbstractActionController
         $paginator->setItemCountPerPage(10);
         $paginator->setCurrentPageNumber($this->getEvent()->getRouteMatch()->getParam('p'));
 
-        return array('questions' => $paginator, 'quiz_id' => $quizId);
+        return array(
+        	'questions' => $paginator,
+        	'quiz_id' => $quizId,
+        	'quiz' => $quiz,
+		);
     }
 
     public function addQuestionAction()
@@ -164,7 +168,7 @@ class QuizController extends AbstractActionController
         $gameForm->setVariables(array('form' => $form));
         $viewModel->addChild($gameForm, 'game_form');
 
-        return $viewModel->setVariables(array('form' => $form));
+        return $viewModel->setVariables(array('form' => $form, 'title' => 'Create quiz'));
     }
 
     public function editQuizAction()
@@ -214,7 +218,7 @@ class QuizController extends AbstractActionController
         $gameForm->setVariables(array('form' => $form));
         $viewModel->addChild($gameForm, 'game_form');
 
-        return $viewModel->setVariables(array('form' => $form));
+        return $viewModel->setVariables(array('form' => $form, 'title' => 'Edit quiz'));
     }
 
     public function leaderboardAction()

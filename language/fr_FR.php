@@ -54,7 +54,11 @@ return array(
         'User' 				=> 'Joueur',
         'Points' 			=> 'Points',
         'Register a new customer' => 'Inscrire un nouveau joueur',
-
+		
+		// Admin Quiz
+		'Create quiz' => 'Créer un quizz',
+		'Edit quiz' 	=> 'Editer un quizz',
+		
         // Admin Quiz List
         'Add new question' 	=> 'Ajouter une question',
 
@@ -64,7 +68,11 @@ return array(
         'Single response' 	=> 'Réponse unique',
         'Multiple choice' 	=> 'Choix multiple',
         'Input field' 		=> 'Champ de saisie',
-
+		
+		// Admin Post & Vote
+		'Create Post & Vote' => 'Créer un Post & Vote',
+		'Edit Post & Vote' 	=> 'Editer un Post & Vote',
+		
         // Admin Post & vote Options
         'Edit' 				=> 'Editer',
         'Generate Form' 	=> 'Générer le formulaire',
@@ -100,7 +108,11 @@ return array(
         'Dynarea' 			=> 'Zone cible',
         'Dynablocks' 		=> 'Blocs dynamiques',
         'Available Dynareas' => 'Zone cible disponible',
-
+		
+		// Admin Instantwin
+		'Create instant win' => 'Créer un instant gagnant',
+		'Edit instant win' 	=> 'Editer un instant gagnant',
+		
         // Admin Instantwin occurence
         'Add occurrence'	=> 'Ajouter un instant gagnant',
         'Occurrence Date' 	=> 'Date de l\'instant gagnant',
@@ -108,5 +120,9 @@ return array(
         
 		// Front post&vote email moderation
 		'This post has been reported in a game.' => 'Ce post a été signalé dans un jeu.',
+		
+		// Admin Lottery
+		'Create lottery' => 'Créer un tirage au sort',
+		'Edit lottery' 	=> 'Editer un tirage au sort',
 
 );
