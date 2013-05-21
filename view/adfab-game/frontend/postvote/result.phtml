@@ -32,7 +32,7 @@
 			<a href="<?php echo $this->url('postvote', array('id' => $this->game->getIdentifier()))?>"><button class="btn btn-inverse active">Accueil</button></a>
 		</div>
 		<div class="span4">
-			<a href="<?php echo $this->url('postvote/list', array('id' => $this->game->getIdentifier()))?>"><button class="btn btn-inverse">Voir les participations</button></a>
+			<a href="<?php echo $this->url('postvote/list', array('id' => $this->game->getIdentifier(), 'filter' => $this->game->getPostDisplayMode()))?>"><button class="btn btn-inverse">Voir les participations</button></a>
 		</div>
 		<div class="span3">
 			<a href="<?php echo $this->url('postvote/play', array('id' => $this->game->getIdentifier()))?>"><button class="btn btn-warning">Participer</button></a>
