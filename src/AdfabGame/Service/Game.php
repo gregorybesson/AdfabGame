@@ -855,7 +855,10 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     {
         return $this->getEntryMapper()->findAll();
     }
-
+	
+	/**
+     * This function returns the list of games, order by $type
+     */
     public function getGamesOrderBy($type='createdAt', $order='DESC')
 	{
 		$em = $this->getServiceManager()->get('zfcuser_doctrine_em');
@@ -907,7 +910,11 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         return $games;
 	}
-
+	
+	/**
+     * This function returns the user's first entry if it's his first participation in $game
+     * @param  unknown_type $game
+     */
 	public function findFirstEntries($game)
 	{
 		$em = $this->getServiceManager()->get('zfcuser_doctrine_em');
