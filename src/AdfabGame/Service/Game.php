@@ -908,6 +908,23 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         return $games;
 	}
 
+	public function findFirstEntries($game)
+	{
+		$em = $this->getServiceManager()->get('zfcuser_doctrine_em');
+		
+		$query = $em->createQuery('
+			SELECT e
+			FROM AdfabGame\Entity\Entry e
+			WHERE e.id IN (SELECT l.id FROM AdfabGame\Entity\Entry l GROUP BY l.user)
+			AND e.game = :game
+			ORDER BY e.created_at ASC
+		');
+				
+		$query->setParameter('game', $game);
+		$result = $query->getResult();
+		return $result;
+	}
+
     /**
      * getGameMapper
      *
