@@ -278,7 +278,7 @@ class QuizController extends AbstractActionController
         $entries = $this->getAdminGameService()->getEntryMapper()->findBy(array('game' => $game));
 
         $content        = "\xEF\xBB\xBF"; // UTF-8 BOM
-        $content       .= "ID;Pseudo;Nom;Prenom;E-mail;Optin partenaire;Eligible TAS ?" . $label . "\n";
+        $content       .= "ID;Pseudo;Nom;Prenom;E-mail;Optin partenaire;Eligible TAS ?" . $label . ";Adresse;CP;Ville;Téléphone\n";
         foreach ($entries as $e) {
 
             $replies   = $sg->getQuizReplyMapper()->getLastGameReply($e);
@@ -308,6 +308,17 @@ class QuizController extends AbstractActionController
                         $replyText .= ";0";
                     }
                 }
+				
+				if($e->getUser()->getAddress2() != '') : 
+	        		$adress2 = ' - ' . $e->getUser()->getAddress2();
+				else :
+					$adress2 = '';
+				endif;
+				if($e->getUser()->getMobile() != '') :
+					$mobile = ' - ' . $e->getUser()->getMobile();
+				else :
+					$mobile = '';
+				endif;
             }
 
             $content   .= $e->getUser()->getId()
@@ -318,6 +329,10 @@ class QuizController extends AbstractActionController
             . ";" . $e->getUser()->getOptinPartner()
             . ";" . $e->getWinner()
             . $replyText
+            . ";" . $e->getUser()->getAddress() . $adress2
+			. ";" . $e->getUser()->getPostalCode()
+			. ";" . $e->getUser()->getCity()
+			. ";" . $e->getUser()->getTelephone() . $mobile
             ."\n";
         }
 

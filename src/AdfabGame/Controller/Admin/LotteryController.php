@@ -146,8 +146,18 @@ class LotteryController extends AbstractActionController
         $entries = $this->getAdminGameService()->getEntryMapper()->findBy(array('game' => $game,'winner' => 1));
 
         $content        = "\xEF\xBB\xBF"; // UTF-8 BOM
-        $content       .= "ID;Pseudo;Nom;Prenom;E-mail;Optin partenaire;Eligible TAS ?\n";
+        $content       .= "ID;Pseudo;Nom;Prenom;E-mail;Optin partenaire;Eligible TAS ?;Adresse;CP;Ville;Téléphone\n";
         foreach ($entries as $e) {
+        	if($e->getUser()->getAddress2() != '') : 
+        		$adress2 = ' - ' . $e->getUser()->getAddress2();
+			else :
+				$adress2 = '';
+			endif;
+			if($e->getUser()->getMobile() != '') :
+				$mobile = ' - ' . $e->getUser()->getMobile();
+			else :
+				$mobile = '';
+			endif;
             $content   .= $e->getUser()->getId()
                 . ";" . $e->getUser()->getUsername()
                 . ";" . $e->getUser()->getLastname()
@@ -155,6 +165,10 @@ class LotteryController extends AbstractActionController
                 . ";" . $e->getUser()->getEmail()
                 . ";" . $e->getUser()->getOptinPartner()
                 . ";" . $e->getWinner()
+				. ";" . $e->getUser()->getAddress() . $adress2
+				. ";" . $e->getUser()->getPostalCode()
+				. ";" . $e->getUser()->getCity()
+				. ";" . $e->getUser()->getTelephone() . $mobile
                 ."\n";
         }
 
