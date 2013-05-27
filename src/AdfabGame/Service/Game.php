@@ -57,6 +57,11 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $entityManager = $this->getServiceManager()->get('zfcuser_doctrine_em');
 
         $form  = $this->getServiceManager()->get($formClass);
+        // I force the following format because this is the only one accepted by new DateTime($value) used by Doctrine when persisting
+        $form->get('publicationDate')->setOptions(array('format' => 'Y-m-d'));
+        $form->get('startDate')->setOptions(array('format' => 'Y-m-d'));
+        $form->get('endDate')->setOptions(array('format' => 'Y-m-d'));
+        $form->get('closeDate')->setOptions(array('format' => 'Y-m-d'));
         $form->bind($game);
 
         $path = $this->getOptions()->getMediaPath() . '/';
@@ -71,17 +76,22 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         $identifierInput->getValidatorChain()->addValidator($noObjectExistsValidator);
 
-        if (isset($data['publicationDate']) && $data['publicationDate']) {
-            $data['publicationDate'] = \DateTime::createFromFormat('d/m/Y', $data['publicationDate']);
+        // I must switch from original format to the Y-m-d format because this is the only one accepted by new DateTime($value)
+    	if (isset($data['publicationDate']) && $data['publicationDate']) {
+            $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['publicationDate']);
+            $data['publicationDate'] = $tmpDate->format('Y-m-d');
         }
         if (isset($data['startDate']) && $data['startDate']) {
-            $data['startDate'] = \DateTime::createFromFormat('d/m/Y', $data['startDate']);
+            $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['startDate']);
+            $data['startDate'] = $tmpDate->format('Y-m-d');
         }
         if (isset($data['endDate']) && $data['endDate']) {
-            $data['endDate'] = \DateTime::createFromFormat('d/m/Y', $data['endDate']);
+            $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['endDate']);
+            $data['endDate'] = $tmpDate->format('Y-m-d');
         }
         if (isset($data['closeDate']) && $data['closeDate']) {
-            $data['closeDate'] = \DateTime::createFromFormat('d/m/Y', $data['closeDate']);
+            $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['closeDate']);
+            $data['closeDate'] = $tmpDate->format('Y-m-d');
         }
 
         // If publicationDate is null, I update it with the startDate if not null neither
@@ -164,21 +174,31 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     {
         $entityManager = $this->getServiceManager()->get('zfcuser_doctrine_em');
         $form  = $this->getServiceManager()->get($formClass);
+        $form->get('publicationDate')->setOptions(array('format' => 'Y-m-d'));
+        $form->get('startDate')->setOptions(array('format' => 'Y-m-d'));
+        $form->get('endDate')->setOptions(array('format' => 'Y-m-d'));
+        $form->get('closeDate')->setOptions(array('format' => 'Y-m-d'));
         $form->bind($game);
 
         $path = $this->getOptions()->getMediaPath() . '/';
         $media_url = $this->getOptions()->getMediaUrl() . '/';
-        if (isset($data['publicationDate']) && $data['publicationDate']) {
-            $data['publicationDate'] = \DateTime::createFromFormat('d/m/Y', $data['publicationDate']);
+    
+    	// I must switch from original format to the Y-m-d format because this is the only one accepted by new DateTime($value)
+    	if (isset($data['publicationDate']) && $data['publicationDate']) {
+            $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['publicationDate']);
+            $data['publicationDate'] = $tmpDate->format('Y-m-d');
         }
         if (isset($data['startDate']) && $data['startDate']) {
-            $data['startDate'] = \DateTime::createFromFormat('d/m/Y', $data['startDate']);
+            $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['startDate']);
+            $data['startDate'] = $tmpDate->format('Y-m-d');
         }
         if (isset($data['endDate']) && $data['endDate']) {
-            $data['endDate'] = \DateTime::createFromFormat('d/m/Y', $data['endDate']);
+            $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['endDate']);
+            $data['endDate'] = $tmpDate->format('Y-m-d');
         }
         if (isset($data['closeDate']) && $data['closeDate']) {
-            $data['closeDate'] = \DateTime::createFromFormat('d/m/Y', $data['closeDate']);
+            $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['closeDate']);
+            $data['closeDate'] = $tmpDate->format('Y-m-d');
         }
 
         // If publicationDate is null, I update it with the startDate if not nul neither
