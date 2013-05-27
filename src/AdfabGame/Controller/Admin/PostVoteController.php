@@ -215,17 +215,32 @@ class PostVoteController extends AbstractActionController
         //$leaderboards   = $service->getLeaderBoardMapper()->findBy(array('game' => $game));
 
         $entries = $this->getAdminGameService()->getEntryMapper()->findBy(array('game' => $game,'winner' => 1));
+		$posts   = $this->getAdminGameService()->getPostVotePostMapper()->findBy(array('postvote' => $game));
 
         $content        = "\xEF\xBB\xBF"; // UTF-8 BOM
-        $content       .= "ID;Pseudo;Nom;Prenom;E-mail;Optin partenaire;Eligible TAS ?\n";
-        foreach ($entries as $e) {
+        $content       .= "ID;Pseudo;Nom;Prenom;E-mail;Optin partenaire;Nb de votes;Adresse;CP;Ville;Téléphone\n";
+        foreach ($posts as $e) {
+            if($e->getUser()->getAddress2() != '') : 
+        		$adress2 = ' - ' . $e->getUser()->getAddress2();
+			else :
+				$adress2 = '';
+			endif;
+			if($e->getUser()->getMobile() != '') :
+				$mobile = ' - ' . $e->getUser()->getMobile();
+			else :
+				$mobile = '';
+			endif;
             $content   .= $e->getUser()->getId()
             . ";" . $e->getUser()->getUsername()
             . ";" . $e->getUser()->getLastname()
             . ";" . $e->getUser()->getFirstname()
             . ";" . $e->getUser()->getEmail()
             . ";" . $e->getUser()->getOptinPartner()
-            . ";" . $e->getWinner()
+            . ";" . count($e->getVotes())
+			. ";" . $e->getUser()->getAddress() . $adress2
+			. ";" . $e->getUser()->getPostalCode()
+			. ";" . $e->getUser()->getCity()
+			. ";" . $e->getUser()->getTelephone() . $mobile
             ."\n";
         }
 
