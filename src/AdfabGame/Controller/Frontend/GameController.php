@@ -457,10 +457,12 @@ class GameController extends AbstractActionController
         if (isset($config['rss']['url'])) {
             $rssUrl = $config['rss']['url'];
         }
+		$channel = $config['channel'];
 
         $viewModel = new ViewModel(
             array(
                 'rssUrl'         => $rssUrl,
+                'channel' 		 => $channel,
                 'game'           => $game,
                 'user'           => $user,
                 'availableGames' => $availableGames,
