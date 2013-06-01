@@ -90,6 +90,7 @@ class PrizeCategoryUser extends ProvidesEventsForm
         $prizeCategoryService = $this->getServiceManager()->get('adfabgame_prizecategory_service');
         $results = $prizeCategoryService->getActivePrizeCategories();
 
+        $categories = array();
         foreach ($results as $result) {
             $categories[$result->getId()] = $result->getTitle();
         }
