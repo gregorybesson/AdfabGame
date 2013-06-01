@@ -750,32 +750,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     public static function cronMail()
     {
         //TODO : factoriser la config
-        $configuration = array(
-                'modules' => array(
-                        'Application',
-                        'DoctrineModule',
-                        'DoctrineORMModule',
-                        'ZfcBase',
-                        'ZfcUser',
-                        'BjyAuthorize',
-                        'ZfcAdmin',
-                        'AdfabCore',
-                        'AdfabUser',
-                        'AdfabCms',
-                        'AdfabReward',
-                        'AdfabGame',
-                        'AdfabPartnership'
-                ),
-                'module_listener_options' => array(
-                        'config_glob_paths'    => array(
-                                'config/autoload/{,*.}{global,local}.php',
-                        ),
-                        'module_paths' => array(
-                                './module',
-                                './vendor',
-                        ),
-                ),
-        );
+        $configuration = require 'config/application.config.php';
         $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
         $sm = new \Zend\ServiceManager\ServiceManager(new \Zend\Mvc\Service\ServiceManagerConfig($smConfig));
         $sm->setService('ApplicationConfig', $configuration);
