@@ -560,7 +560,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
      *     -2 : limit entry games for this user reached
      *
      * @param  AdfabGame\Entity\Game $game
-     * @param  unknown               $user
+     * @param  AdfabUser\Entity\UserInterface $user
      * @return number|unknown
      */
     public function play($game, $user)

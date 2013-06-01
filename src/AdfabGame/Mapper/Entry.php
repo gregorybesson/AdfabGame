@@ -3,9 +3,11 @@
 namespace AdfabGame\Mapper;
 
 use Doctrine\ORM\EntityManager;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use AdfabGame\Options\ModuleOptions;
 
-class Entry
+class Entry implements ServiceLocatorAwareInterface
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -16,6 +18,11 @@ class Entry
      * @var \Doctrine\ORM\EntityRepository
      */
     protected $er;
+    
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceLocator;
 
     /**
      * @var \AdfabGame\Options\ModuleOptions
@@ -41,10 +48,15 @@ class Entry
     public function draw($game)
     {
         $total = $game->getWinners() + $game->getSubstitutes();
-
+        
+        // I Have to know what is the User Class used
+        $sm = $this->getServiceLocator();
+        $zfcUserOptions = $sm->get('zfcuser_module_options');
+        $userClass = $zfcUserOptions->getUserEntityClass();
+        
         $rsm = new \Doctrine\ORM\Query\ResultSetMapping;
         //$rsm->addEntityResult('\AdfabGame\Entity\Entry', 'e');
-        $rsm->addEntityResult('\AdfabUser\Entity\User', 'u');
+        $rsm->addEntityResult($userClass, 'u');
         $rsm->addFieldResult('u', 'user_id', 'id');
         $rsm->addFieldResult('u', 'username', 'username');
         $rsm->addFieldResult('u', 'lastname', 'lastname');
@@ -270,5 +282,26 @@ class Entry
         }
 
         return $this->er;
+    }
+    
+    /**
+     * Set serviceManager instance
+     *
+     * @param  ServiceLocatorInterface $serviceLocator
+     * @return void
+     */
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+    }
+
+    /**
+     * Retrieve serviceManager instance
+     *
+     * @return ServiceLocatorInterface
+     */
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
     }
 }

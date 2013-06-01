@@ -198,7 +198,7 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
      * return true if the player has won. False otherwise.
      *
      * @param \AdfabGame\Entity\Game $game
-     * @param \AdfabUser\Entity\User $user
+     * @param \AdfabUser\Entity\UserInterface $user
      *
      * @return boolean
      */
