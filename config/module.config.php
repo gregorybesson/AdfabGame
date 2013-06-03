@@ -16,7 +16,6 @@ return array(
             )
         )
     ),
-
     'core_layout' => array(
         'AdfabGame' => array(
             'default_layout' => 'adfab-game/layout/2columns-right',
