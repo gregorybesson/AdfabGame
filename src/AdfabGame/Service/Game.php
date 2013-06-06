@@ -107,6 +107,26 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $form->setData($data);
 
         if (!$form->isValid()) {
+        	if (isset($data['publicationDate']) && $data['publicationDate']) {
+	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['publicationDate']);
+	            $data['publicationDate'] = $tmpDate->format('d/m/Y');
+				$form->setData(array('publicationDate' => $data['publicationDate']));
+	        }
+			if (isset($data['startDate']) && $data['startDate']) {
+	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['startDate']);
+	            $data['startDate'] = $tmpDate->format('d/m/Y');
+				$form->setData(array('startDate' => $data['startDate']));
+	        }
+			if (isset($data['endDate']) && $data['endDate']) {
+	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['endDate']);
+	            $data['endDate'] = $tmpDate->format('d/m/Y');
+				$form->setData(array('endDate' => $data['endDate']));
+	        }
+			if (isset($data['closeDate']) && $data['closeDate']) {
+	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['closeDate']);
+	            $data['closeDate'] = $tmpDate->format('d/m/Y');
+				$form->setData(array('closeDate' => $data['closeDate']));
+	        }
             return false;
         }
 
@@ -221,6 +241,26 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         }
 
         if (!$form->isValid()) {
+        	if (isset($data['publicationDate']) && $data['publicationDate']) {
+	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['publicationDate']);
+	            $data['publicationDate'] = $tmpDate->format('d/m/Y');
+				$form->setData(array('publicationDate' => $data['publicationDate']));
+	        }
+			if (isset($data['startDate']) && $data['startDate']) {
+	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['startDate']);
+	            $data['startDate'] = $tmpDate->format('d/m/Y');
+				$form->setData(array('startDate' => $data['startDate']));
+	        }
+			if (isset($data['endDate']) && $data['endDate']) {
+	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['endDate']);
+	            $data['endDate'] = $tmpDate->format('d/m/Y');
+				$form->setData(array('endDate' => $data['endDate']));
+	        }
+			if (isset($data['closeDate']) && $data['closeDate']) {
+	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['closeDate']);
+	            $data['closeDate'] = $tmpDate->format('d/m/Y');
+				$form->setData(array('closeDate' => $data['closeDate']));
+	        }
             return false;
         }
 
