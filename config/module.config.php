@@ -1394,7 +1394,6 @@ return array(
                     'edit-lottery' => array(
                         'label'     => 'Editer un tirage au sort',
                         'route'     => 'zfcadmin/adfabgame/edit-lottery',
-                        'resource'  => 'game',
                         'privilege' => 'edit',
                     ),
                     'leaderboard-lottery' => array(

@@ -508,13 +508,15 @@ class GameController extends AbstractActionController
                 ),
             )
         );
-
-        $fbAppId = '';
-        $config = $sg->getServiceManager()->get('config');
-        if (isset($config['facebook']['fb_appid'])) {
+		$fbAppId = '';
+		$config = $sg->getServiceManager()->get('config');        
+        $basePath = $this->getRequest()->getUri()->getHost();
+		
+		if($basePath == $config['channel']['facebook']){
+			$fbAppId = $game->getFbAppId();
+		} elseif (isset($config['facebook']['fb_appid'])) {
             $fbAppId = $config['facebook']['fb_appid'];
         }
-
         
         if ($game->getFbShareMessage()) {
             $fbShareMessage = $game->getFbShareMessage();
@@ -577,7 +579,7 @@ class GameController extends AbstractActionController
                 'twShareMessage'      => $twShareMessage,
                 'fbAppId'             => $fbAppId,
             )
-        );;
+        );
     }
     
     protected function getViewHelper($helperName)

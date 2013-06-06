@@ -303,31 +303,37 @@ class InstantWinController extends AbstractActionController
         $entries = $this->getAdminGameService()->getEntryMapper()->findBy(array('game' => $game,'winner' => 1));
 
         $content        = "\xEF\xBB\xBF"; // UTF-8 BOM
-        $content       .= "ID;Pseudo;Nom;Prenom;E-mail;Optin partenaire;A Gagné ?;Date - H;Adresse;CP;Ville;Téléphone\n";
+        $content       .= "ID;Pseudo;Civilité;Nom;Prénom;E-mail;Optin Metro;Optin partenaire;A Gagné ?;Date - H;Adresse;CP;Ville;Téléphone;Mobile;Date d'inscription;Date de naissance;\n";
         foreach ($entries as $e) {
-        	if($e->getUser()->getAddress2() != '') : 
+        	if($e->getUser()->getAddress2() != '') {
         		$adress2 = ' - ' . $e->getUser()->getAddress2();
-			else :
+			} else {
 				$adress2 = '';
-			endif;
-			if($e->getUser()->getMobile() != '') :
-				$mobile = ' - ' . $e->getUser()->getMobile();
-			else :
-				$mobile = '';
-			endif;
+			}
+			if($e->getUser()->getDob() != NULL) {
+				$dob = $e->getUser()->getDob()->format('Y-m-d');
+			} else {
+				$dob = '';
+			}
+			
             $content   .= $e->getUser()->getId()
             . ";" . $e->getUser()->getUsername()
+			. ";" . $e->getUser()->getTitle()
             . ";" . $e->getUser()->getLastname()
             . ";" . $e->getUser()->getFirstname()
             . ";" . $e->getUser()->getEmail()
+            . ";" . $e->getUser()->getOptin()
             . ";" . $e->getUser()->getOptinPartner()
             . ";" . $e->getWinner()
             . ";" . $e->getCreatedAt()->format('Y-m-d H:i:s')
 			. ";" . $e->getUser()->getAddress() . $adress2
 			. ";" . $e->getUser()->getPostalCode()
 			. ";" . $e->getUser()->getCity()
-			. ";" . $e->getUser()->getTelephone() . $mobile
-            ."\n";
+			. ";" . $e->getUser()->getTelephone()
+			. ";" . $e->getUser()->getMobile()
+			. ";" . $e->getUser()->getCreatedAt()->format('Y-m-d')
+			. ";" . $dob
+            . "\n";
         }
 
         $response = $this->getResponse();
