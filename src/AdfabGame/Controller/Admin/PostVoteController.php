@@ -218,29 +218,36 @@ class PostVoteController extends AbstractActionController
 		$posts   = $this->getAdminGameService()->getPostVotePostMapper()->findBy(array('postvote' => $game));
 
         $content        = "\xEF\xBB\xBF"; // UTF-8 BOM
-        $content       .= "ID;Pseudo;Nom;Prenom;E-mail;Optin partenaire;Nb de votes;Adresse;CP;Ville;Téléphone\n";
+        $content       .= "ID;Pseudo;Civilité;Nom;Prénom;E-mail;Optin Metro;Optin partenaire;Nb de votes;Date - H;Adresse;CP;Ville;Téléphone;Mobile;Date d'inscription;Date de naissance;\n";
         foreach ($posts as $e) {
-            if($e->getUser()->getAddress2() != '') : 
+            if($e->getUser()->getAddress2() != '') {
         		$adress2 = ' - ' . $e->getUser()->getAddress2();
-			else :
+			} else {
 				$adress2 = '';
-			endif;
-			if($e->getUser()->getMobile() != '') :
-				$mobile = ' - ' . $e->getUser()->getMobile();
-			else :
-				$mobile = '';
-			endif;
+			}
+			if($e->getUser()->getDob() != NULL) {
+				$dob = $e->getUser()->getDob()->format('Y-m-d');
+			} else {
+				$dob = '';
+			}
+			
             $content   .= $e->getUser()->getId()
             . ";" . $e->getUser()->getUsername()
+			. ";" . $e->getUser()->getTitle()
             . ";" . $e->getUser()->getLastname()
             . ";" . $e->getUser()->getFirstname()
             . ";" . $e->getUser()->getEmail()
+            . ";" . $e->getUser()->getOptin()
             . ";" . $e->getUser()->getOptinPartner()
             . ";" . count($e->getVotes())
+            . ";" . $e->getCreatedAt()->format('Y-m-d H:i:s')
 			. ";" . $e->getUser()->getAddress() . $adress2
 			. ";" . $e->getUser()->getPostalCode()
 			. ";" . $e->getUser()->getCity()
-			. ";" . $e->getUser()->getTelephone() . $mobile
+			. ";" . $e->getUser()->getTelephone()
+			. ";" . $e->getUser()->getMobile()
+			. ";" . $e->getUser()->getCreatedAt()->format('Y-m-d')
+			. ";" . $dob
             ."\n";
         }
 

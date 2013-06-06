@@ -86,16 +86,11 @@ class InstantWinController extends GameController
 
     public function resultAction()
     {
-    $identifier = $this->getEvent()->getRouteMatch()->getParam('id');
+    	$identifier = $this->getEvent()->getRouteMatch()->getParam('id');
         $user   = $this->zfcUserAuthentication()->getIdentity();
         $sg     = $this->getGameService();
 
         $statusMail = null;
-        $fbAppId = '';
-        $config = $sg->getServiceManager()->get('config');
-        if (isset($config['facebook']['fb_appid'])) {
-            $fbAppId = $config['facebook']['fb_appid'];
-        }
 
         $game = $sg->checkGame($identifier);
         if (!$game || $game->isClosed()) {
