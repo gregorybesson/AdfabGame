@@ -121,12 +121,7 @@ class QuizController extends GameController
         $sg = $this->getGameService();
 
         $statusMail = null;
-        $fbAppId = '';
         $prediction = false;
-        $config = $sg->getServiceManager()->get('config');
-        if (isset($config['facebook']['fb_appid'])) {
-            $fbAppId = $config['facebook']['fb_appid'];
-        }
 
         $game = $sg->checkGame($identifier);
         if (!$game || $game->isClosed()) {

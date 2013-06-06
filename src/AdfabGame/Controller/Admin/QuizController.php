@@ -273,12 +273,12 @@ class QuizController extends AbstractActionController
             }
         }
 
-        $label =  html_entity_decode($label, ENT_QUOTES);
+        $label =  html_entity_decode($label, ENT_QUOTES, 'UTF-8');
 
         $entries = $this->getAdminGameService()->getEntryMapper()->findBy(array('game' => $game));
 
         $content        = "\xEF\xBB\xBF"; // UTF-8 BOM
-        $content       .= "ID;Pseudo;Nom;Prenom;E-mail;Optin partenaire;Eligible TAS ?" . $label . ";Adresse;CP;Ville;Téléphone\n";
+        $content       .= "ID;Pseudo;Civilité;Nom;Prénom;E-mail;Optin Metro;Optin partenaire;Eligible TAS ?" . $label . ";Date - H;Adresse;CP;Ville;Téléphone;Mobile;Date d'inscription;Date de naissance;\n";
         foreach ($entries as $e) {
 
             $replies   = $sg->getQuizReplyMapper()->getLastGameReply($e);
@@ -308,31 +308,37 @@ class QuizController extends AbstractActionController
                         $replyText .= ";0";
                     }
                 }
-				
-				if($e->getUser()->getAddress2() != '') : 
-	        		$adress2 = ' - ' . $e->getUser()->getAddress2();
-				else :
-					$adress2 = '';
-				endif;
-				if($e->getUser()->getMobile() != '') :
-					$mobile = ' - ' . $e->getUser()->getMobile();
-				else :
-					$mobile = '';
-				endif;
             }
+			
+			if($e->getUser()->getAddress2() != '') {
+        		$adress2 = ' - ' . $e->getUser()->getAddress2();
+			} else {
+				$adress2 = '';
+			}
+			if($e->getUser()->getDob() != NULL) {
+				$dob = $e->getUser()->getDob()->format('Y-m-d');
+			} else {
+				$dob = '';
+			}
 
             $content   .= $e->getUser()->getId()
             . ";" . $e->getUser()->getUsername()
+			. ";" . $e->getUser()->getTitle()
             . ";" . $e->getUser()->getLastname()
             . ";" . $e->getUser()->getFirstname()
             . ";" . $e->getUser()->getEmail()
+            . ";" . $e->getUser()->getOptin()
             . ";" . $e->getUser()->getOptinPartner()
             . ";" . $e->getWinner()
             . $replyText
+            . ";" . $e->getCreatedAt()->format('Y-m-d H:i:s')
             . ";" . $e->getUser()->getAddress() . $adress2
 			. ";" . $e->getUser()->getPostalCode()
 			. ";" . $e->getUser()->getCity()
-			. ";" . $e->getUser()->getTelephone() . $mobile
+			. ";" . $e->getUser()->getTelephone()
+			. ";" . $e->getUser()->getMobile()
+			. ";" . $e->getUser()->getCreatedAt()->format('Y-m-d')
+			. ";" . $dob
             ."\n";
         }
 
