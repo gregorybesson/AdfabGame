@@ -58,38 +58,65 @@ class QuizController extends GameController
         // TODO : create a Form class to implement this form
         $form = new Form();
 
+        // defaults validators removed
+        //$form->setUseInputFilterDefaults(false);
+
+        $inputFilter = new \Zend\InputFilter\InputFilter();
+        $factory = new InputFactory();
+        
         $i = 0;
         $j = 0;
         foreach ($questions as $q) {
             if (($game->getQuestionGrouping() > 0 && $i % $game->getQuestionGrouping() == 0) || ($i == 0 && $game->getQuestionGrouping() == 0)) {
-                $fieldset = new Fieldset('questionGroup' . ++ $j);
+            	$fieldsetName = 'questionGroup' . ++ $j;
+            	$fieldset = new Fieldset($fieldsetName);
             }
+            $name = 'q' . $q->getId();
+            $fieldsetFilter = new \Zend\InputFilter\InputFilter();
             if ($q->getType() == 0) {
-                $element = new Element\Radio('q' . $q->getId());
+                $element = new Element\Radio($name);
                 $values = array();
                 foreach ($q->getAnswers() as $a) {
                     $values[$a->getId()] = $a->getAnswer();
                 }
                 $element->setValueOptions($values);
             } elseif ($q->getType() == 1) {
-                $element = new Element\MultiCheckbox('q' . $q->getId());
+                $element = new Element\MultiCheckbox($name);
                 $values = array();
                 foreach ($q->getAnswers() as $a) {
                     $values[$a->getId()] = $a->getAnswer();
                 }
                 $element->setValueOptions($values);
             } elseif ($q->getType() == 2) {
-                $element = new Element\Textarea('q' . $q->getId());
+                $element = new Element\Textarea($name);
             }
 
             $element->setLabel($q->getQuestion());
             $fieldset->add($element);
 
+            $fieldsetFilter->add($factory->createInput(array(
+            	'name'     => $name,
+            	'required' => true,
+            	'validators'=>array(
+           			array(
+            			'name'=>'NotEmpty',
+            			'options'=>array(
+            				'messages'=>array(
+            					'isEmpty' => 'Merci de répondre à la question.',	
+            				),
+            			),
+            		),
+            	)
+            )));
+            
             $i ++;
             if (($game->getQuestionGrouping() > 0 && $i % $game->getQuestionGrouping() == 0 && $i > 0) || $i == $totalQuestions) {
                 $form->add($fieldset);
+                $inputFilter->add($fieldsetFilter, $fieldsetName);
             }
         }
+
+        $form->setInputFilter($inputFilter);
 
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost()->toArray();
