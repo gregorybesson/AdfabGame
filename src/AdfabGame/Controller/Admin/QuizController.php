@@ -191,6 +191,12 @@ class QuizController extends AbstractActionController
         $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-quiz', array('gameId' => $gameId)));
         $form->setAttribute('method', 'post');
         $form->get('submit')->setLabel('Edit');
+		
+		if ($game->getFbAppId()) {
+            $appIds = $form->get('fbAppId')->getOption('value_options');
+            $appIds[$game->getFbAppId()] = $game->getFbAppId();
+            $form->get('fbAppId')->setAttribute('options', $appIds);
+        }
 
         $gameOptions = $this->getAdminGameService()->getOptions();
         $gameStylesheet = $gameOptions->getMediaPath() . '/' . 'stylesheet_'. $game->getId(). '.css';

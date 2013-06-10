@@ -106,6 +106,12 @@ class PostVoteController extends AbstractActionController
         $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-postvote', array('gameId' => $gameId)));
         $form->setAttribute('method', 'post');
         $form->get('submit')->setLabel('Mettre à jour');
+		
+		if ($game->getFbAppId()) {
+            $appIds = $form->get('fbAppId')->getOption('value_options');
+            $appIds[$game->getFbAppId()] = $game->getFbAppId();
+            $form->get('fbAppId')->setAttribute('options', $appIds);
+        }
 
         $gameOptions = $this->getAdminGameService()->getOptions();
         $gameStylesheet = $gameOptions->getMediaPath() . '/' . 'stylesheet_'. $game->getId(). '.css';
