@@ -222,17 +222,27 @@ class PostVoteController extends GameController
             }
         }
 
+		$form->setInputFilter($inputFilter);
+		
         // Je recherche le post associé à entry + status == 0. Si non trouvé, je redirige vers home du jeu.
         $post = $sg->getPostVotePostMapper()->findOneBy(array('entry' => $entry, 'status' => 0));
         if ($post) {
             foreach ($post->getPostElements() as $element) {
                 if ($form->get($element->getName())) {
                     $form->get($element->getName())->setValue($element->getValue());
+					
+					$elementType = $form->get($element->getName())->getAttribute('type');
+					if($elementType == 'file' && $element->getValue() != ''){
+						$filter = $form->getInputFilter();
+        				$elementInput = $filter->get($element->getName());
+						$elementInput->setRequired(false);
+						$form->get($element->getName())->setAttribute('required', false);
+					}
                 }
             }
         }
 
-        $form->setInputFilter($inputFilter);
+        
 
         if ($this->getRequest()->isPost()) {
             // POST Request: Process form
