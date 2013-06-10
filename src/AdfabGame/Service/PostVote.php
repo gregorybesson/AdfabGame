@@ -69,6 +69,34 @@ class PostVote extends Game implements ServiceManagerAwareInterface
             return false;
         }
     }
+
+	public function deleteFilePosted($data, $game, $user)
+    {
+        $postvotePostMapper = $this->getPostVotePostMapper();
+        $postVotePostElementMapper = $this->getPostVotePostElementMapper();
+
+        $entryMapper = $this->getEntryMapper();
+        $entry = $entryMapper->findLastActiveEntryById($game, $user);
+
+        if (!$entry) {
+            return 'falsefin0';
+        }
+
+        $post = $postvotePostMapper->findOneBy(array('entry' => $entry));
+		$element = $postVotePostElementMapper->findOneBy(array('post' => $post->getId(), 'name' => $data['name']));
+
+        if ($element) {
+            $element = $postVotePostElementMapper->remove($element);
+			if($element) {
+				return true;
+			} else {
+				return false;
+			}
+        } else {
+        	return false;
+        }
+    }
+	
     /**
      *
      *
