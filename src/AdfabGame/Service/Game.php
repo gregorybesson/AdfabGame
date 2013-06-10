@@ -202,6 +202,13 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         $path = $this->getOptions()->getMediaPath() . '/';
         $media_url = $this->getOptions()->getMediaUrl() . '/';
+		
+		$identifierInput = $form->getInputFilter()->get('identifier');
+        $noObjectExistsValidator = new NoObjectExistsValidator(array(
+            'object_repository' => $entityManager->getRepository('AdfabGame\Entity\Game'),
+            'fields'            => 'identifier',
+            'messages'          => array('objectFound' => 'This url already exists !')
+        ));
     
     	// I must switch from original format to the Y-m-d format because this is the only one accepted by new DateTime($value)
     	if (isset($data['publicationDate']) && $data['publicationDate']) {
