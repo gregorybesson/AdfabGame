@@ -579,6 +579,16 @@ return array(
                                     ),
                                 ),
                             ),
+                            'ajaxdelete' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '/ajaxdelete',
+                                    'defaults' => array(
+                                        'controller' => 'adfabgame_postvote',
+                                        'action'     => 'ajaxdelete',
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                     'post' => array(

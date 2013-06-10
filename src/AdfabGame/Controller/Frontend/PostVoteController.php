@@ -611,6 +611,45 @@ class PostVoteController extends GameController
         return $response;
     }
 
+	public function ajaxdeleteAction()
+    {
+        $identifier = $this->getEvent()->getRouteMatch()->getParam('id');
+        $user = $this->zfcUserAuthentication()->getIdentity();
+        $sg = $this->getGameService();
+        $request = $this->getRequest();
+        $response = $this->getResponse();
+
+        $game = $sg->checkGame($identifier);
+        if (! $game) {
+            $response->setContent(\Zend\Json\Json::encode(array(
+                'success' => 0
+            )));
+
+            return $response;
+        }
+
+        $entry = $sg->getEntryMapper()->findLastActiveEntryById($game, $user);
+        if (!$entry) {
+            // the user has already taken part of this game and the participation limit has been reached
+            $response->setContent(\Zend\Json\Json::encode(array(
+                'success' => 0
+            )));
+
+            return $response;
+        }
+
+        if ($request->isPost()) {
+            $data = $request->getPost()->toArray();
+            $deleteFile = $sg->deleteFilePosted($data, $game, $user);
+        }
+
+        $response->setContent(\Zend\Json\Json::encode(array(
+                'success' => true,
+            )));
+
+        return $response;
+    }
+
     public function listAction()
     {
         $identifier = $this->getEvent()->getRouteMatch()->getParam('id');
