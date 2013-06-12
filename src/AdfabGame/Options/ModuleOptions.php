@@ -29,6 +29,26 @@ class ModuleOptions extends AbstractOptions implements GameEditOptionsInterface
     /**
      * @var string
      */
+    protected $emailFromAddress = '';
+	
+	/**
+     * @var string
+     */
+    protected $defaultSubjectLine = '';
+	
+	/**
+     * @var string
+     */
+	protected $participationSubjectLine = '';
+	
+	/**
+     * @var string
+     */
+	protected $shareSubjectLine = '';
+
+    /**
+     * @var string
+     */
     protected $gameEntityClass = 'AdfabGame\Entity\Game';
     protected $leaderBoardEntityClass = 'AdfabGame\Entity\LeaderBoard';
 
@@ -113,6 +133,54 @@ class ModuleOptions extends AbstractOptions implements GameEditOptionsInterface
     public function getMediaUrl()
     {
         return $this->media_url;
+    }
+	
+	public function setEmailFromAddress($emailFromAddress)
+    {
+        $this->emailFromAddress = $emailFromAddress;
+
+        return $this;
+    }
+	
+	public function getEmailFromAddress()
+    {
+        return $this->emailFromAddress;
+    }
+	
+	public function setDefaultSubjectLine($defaultSubjectLine)
+    {
+        $this->defaultSubjectLine = $defaultSubjectLine;
+
+        return $this;
+    }
+	
+	public function getDefaultSubjectLine()
+    {
+        return $this->defaultSubjectLine;
+    }
+	
+	public function setParticipationSubjectLine($participationSubjectLine)
+    {
+        $this->participationSubjectLine = $participationSubjectLine;
+
+        return $this;
+    }
+	
+	public function getParticipationSubjectLine()
+    {
+        return $this->participationSubjectLine;
+    }
+	
+	public function setShareSubjectLine($shareSubjectLine)
+    {
+        $this->shareSubjectLine = $shareSubjectLine;
+
+        return $this;
+    }
+	
+	public function getShareSubjectLine()
+    {
+        return $this->shareSubjectLine;
     }
 
     /**
