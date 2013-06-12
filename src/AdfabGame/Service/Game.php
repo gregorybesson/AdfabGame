@@ -643,13 +643,13 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         return $entry;
     }
 
-    public function sendShareMail($data, $game, $user, $template = 'share_game', $subject = 'Club Metro', $topic = NULL)
+    public function sendShareMail($data, $game, $user, $template = 'share_game', $topic = NULL)
     {
 
         $mailService = $this->getServiceManager()->get('adfabgame_message');
         $mailSent    = false;
-        $config 	 = $this->getServiceManager()->get('config');
-        $from 		 = $config['contact']['email'];
+        $from 	 	 = $this->getOptions()->getEmailFromAddress();
+		$subject 	 = $this->getOptions()->getShareSubjectLine();
 		$renderer 	 = $this->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
         $skinUrl 	 = $renderer->url('home', array(), array('force_canonical' => true));
         $secretKey   = strtoupper(substr(sha1($user->getId().'####'.time()),0,15));
@@ -687,16 +687,11 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     {
 
         $mailService = $this->getServiceManager()->get('adfabgame_message');
-        $from 		 = '';
+        $from 		 = $this->getOptions()->getEmailFromAddress();
         $to          = $user->getEmail();
-        $subject 	 = 'Club Metro';
+        $subject 	 = $this->getOptions()->getParticipationSubjectLine();
 		$renderer    = $this->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
         $skinUrl 	 = $renderer->url('home', array(), array('force_canonical' => true));
-        $config 	 = $this->getServiceManager()->get('config');
-
-        if (isset($config['contact']['email'])) {
-            $from = $config['contact']['email'];
-        }
 
         $message = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'post' => $post, 'skinUrl' => $skinUrl));
         $mailService->send($message);
