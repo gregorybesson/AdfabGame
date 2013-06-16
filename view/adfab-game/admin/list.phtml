@@ -82,4 +82,4 @@ if (isset($fm[0]))
 	<li class="btn-admin bottom"><a href="<?php echo $this->url('zfcadmin/adfabgame/create-postvote');?>"><?php echo $this->translate('Add new Post & Vote'); ?></a></li>
 </ul>
 
-<?php echo $this->paginationControl($this->games, 'Sliding', 'adfab-game/admin/pagination_gamelist.phtml', array('type' => $this->type, 'filter' => $this->filter)); ?>
+<?php echo $this->paginationControl($this->games, 'Sliding', 'adfab-game/admin/pagination_gamelist', array('type' => $this->type, 'filter' => $this->filter)); ?>
