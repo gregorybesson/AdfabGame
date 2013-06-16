@@ -1404,9 +1404,9 @@ class Game implements InputFilterAwareInterface
                             array(
                                     'name' => 'StringLength',
                                     'options' => array(
-                                            'encoding' => 'UTF-8',
-                                            'min' => 1,
-                                            'max' => 500
+                                        'encoding' => 'UTF-8',
+                                        'min' => 1,
+                                        'max' => 500
                                     )
                             )
                     )
@@ -1425,7 +1425,7 @@ class Game implements InputFilterAwareInterface
                 ),
                 'validators' => array(
                     array(
-                    	'name' => 'tringLength',
+                    	'name' => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min' => 1,
