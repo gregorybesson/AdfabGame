@@ -42,20 +42,14 @@ class Module
             return;
         }
 
+        // the Facebook Container is created and updated through AdfabCore which detects a call from Facebook
         $eventManager->attach("dispatch", function($e) {
-            $session = new Container('facebook');
-            //determine the channel on which the game is broadcasted
-            $sessionChannel = new Container('channel');
-            $fb = $e->getRequest()->getPost()->get('signed_request');
-            if ($fb) {
-                $session->offsetSet('signed_request',  $fb);
-                $viewModel = $e->getViewModel()->setTemplate('layout/facebook');
-                $viewModel->facebooktemplate = true;
-            } elseif ($session->offsetExists('signed_request')) {
-                $viewModel = $e->getViewModel()->setTemplate('layout/facebook');
-                $viewModel->facebooktemplate = true;
-            }
-        });
+        	$session = new Container('facebook');
+        	if ($session->offsetExists('signed_request')){
+        		$viewModel = $e->getViewModel()->setTemplate('layout/facebook');
+        		$viewModel->facebooktemplate = true;
+        	}
+        },150);
 
     }
 

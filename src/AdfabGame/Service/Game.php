@@ -533,50 +533,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     }
 
     /**
-     * deprecated
-     * @param  unknown $game
-     * @param  string  $user
-     * @return boolean
-     */
-/*    public function checkSubscription($game, $user=null)
-    {
-        $mapperLeader = $this->getLeaderBoardService()->getLeaderBoardMapper();
-        $leaderBoard  = false;
-        // Is the user logged in ?
-        if ($user) {
-            $leaderBoard = $mapperLeader->findOneBy(array('game' => $game, 'user' => $user));
-        }
-
-        return $leaderBoard;
-    }*/
-
-    /**
-     * deprecated
-     * @param  unknown         $game
-     * @param  unknown         $user
-     * @return boolean|unknown
-     */
- /*   public function subscribe($game, $user)
-    {
-        $mapperLeader = $this->getLeaderBoardService()->getLeaderBoardMapper();
-        $subscription  = $this->checkSubscription($game, $user);
-        // Is the user logged in and not yet registered ?
-
-        if (!$subscription && $user) {
-            // The user is not registered, we register him
-            $leaderBoard = new \AdfabGame\Entity\LeaderBoard($user, $game);
-            try {
-                $subscription = $this->getLeaderBoardService()->create($leaderBoard);
-                $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $user, 'game' => $game));
-            } catch (Exception $e) {
-                return false;
-            }
-        }
-
-        return $subscription;
-    }
-*/
-    /**
      * Return the last entry of the user on this game, if it exists
      * If the param active is set, it can check if the entry is active or not.
      * @param  unknown $game
@@ -599,6 +555,21 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         }
 
         return $entry;
+    }
+    
+    public function checkIsFan($game)
+    {
+    	// If on Facebook, check if you have to be a FB fan to play the game
+    	$session = new Container('facebook');
+    	if ($session->offsetExists('signed_request')) {
+    		$sr = $session->offsetGet('signed_request');
+    		if($sr['page']['liked'] == 1){
+    
+    			return true;
+    		}
+    	}
+    
+    	return false;
     }
 
     /**

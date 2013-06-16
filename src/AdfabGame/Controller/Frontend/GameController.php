@@ -27,6 +27,14 @@ class GameController extends AbstractActionController
         if (!$game) {
             return $this->notFoundAction();
         }
+        
+        // If on Facebook, check if you have to be a FB fan to play the game
+        if($game->getFbFan()){
+        	$isFan = $sg->checkIsFan($game);
+        	if(!$isFan){
+        		return $this->redirect()->toUrl($this->url()->fromRoute($game->getClassType().'/fangate',array('id' => $game->getIdentifier())));
+        	}
+        }
 
         $subscription = $sg->checkExistingEntry($game, $user);
         if ($subscription) {

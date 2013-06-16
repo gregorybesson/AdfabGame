@@ -460,6 +460,19 @@ class Game extends ProvidesEventsForm
                         'id' => 'columnBlock3'
                 )
         ));
+        
+        $this->add(array(
+        	'type' => 'Zend\Form\Element\Select',
+        	'name' => 'fbFan',
+       		'options' => array(
+       			//'empty_option' => $translator->translate('Is the answer correct ?', 'adfabgame'),
+       			'value_options' => array(
+					'0' => $translator->translate('No', 'adfabgame'),
+       				'1' => $translator->translate('Yes', 'adfabgame'),
+       			),
+       			'label' => $translator->translate('Il faut être fan pour participer', 'adfabgame'),
+       		),
+        ));
 
         $this->add(array(
                 'type' => 'Zend\Form\Element\Textarea',

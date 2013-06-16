@@ -93,6 +93,11 @@ $form->prepare();
         <?php endif;?>
 	</div>
 	<div class="label-input">
+        <?php echo $this->formLabel($form->get('fbFan')); ?>
+        <?php echo $this->formSelect($form->get('fbFan')); ?>
+        <?php echo $this->formElementErrors($form->get('fbFan')) ?>
+	</div>
+	<div class="label-input">
         <?php echo $this->formLabel($form->get('fbPageTabTitle')); ?>
         <?php echo $this->formInput($form->get('fbPageTabTitle')); ?>
         <?php echo $this->formElementErrors($form->get('fbPageTabTitle')) ?>

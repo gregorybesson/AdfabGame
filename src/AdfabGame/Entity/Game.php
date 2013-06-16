@@ -211,6 +211,11 @@ class Game implements InputFilterAwareInterface
      * @ORM\Column(name="fb_request_message", type="text", nullable=true)
      */
     protected $fbRequestMessage;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $fbFan = 0;
 
     /**
      * @ORM\Column(name="tw_share_message", type="string", length=255, nullable=true)
@@ -930,6 +935,26 @@ class Game implements InputFilterAwareInterface
 
         return $this;
     }
+    
+    /**
+     *
+     * @return the fbFan
+     */
+    public function getFbFan ()
+    {
+    	return $this->fbFan;
+    }
+    
+    /**
+     *
+     * @param unknown_type $fbFan
+     */
+    public function setFbFan ($fbFan)
+    {
+    	$this->fbFan = $fbFan;
+    
+    	return $this;
+    }
 
     /**
      *
@@ -1091,6 +1116,11 @@ class Game implements InputFilterAwareInterface
             $inputFilter->add($factory->createInput(array(
                     'name' => 'fbAppId',
                     'required' => false
+            )));
+            
+            $inputFilter->add($factory->createInput(array(
+            		'name' => 'fbFan',
+            		'required' => false
             )));
 
             $inputFilter->add($factory->createInput(array(
