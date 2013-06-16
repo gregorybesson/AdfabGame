@@ -37,9 +37,21 @@ class InstantWin extends Game implements InputFilterAwareInterface
     /**
      * Determine how much occurrences to create
      *
-     * @ORM\Column(name="occurrence_number", type="integer", nullable=false)
+     * @ORM\Column(name="occurrence_number", type="integer", nullable=true)
      */
     protected $occurrenceNumber;
+    
+    /**
+     * this field is taken into account only if $occurrenceNumber<>0.
+     * if 'game' $occurrenceNumber are drawn between game start date and game end date
+     * if 'hour' $occurrenceNumber are drawn a hour between game start date and game end date
+     * if 'day' $occurrenceNumber are drawn a day for each day between game start date and game end date
+     * if 'week' $occurrenceNumber are drawn a week between game start date and game end date
+     * if 'month' $occurrenceNumber are drawn a month between game start date and game end date
+     *
+     * @ORM\Column(name="occurence_draw_frequency", type="string", nullable=true)
+     */
+    protected $occurenceDrawFrequency;
 
     /**
      * @ORM\Column(name="scratchcard_image", type="string", length=255, nullable=true)
@@ -123,6 +135,24 @@ class InstantWin extends Game implements InputFilterAwareInterface
         $this->occurrenceNumber = $occurrenceNumber;
 
         return $this;
+    }
+    
+    /**
+     * @return the unknown_type
+     */
+    public function getOccurrenceDrawFrequency()
+    {
+    	return $this->occurenceDrawFrequency;
+    }
+    
+    /**
+     * @param unknown_type $occurenceDrawFrequency
+     */
+    public function setOccurrenceDrawFrequency($occurenceDrawFrequency)
+    {
+    	$this->occurrenceNumber = $occurenceDrawFrequency;
+    
+    	return $this;
     }
 
     /**
@@ -211,11 +241,26 @@ class InstantWin extends Game implements InputFilterAwareInterface
 
             $inputFilter->add($factory->createInput(array('name' => 'id', 'required' => true, 'filters' => array(array('name' => 'Int'),),)));
 
-            $inputFilter
-                    ->add(
-                            $factory
-                                    ->createInput(
-                                            array('name' => 'occurrenceNumber', 'required' => true, 'validators' => array(array('name' => 'Digits',),),)));
+            $inputFilter->add($factory->createInput(array(
+            	'name' => 'occurrenceNumber', 
+            	'required' => true, 
+            	'validators' => array(
+            		array('name' => 'Digits',),
+            	),
+            )));
+            
+            $inputFilter->add($factory->createInput(array(
+           		'name' => 'occurrenceDrawFrequency',
+           		'required' => false,
+           		'validators' => array(
+       				array(
+      					'name' => 'InArray',
+           				'options' => array(
+           					'haystack' => array('hour', 'day', 'week', 'month', 'game'),
+            			),
+            		),
+           		),
+            )));
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'occurrenceType',

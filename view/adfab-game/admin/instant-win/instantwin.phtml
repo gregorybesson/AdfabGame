@@ -41,6 +41,11 @@ $form->prepare();
 	            <?php echo $this->formElementErrors($form->get('occurrenceNumber')) ?>
 			</div>
 			<div class="label-input">
+	            <?php echo $this->formLabel($form->get('occurrenceDrawFrequency')); ?>
+	            <?php echo $this->formSelect($form->get('occurrenceDrawFrequency')); ?>
+	            <?php echo $this->formElementErrors($form->get('occurrenceDrawFrequency')) ?>
+			</div>
+			<div class="label-input">
 	            <?php echo $this->formLabel($form->get('uploadScratchcardImage')); ?>
 	            <?php echo $this->formFile($form->get('uploadScratchcardImage')); ?>
 	            <?php if($form->get('scratchcardImage')->getValue() != ''):?>

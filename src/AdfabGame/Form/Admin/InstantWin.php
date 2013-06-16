@@ -74,6 +74,25 @@ class InstantWin extends Game
                 'label' => 'Nombre d\'instants gagnants',
             ),
         ));
+        
+        $this->add(array(
+        		'type' => 'Zend\Form\Element\Select',
+        		'name' => 'occurrenceDrawFrequency',
+        		'attributes' =>  array(
+        				'id' => 'occurrenceDrawFrequency',
+        				'options' => array(
+        						'hour' => $translator->translate('heure', 'adfabgame'),
+        						'day' => $translator->translate('Jour', 'adfabgame'),
+        						'week' => $translator->translate('Semaine', 'adfabgame'),
+        						'month' => $translator->translate('Mois', 'adfabgame'),
+        						'game' => $translator->translate('Jeu', 'adfabgame'),
+        				),
+        		),
+        		'options' => array(
+        				'empty_option' => $translator->translate('Création des instants gagnants sur quelle fréquence ?', 'adfabgame'),
+        				'label' => $translator->translate('Fréquence de création', 'adfabgame'),
+        		),
+        ));
 
         // Adding an empty upload field to be able to correctly handle this on
         // the service side.
