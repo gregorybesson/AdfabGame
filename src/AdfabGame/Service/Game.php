@@ -5,6 +5,7 @@ namespace AdfabGame\Service;
 use AdfabGame\Entity\LeaderBoard;
 use AdfabGame\Entity\Entry;
 
+use Zend\Session\Container;
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
