@@ -49,9 +49,15 @@ class InstantWin extends Game implements InputFilterAwareInterface
      * if 'week' $occurrenceNumber are drawn a week between game start date and game end date
      * if 'month' $occurrenceNumber are drawn a month between game start date and game end date
      *
+<<<<<<< HEAD
      * @ORM\Column(name="occurrence_draw_frequency", type="string", nullable=true)
      */
     protected $occurrenceDrawFrequency;
+=======
+     * @ORM\Column(name="occurence_draw_frequency", type="string", nullable=true)
+     */
+    protected $occurenceDrawFrequency;
+>>>>>>> branch 'master' of ssh://git@github.com/gregorybesson/AdfabGame.git
 
     /**
      * @ORM\Column(name="scratchcard_image", type="string", length=255, nullable=true)
