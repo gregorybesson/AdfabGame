@@ -281,6 +281,11 @@ $form->prepare();
 </div>
 <div class="tab-pane" id="terms_page">
     <div>
+    <div class="label-input">
+        <?php echo $this->formLabel($form->get('termsOptin')); ?>
+        <?php echo $this->formSelect($form->get('termsOptin')); ?>
+        <?php echo $this->formElementErrors($form->get('termsOptin')) ?>
+	</div>
     <?php echo $this->formTextarea($form->get('termsBlock')) . $this->formElementErrors($form->get('termsBlock')) ?>
     <?php $this->QgCKEditor(
         'termsBlock',

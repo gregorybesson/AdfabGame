@@ -165,6 +165,11 @@ class Game implements InputFilterAwareInterface
      * @ORM\Column(type="text", nullable=true)
      */
     protected $termsBlock;
+    
+    /**
+     * @ORM\Column(name="terms_optin", type="boolean", nullable=true)
+     */
+    protected $termsOptin = 0;
 
     // TODO : Adherence CMS de ces blocs à revoir
     /**
@@ -723,6 +728,24 @@ class Game implements InputFilterAwareInterface
     {
         $this->termsBlock = $termsBlock;
     }
+    
+    /**
+     *
+     * @return the $termsOptin
+     */
+    public function getTermsOptin ()
+    {
+    	return $this->termsOptin;
+    }
+    
+    /**
+     *
+     * @param text $termsOptin
+     */
+    public function setTermsBlock ($termsOptin)
+    {
+    	$this->termsOptin = $termsOptin;
+    }
 
     /**
      *
@@ -1157,13 +1180,18 @@ class Game implements InputFilterAwareInterface
             )));
 
             $inputFilter->add($factory->createInput(array(
-                    'name' => 'endDate',
-                    'required' => false,
+                'name' => 'endDate',
+                'required' => false,
             )));
 
             $inputFilter->add($factory->createInput(array(
-                    'name' => 'closeDate',
-                    'required' => false,
+               'name' => 'closeDate',
+               'required' => false,
+            )));
+            
+            $inputFilter->add($factory->createInput(array(
+            	'name' => 'termsOptin',
+            	'required' => false,
             )));
 
             /*$inputFilter->add($factory->createInput(array(
@@ -1385,49 +1413,49 @@ class Game implements InputFilterAwareInterface
             )));
 
             $inputFilter->add($factory->createInput(array(
-                    'name' => 'fbRequestMessage',
-                    'required' => false,
-                    'filters' => array(
-                            array(
-                                    'name' => 'StripTags'
-                            ),
-                            array(
-                                    'name' => 'StringTrim'
-                            )
+                'name' => 'fbRequestMessage',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StripTags'
                     ),
-                    'validators' => array(
-                            array(
-                                    'name' => 'StringLength',
-                                    'options' => array(
-                                            'encoding' => 'UTF-8',
-                                            'min' => 1,
-                                            'max' => 500
-                                    )
-                            )
+                    array(
+                        'name' => 'StringTrim'
                     )
+                ),
+                'validators' => array(
+                    array(
+                    	'name' => 'tringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 500
+                        )
+                    )
+                )
             )));
 
             $inputFilter->add($factory->createInput(array(
-                    'name' => 'twShareMessage',
-                    'required' => false,
-                    'filters' => array(
-                            array(
-                                    'name' => 'StripTags'
-                            ),
-                            array(
-                                    'name' => 'StringTrim'
-                            )
+                'name' => 'twShareMessage',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StripTags'
                     ),
-                    'validators' => array(
-                            array(
-                                    'name' => 'StringLength',
-                                    'options' => array(
-                                            'encoding' => 'UTF-8',
-                                            'min' => 1,
-                                            'max' => 255
-                                    )
-                            )
+                    array(
+                        'name' => 'StringTrim'
                     )
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 255
+                        )
+                    )
+                )
             )));
 
             /*

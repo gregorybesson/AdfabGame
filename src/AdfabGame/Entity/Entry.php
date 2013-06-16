@@ -55,6 +55,12 @@ class Entry
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $winner = 0;
+    
+    /**
+     * Is there a termsOptin on this entry ?
+     * @ORM\Column(name="terms_optin", type="boolean", nullable=true)
+     */
+    protected $termsOptin;
 
     /**
      * @ORM\Column(type="datetime")
@@ -196,6 +202,22 @@ class Entry
     public function setWinner($winner)
     {
         $this->winner = $winner;
+    }
+    
+    /**
+     * @return the termsOptin
+     */
+    public function getTermsOptin()
+    {
+    	return $this->termsOptin;
+    }
+    
+    /**
+     * @param field_type $termsOptin
+     */
+    public function setTermsOptin($termsOptin)
+    {
+    	$this->termsOptin = $termsOptin;
     }
 
     /**
