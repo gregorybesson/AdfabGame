@@ -212,6 +212,8 @@ return array(
         	'adfab-game/admin/prize-category'        => __DIR__ .  '/../view/adfab-game/admin/prize-category/prize-category.phtml',
         	'adfab-game/admin/quiz/question'         => __DIR__ .  '/../view/adfab-game/admin/quiz/question.phtml',
         	'adfab-game/admin/quiz'                  => __DIR__ .  '/../view/adfab-game/admin/quiz/quiz.phtml',
+        	'adfab-game/admin/list'                  => __DIR__ .  '/../view/adfab-game/admin/list.phtml',
+        	'adfab-game/admin/pagination_gamelist'   => __DIR__ .  '/../view/adfab-game/admin/pagination_gamelist.phtml',
         ),
         'template_path_stack' => array(
             'adfabgame' => __DIR__ . '/../view',
