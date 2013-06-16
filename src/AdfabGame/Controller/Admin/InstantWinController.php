@@ -37,7 +37,7 @@ class InstantWinController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/instant-win/instantwin');
+        $viewModel->setTemplate('adfab-game/admin/instant-win');
 
         $gameForm = new ViewModel();
         $gameForm->setTemplate('adfab-game/admin/game-form');
@@ -85,7 +85,7 @@ class InstantWinController extends AbstractActionController
 
         $game = $service->getGameMapper()->findById($gameId);
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/instant-win/instantwin');
+        $viewModel->setTemplate('adfab-game/admin/instant-win');
 
         $gameForm = new ViewModel();
         $gameForm->setTemplate('adfab-game/admin/game-form');

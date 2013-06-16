@@ -66,7 +66,7 @@ class LotteryController extends AbstractActionController
 
         $game = $service->getGameMapper()->findById($gameId);
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/lottery/lottery');
+        $viewModel->setTemplate('adfab-game/admin/lottery');
 
         $gameForm = new ViewModel();
         $gameForm->setTemplate('adfab-game/admin/game-form');

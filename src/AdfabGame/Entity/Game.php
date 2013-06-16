@@ -1401,14 +1401,14 @@ class Game implements InputFilterAwareInterface
                             )
                     ),
                     'validators' => array(
-                            array(
-                                'name' => 'StringLength',
-                                'options' => array(
-                                    'encoding' => 'UTF-8',
-                                    'min' => 1,
-                                    'max' => 500
-                                )
-                            )
+                        array(
+                	        'name' => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min' => 1,
+                                'max' => 500
+                             )
+                        )
                     )
             )));
 

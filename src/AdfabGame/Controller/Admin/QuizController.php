@@ -139,7 +139,7 @@ class QuizController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/quiz/quiz');
+        $viewModel->setTemplate('adfab-game/admin/quiz');
 
         $gameForm = new ViewModel();
         $gameForm->setTemplate('adfab-game/admin/game-form');
@@ -182,7 +182,7 @@ class QuizController extends AbstractActionController
 
         $game = $service->getGameMapper()->findById($gameId);
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/quiz/quiz');
+        $viewModel->setTemplate('adfab-game/admin/quiz');
 
         $gameForm = new ViewModel();
         $gameForm->setTemplate('adfab-game/admin/game-form');
