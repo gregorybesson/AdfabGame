@@ -49,9 +49,9 @@ class InstantWin extends Game implements InputFilterAwareInterface
      * if 'week' $occurrenceNumber are drawn a week between game start date and game end date
      * if 'month' $occurrenceNumber are drawn a month between game start date and game end date
      *
-     * @ORM\Column(name="occurence_draw_frequency", type="string", nullable=true)
+     * @ORM\Column(name="occurrence_draw_frequency", type="string", nullable=true)
      */
-    protected $occurenceDrawFrequency;
+    protected $occurrenceDrawFrequency;
 
     /**
      * @ORM\Column(name="scratchcard_image", type="string", length=255, nullable=true)
@@ -142,15 +142,15 @@ class InstantWin extends Game implements InputFilterAwareInterface
      */
     public function getOccurrenceDrawFrequency()
     {
-    	return $this->occurenceDrawFrequency;
+    	return $this->occurrenceDrawFrequency;
     }
     
     /**
-     * @param unknown_type $occurenceDrawFrequency
+     * @param unknown_type $occurrenceDrawFrequency
      */
-    public function setOccurrenceDrawFrequency($occurenceDrawFrequency)
+    public function setOccurrenceDrawFrequency($occurrenceDrawFrequency)
     {
-    	$this->occurrenceNumber = $occurenceDrawFrequency;
+    	$this->occurrenceDrawFrequency = $occurrenceDrawFrequency;
     
     	return $this;
     }
