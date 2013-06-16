@@ -408,6 +408,19 @@ class Game extends ProvidesEventsForm
                 'id' => 'welcomeBlock'
             )
         ));
+        
+        $this->add(array(
+        		'type' => 'Zend\Form\Element\Select',
+        		'name' => 'termsOptin',
+        		'options' => array(
+        				//'empty_option' => $translator->translate('Is the answer correct ?', 'adfabgame'),
+        				'value_options' => array(
+        						'0' => $translator->translate('No', 'adfabgame'),
+        						'1' => $translator->translate('Yes', 'adfabgame'),
+        				),
+        				'label' => $translator->translate('Le joueur doit accepter le règlement pour jouer', 'adfabgame'),
+        		),
+        ));
 
         $this->add(array(
                 'type' => 'Zend\Form\Element\Textarea',
