@@ -269,9 +269,13 @@ class InstantWinController extends AbstractActionController
         }
         $occurrence   = $service->getInstantWinOccurrenceMapper()->findById($occurrenceId);
         $instantwinId = $occurrence->getInstantWin()->getId();
-
-        $service->getInstantWinOccurrenceMapper()->remove($occurrence);
-        $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The occurrence was created');
+		
+		if($occurrence->getActive()){
+            $service->getInstantWinOccurrenceMapper()->remove($occurrence);
+            $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The occurrence was created');
+        } else {
+            $this->flashMessenger()->setNamespace('adfabgame')->addMessage('Il y a un participant à cet instant gagnant. Vous ne pouvez plus le supprimer');
+        }
 
         return $this->redirect()->toRoute('zfcadmin/adfabgame/instantwin-occurrence-list', array('gameId'=>$instantwinId));
     }
