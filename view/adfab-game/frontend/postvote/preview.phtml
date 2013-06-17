@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	<!-- END BLOCK GAME START -->
-    <!-- END BLOCK GAME START -->
+   
     <!-- BLOCK CONTENT -->
     <div class="row-fluid buttons">
 		<div class="span2">
@@ -57,7 +57,7 @@
 					<?php //echo $this->partial('adfab-game/frontend/partial/name.phtml', array('post' => $this->post->getUser(), 'game' => $this->game));?>
 					
 					<div class="row-fluid">
-					    <div class="avatar span4">
+					    <div class="avatar span5">
 					    	<?php if($this->post->getUser()->getAvatar()):?>
 						        <img src="<?php echo $this->basePath($this->post->getUser()->getAvatar()) ?>" width="24" height="24" alt="<?php echo $this->post->getUser()->getFirstname(); ?> <?php echo $this->post->getUser()->getLastname(); ?>" />
 						    <?php else:?>
@@ -68,13 +68,6 @@
 						    		<?php endif; ?>
 						    <?php endif;?>
 						    <?php echo $this->post->getUser()->getUsername(); ?>
-					    </div>
-					    <div class="span3 offset5">							
-							<div class="social-share">
-								<div class="preview-fb"></div>
-								<div class="preview-tw shorturl"></div>
-								<div class="preview-gl"></div>
-							</div>
 					    </div>
 					</div>
 
