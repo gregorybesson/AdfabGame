@@ -210,6 +210,10 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
             'fields'            => 'identifier',
             'messages'          => array('objectFound' => 'This url already exists !')
         ));
+		
+		if($game->getIdentifier() != $data['identifier']){
+			$identifierInput->getValidatorChain()->addValidator($noObjectExistsValidator);
+		}
     
     	// I must switch from original format to the Y-m-d format because this is the only one accepted by new DateTime($value)
     	if (isset($data['publicationDate']) && $data['publicationDate']) {
