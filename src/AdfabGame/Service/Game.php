@@ -566,12 +566,17 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     {
     	// If on Facebook, check if you have to be a FB fan to play the game
     	$session = new Container('facebook');
+    	
     	if ($session->offsetExists('signed_request')) {
+    		// I'm on Facebook
     		$sr = $session->offsetGet('signed_request');
     		if($sr['page']['liked'] == 1){
     
     			return true;
     		}
+    	} else{
+    		// I'm not on Facebook
+    		return true;
     	}
     
     	return false;
