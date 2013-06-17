@@ -257,7 +257,7 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
    						}
    					}
    				}
-   				
+   			
         		break;
         }
 
