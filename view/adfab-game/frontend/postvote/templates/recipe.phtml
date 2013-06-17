@@ -10,15 +10,15 @@
 
 <?php if(isset($this->data[3])):?>
 	<h3 class="green">Ingrédients</h3>
-	<p><?php echo $this->data[3];?></p>
+	<p><?php echo  nl2br($this->data[3]);?></p>
 <?php endif; ?>
 
 <?php if(isset($this->data[4])):?>
 	<h3 class="green">Préparation</h3>
-	<p><?php echo $this->data[4];?></p>
+	<p><?php echo nl2br($this->data[4]);?></p>
 <?php endif ?>
 
 <?php if(isset($this->data[5])):?>
 	<h3 class="green">Service</h3>
-	<p><?php echo $this->data[5];?></p>
+	<p><?php echo nl2br($this->data[5]);?></p>
 <?php endif; ?>
