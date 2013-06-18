@@ -13,9 +13,14 @@ class PrizeCategoryUser extends EventProvider implements ServiceManagerAwareInte
 {
 
     /**
-     * @var prizeCategoryMapper
+     * @var prizeCategoryUserMapper
      */
     protected $prizeCategoryUserMapper;
+	
+	/**
+     * @var prizeCategoryMapper
+     */
+    protected $prizeCategoryMapper;
 
     /**
      * @var ServiceManager
@@ -31,12 +36,14 @@ class PrizeCategoryUser extends EventProvider implements ServiceManagerAwareInte
     {
 
         $this->getPrizeCategoryUserMapper()->removeAll($user);
-        foreach ($data['prizeCategory'] as $k => $v) {
-            $category = $this->getPrizeCategoryMapper()->findById($v);
-            $userCategory = new PrizeCategoryUserEntity($user, $category);
-            $this->getPrizeCategoryUserMapper()->insert($userCategory);
-        }
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $user, 'data' => $data));
+		if(isset($data['prizeCategory']) && $data['prizeCategory']){
+	        foreach ($data['prizeCategory'] as $k => $v) {
+	            $category = $this->getPrizeCategoryMapper()->findById($v);
+	            $userCategory = new PrizeCategoryUserEntity($user, $category);
+	            $this->getPrizeCategoryUserMapper()->insert($userCategory);
+	        }
+        	$this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $user, 'data' => $data));
+		}
 
         return true;
     }
