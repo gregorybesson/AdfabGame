@@ -838,10 +838,10 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
                 return $file["name"];
             } else {
                 $adapter = new \Zend\File\Transfer\Adapter\Http();
-                // 400ko
-                $size = new Size(array('max'=>400000));
+                // 500ko
+                $size = new Size(array('max'=>512000));
                 $is_image = new IsImage('jpeg,png,gif,jpg');
-                $adapter->setValidators(array($size, $is_image), $value['name']);
+                $adapter->setValidators(array($size, $is_image), $file['name']);
 
                 if (!$adapter->isValid()) {
                     $dataError = $adapter->getMessages();

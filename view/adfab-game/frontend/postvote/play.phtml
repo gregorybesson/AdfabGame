@@ -97,7 +97,8 @@ $form->setAttribute('action', $this->url('postvote/play', array('id' => $this->g
 		                    <div class="photo-file" data-url="<?php echo $this->url('postvote/play/ajaxupload', array('id' => $this->game->getIdentifier()))?>" data-canonical="<?php echo $this->url('home', array(), array('force_canonical' => true)) ?>">
 		                    	
 		    					<label class="span4">
-		    						<b><?php echo ($element->getLabel()) ? $this->formLabel($element) . ' ' . $requiredContent :''; ?></b>
+		    						<b><?php echo ($element->getLabel()) ? $this->formLabel($element) . ' ' . $requiredContent :''; ?></b><br/>
+		    						<span class="annotation">500ko maximum</span>
 		    					</label>
 		    					<div class="span7">
 		                            <div class="preview-img">
