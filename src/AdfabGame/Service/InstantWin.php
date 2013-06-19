@@ -39,6 +39,9 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
                 $media_url = $this->getOptions()->getMediaUrl() . '/';
 
                 ErrorHandler::start();
+				if(strpos($data['uploadScratchcardImage']['name'], ' ') > 0){
+					$data['uploadScratchcardImage']['name'] = str_replace(" ","_",$data['uploadScratchcardImage']['name']);
+				}
                 move_uploaded_file($data['uploadScratchcardImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadScratchcardImage']['name']);
                 $game->setScratchcardImage($media_url . $game->getId() . "-" . $data['uploadScratchcardImage']['name']);
                 ErrorHandler::stop(true);
@@ -74,6 +77,9 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
                 $media_url = $this->getOptions()->getMediaUrl() . '/';
 
                 ErrorHandler::start();
+				if(strpos($data['uploadScratchcardImage']['name'], ' ') > 0){
+					$data['uploadScratchcardImage']['name'] = str_replace(" ","_",$data['uploadScratchcardImage']['name']);
+				}
                 move_uploaded_file($data['uploadScratchcardImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadScratchcardImage']['name']);
                 $game->setScratchcardImage($media_url . $game->getId() . "-" . $data['uploadScratchcardImage']['name']);
                 ErrorHandler::stop(true);

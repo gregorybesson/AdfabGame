@@ -164,6 +164,9 @@ class PostVote extends Game implements ServiceManagerAwareInterface
                         return false;
                     }
 */
+					if(strpos($value['name'], ' ') > 0){
+						$value['name'] = str_replace(" ","_",$value['name']);
+					}
                     move_uploaded_file($value['tmp_name'], $path . $value['name']);
                     $postElement = $postVotePostElementMapper->findOneBy(array('post' => $post, 'name' => $name));
                     if (! $postElement) {

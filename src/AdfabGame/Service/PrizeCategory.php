@@ -56,6 +56,9 @@ class PrizeCategory extends EventProvider implements ServiceManagerAwareInterfac
 
         if (!empty($data['upload_picto']['tmp_name'])) {
             ErrorHandler::start();
+			if(strpos($data['upload_picto']['name'], ' ') > 0){
+				$data['upload_picto']['name'] = str_replace(" ","_",$data['upload_picto']['name']);
+			}
             move_uploaded_file($data['upload_picto']['tmp_name'], $path . $prizeCategory->getId() . "-" . $data['upload_picto']['name']);
             $prizeCategory->setPicto($media_url . $prizeCategory->getId() . "-" . $data['upload_picto']['name']);
             ErrorHandler::stop(true);
@@ -90,6 +93,9 @@ class PrizeCategory extends EventProvider implements ServiceManagerAwareInterfac
 
         if (!empty($data['upload_picto']['tmp_name'])) {
             ErrorHandler::start();
+			if(strpos($data['upload_picto']['name'], ' ') > 0){
+				$data['upload_picto']['name'] = str_replace(" ","_",$data['upload_picto']['name']);
+			}
             move_uploaded_file($data['upload_picto']['tmp_name'], $path . $prizeCategory->getId() . "-" . $data['upload_picto']['name']);
             $prizeCategory->setPicto($media_url . $prizeCategory->getId() . "-" . $data['upload_picto']['name']);
             ErrorHandler::stop(true);
