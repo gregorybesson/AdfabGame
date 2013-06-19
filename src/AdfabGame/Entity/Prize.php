@@ -35,7 +35,6 @@ class Prize {
 	protected $identifier;
 	
 	/**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="PrizeCategory")
      * @ORM\JoinColumn(name="prize_category_id", referencedColumnName="id")
      **/
