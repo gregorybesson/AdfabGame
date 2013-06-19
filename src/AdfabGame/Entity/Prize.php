@@ -14,70 +14,69 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\Table(name="game_prize")
  */
 class Prize {
-	
+
 	protected $inputFilter;
-	
+
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer");
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $id;
-	
+
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=false)
 	 */
 	protected $title;
-	
+
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=false)
 	 */
 	protected $identifier;
-	
+
 	/**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="PrizeCategory")
      * @ORM\JoinColumn(name="prize_category_id", referencedColumnName="id")
      **/
 	protected $prizeCategory;
-	
+
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	protected $content;
-	
+
 	/**
 	 * @ORM\Column(type="integer", nullable=false)
 	 */
 	protected $qty = 0;
-	
+
 	/**
 	 * @ORM\Column(name="unit_price", type="float", nullable=false)
 	 */
 	protected $unitPrice = 1;
-	
+
 	/**
 	 * @ORM\Column(type="string", length=10, nullable=true)
 	 */
 	protected $currency;
-	
+
 	/**
 	 * @ORM\Column(type="datetime")
 	 */
 	protected $created_at;
-	
+
 	/**
 	 * @ORM\Column(type="datetime")
 	 */
 	protected $updated_at;
-	
+
 	/** @PrePersist */
 	public function createChrono()
 	{
 		$this->created_at = new \DateTime("now");
 		$this->updated_at = new \DateTime("now");
 	}
-	
+
 	/** @PreUpdate */
 	public function updateChrono()
 	{
@@ -231,13 +230,13 @@ class Prize {
 		if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $factory = new InputFactory();
-            
+
             $this->inputFilter = $inputFilter;
         }
-            
+
         return $this->inputFilter;
 	}
-	
+
 	/**
 	 * @param field_type $inputFilter
 	 */
