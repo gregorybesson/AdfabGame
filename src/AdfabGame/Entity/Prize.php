@@ -23,6 +23,12 @@ class Prize {
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $id;
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="Game", inversedBy="prizes")
+	 *
+	 **/
+	protected $game;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=false)
@@ -95,6 +101,24 @@ class Prize {
 	 */
 	public function setId($id) {
 		$this->id = $id;
+	}
+	
+	/**
+	 * @return the unknown_type
+	 */
+	public function getGame()
+	{
+		return $this->game;
+	}
+	
+	/**
+	 * @param unknown_type $game
+	 */
+	public function setGame($game)
+	{
+		$this->game = $game;
+	
+		return $this;
 	}
 
 	/**
@@ -221,6 +245,50 @@ class Prize {
 	 */
 	public function setUpdated_at($updated_at) {
 		$this->updated_at = $updated_at;
+	}
+	
+	/**
+	 * Convert the object to an array.
+	 *
+	 * @return array
+	 */
+	public function getArrayCopy()
+	{
+		$obj_vars = get_object_vars($this);
+	
+		return $obj_vars;
+	}
+	
+	/**
+	 * Populate from an array.
+	 *
+	 * @param array $data
+	 */
+	public function populate($data = array())
+	{
+		if (isset($data['content']) && $data['content'] != null) {
+			$this->content = $data['content'];
+		}
+	
+		if (isset($data['title']) && $data['title'] != null) {
+			$this->title = $data['title'];
+		}
+	
+		if (isset($data['qty']) && $data['qty'] != null) {
+			$this->qty = $data['qty'];
+		}
+	
+		if (isset($data['identifier']) && $data['identifier'] != null) {
+			$this->identifier = $data['identifier'];
+		}
+	
+		if (isset($data['unitPrice']) && $data['unitPrice'] != null) {
+			$this->unitPrice = $data['unitPrice'];
+		}
+	
+		if (isset($data['currency']) && $data['currency'] != null) {
+			$this->currency = $data['currency'];
+		}
 	}
 
 	/**

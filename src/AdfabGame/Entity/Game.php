@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Mapping\PreUpdate;
+use Doctrine\Common\Collections\ArrayCollection;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
@@ -186,6 +187,11 @@ class Game implements InputFilterAwareInterface
      * @ORM\Column(type="text", nullable=true)
      */
     protected $columnBlock3;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Prize", mappedBy="game", cascade={"persist","remove"})
+     */
+    private $prizes;
 
     /**
      * @ORM\Column(name="fb_app_id", type="string", nullable=true)
@@ -799,6 +805,53 @@ class Game implements InputFilterAwareInterface
     public function setColumnBlock3 ($columnBlock3)
     {
         $this->columnBlock3 = $columnBlock3;
+    }
+    
+    /**
+     * @return the unknown_type
+     */
+    public function getPrizes()
+    {
+    	return $this->prizes;
+    }
+    
+    /**
+     * frm collection solution
+     * @param unknown_type $prizes
+     */
+    public function setPrizes(ArrayCollection $prizes)
+    {
+    	$this->prizes = $prizes;
+    
+    	return $this;
+    }
+    
+    public function addPrizes(ArrayCollection $prizes)
+    {
+    	foreach ($prizes as $prize) {
+    		$prize->setGame($this);
+    		$this->prizes->add($prize);
+    	}
+    }
+    
+    public function removePrizes(ArrayCollection $prizes)
+    {
+    	foreach ($prizes as $prize) {
+    		$prize->setGame(null);
+    		$this->prizes->removeElement($prize);
+    	}
+    }
+    
+    /**
+     * Add a prize to the game.
+     *
+     * @param Prize $prize
+     *
+     * @return void
+     */
+    public function addPrize($prize)
+    {
+    	$this->prizes[] = $prize;
     }
 
     /**

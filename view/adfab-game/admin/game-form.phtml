@@ -253,6 +253,23 @@ $form->prepare();
         ?>
     </div>
 </div>
+<div class="tab-pane" id="prizes">
+	<ul class="liste-buttons">
+		<li class="btn-admin"><a href="#" onclick="add_prize()"><?php echo $this->translate('Ajouter un lot'); ?></a></li>
+	</ul>
+			
+    <div id="prize_entry" class="control-group">
+        <?php echo $this->formCollection($form->get('prizes'));?>
+        
+        <?php foreach($form->get('prizes') as $element):?>
+        	<?php echo $this->formInput($form->get('title')); ?>
+        <?php endforeach;?>
+    </div>
+            
+    <ul class="liste-buttons">
+		<li class="btn-admin"><a href="#" onclick="add_prize()"><?php echo $this->translate('Ajouter un lot'); ?></a></li>
+	</ul>
+</div>
 <div class="tab-pane" id="welcome_page">
     <div>
     <?php echo $this->formTextarea($form->get('welcomeBlock')) . $this->formElementErrors($form->get('welcomeBlock')) ?>
@@ -310,3 +327,26 @@ $form->prepare();
     ?>
     </div>
 </div>
+<script>
+	
+    var template = $('#prize_entry > fieldset > span');
+    var datatemplate = $('#prize_entry > fieldset > span').data('template');
+    template.data('template', '<fieldset id="prizes__index__">'+datatemplate+'</fieldset>');
+    
+    function add_prize() {
+        var currentCount = $('#prize_entry textarea').length;
+        var template = $('#prize_entry > fieldset > span').data('template');
+        template = template.replace(/__index__/g, currentCount);
+        $('#prize_entry').append(template);
+        $('#prize_entry').append('<hr/>');
+
+        return false;
+    }
+	
+
+    $('#prize_entry button').live('click',function(){
+    	$(this).parent().empty();
+    	return false;
+    });
+    
+</script>

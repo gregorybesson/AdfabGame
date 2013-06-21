@@ -3,7 +3,6 @@
 namespace AdfabGame\Form\Admin;
 
 use AdfabGame\Entity\Prize;
-use ZfcBase\Form\ProvidesEventsForm;
 use Zend\Form\Fieldset;
 use Zend\Form\Form;
 use Zend\Form\Element;
@@ -23,7 +22,7 @@ class PrizeFieldset extends Fieldset
         $this->setHydrator(new DoctrineHydrator($entityManager, 'AdfabGame\Entity\Prize'))
         ->setObject(new Prize());
 
-        $this->setAttribute('enctype','multipart/form-data');
+        //$this->setAttribute('enctype','multipart/form-data');
 
         $this->add(array(
             'name' => 'id',
@@ -100,6 +99,17 @@ class PrizeFieldset extends Fieldset
         		'empty_option' => $translator->translate('Choisir la devise', 'adfabgame'),
     			'label' => $translator->translate('Devise utilisée', 'adfabgame'),
        		),
+        ));
+        
+        $this->add(array(
+        		'type' => 'Zend\Form\Element\Button',
+        		'name' => 'remove',
+        		'options' => array(
+        				'label' => $translator->translate('Supprimer', 'adfabgame'),
+        		),
+        		'attributes' => array(
+        				'class' => 'delete-button',
+        		)
         ));
 
     }

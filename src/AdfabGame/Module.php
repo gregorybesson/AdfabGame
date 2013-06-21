@@ -155,7 +155,7 @@ class Module
                 'adfabgame_quiz_service'              => 'AdfabGame\Service\Quiz',
                 'adfabgame_instantwin_service'        => 'AdfabGame\Service\InstantWin',
                 'adfabgame_leaderboard_service'       => 'AdfabGame\Service\LeaderBoard',
-                'adfabgame_prizecategory_service'     => 'AdfabGame\Service\PrizeCategory',
+            	'adfabgame_prizecategory_service'     => 'AdfabGame\Service\PrizeCategory',
                 'adfabgame_prizecategoryuser_service' => 'AdfabGame\Service\PrizeCategoryUser',
             ),
 
