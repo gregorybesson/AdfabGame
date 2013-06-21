@@ -49,7 +49,7 @@ class Module
         		$viewModel = $e->getViewModel()->setTemplate('layout/facebook');
         		$viewModel->facebooktemplate = true;
         	}
-        },150);
+        });
 
     }
 
