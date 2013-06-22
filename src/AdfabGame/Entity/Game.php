@@ -251,6 +251,11 @@ class Game implements InputFilterAwareInterface
      * @ORM\Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
+    
+    public function __construct()
+    {
+    	$this->prizes = new ArrayCollection();
+    }
 
     /**
      * @PrePersist
@@ -833,6 +838,7 @@ class Game implements InputFilterAwareInterface
     		$this->prizes->add($prize);
     	}
     }
+    
     
     public function removePrizes(ArrayCollection $prizes)
     {

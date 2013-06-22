@@ -165,14 +165,6 @@ class Game extends ProvidesEventsForm
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
-            'name' => 'displayHome',
-            'options' => array(
-                'label' => 'Publier ce jeu sur la home',
-            ),
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'pushHome',
             'options' => array(
                 'label' => 'Publier ce jeu sur le slider Home',
@@ -188,7 +180,7 @@ class Game extends ProvidesEventsForm
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class'=> 'date'
+                'class'=> 'datepicker'
             )
         ));
 
@@ -201,7 +193,7 @@ class Game extends ProvidesEventsForm
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class'=> 'date'
+                'class'=> 'datepicker'
             )
         ));
 
@@ -214,7 +206,7 @@ class Game extends ProvidesEventsForm
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class'=> 'date'
+                'class'=> 'datepicker'
             )
         ));
 
@@ -227,7 +219,7 @@ class Game extends ProvidesEventsForm
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class'=> 'date'
+                'class'=> 'datepicker'
             )
         ));
 
