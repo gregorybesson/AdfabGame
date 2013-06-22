@@ -189,7 +189,7 @@ class Game implements InputFilterAwareInterface
     protected $columnBlock3;
     
     /**
-     * @ORM\OneToMany(targetEntity="Prize", mappedBy="game", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Prize", mappedBy="game", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $prizes;
 
@@ -1190,13 +1190,18 @@ class Game implements InputFilterAwareInterface
             )));
 
             $inputFilter->add($factory->createInput(array(
-                    'name' => 'fbAppId',
-                    'required' => false
+                'name' => 'fbAppId',
+                'required' => false
             )));
             
             $inputFilter->add($factory->createInput(array(
-            		'name' => 'fbFan',
-            		'required' => false
+           		'name' => 'fbFan',
+           		'required' => false
+            )));
+            
+            $inputFilter->add($factory->createInput(array(
+            	'name' => 'prizes',
+            	'required' => false
             )));
 
             $inputFilter->add($factory->createInput(array(
