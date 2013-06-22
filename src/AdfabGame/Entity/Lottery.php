@@ -39,6 +39,7 @@ class Lottery extends Game implements InputFilterAwareInterface
 
     public function __construct()
     {
+    	parent::__construct();
         $this->setClassType(self::CLASSTYPE);
     }
 

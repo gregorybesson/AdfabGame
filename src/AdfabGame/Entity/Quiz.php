@@ -71,6 +71,7 @@ class Quiz extends Game implements InputFilterAwareInterface
 
     public function __construct()
     {
+    	parent::__construct();
         $this->setClassType(self::CLASSTYPE);
         $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
     }

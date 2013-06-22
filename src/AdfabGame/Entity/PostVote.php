@@ -52,6 +52,7 @@ class PostVote extends Game implements InputFilterAwareInterface
 
     public function __construct()
     {
+    	parent::__construct();
         $this->setClassType(self::CLASSTYPE);
         $this->posts = new ArrayCollection();
     }
