@@ -208,7 +208,7 @@ class Game extends ProvidesEventsForm
                 'type' => 'text',
                 'class'=> 'datepicker'
             )
-        ));
+        )); 
 
         $this->add(array(
             'type' => 'Zend\Form\Element\DateTime',
