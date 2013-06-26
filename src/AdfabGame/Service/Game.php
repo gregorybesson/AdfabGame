@@ -1127,4 +1127,9 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         imagedestroy($new_image_mini);
 
     }
+    
+    public function getGameEntity()
+    {
+    	return new \AdfabGame\Entity\Game;
+    }
 }
