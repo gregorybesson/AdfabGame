@@ -33,6 +33,11 @@ class InstantWinOccurrence
         return $this->getEntityRepository()->find($id);
     }
 
+    public function findByEntry($entry)
+    {
+    	return $this->getEntityRepository()->findOneBy(array('entry' => $entry));
+    }
+
     public function findByGameId($instant_win, $sortArray = array())
     {
         return $this->getEntityRepository()->findBy(array('instantwin' => $instant_win), $sortArray);
@@ -43,7 +48,10 @@ class InstantWinOccurrence
         return $this->getEntityRepository()->findBy($array, $sortArray);
     }
 
-    public function checkInstantWinByGameId($instant_win, $user)
+    /**
+     *  DEPRECATED : The $user is replaced by its entry from now on
+     */
+    public function checkInstantWinByGameId($instant_win, $user, $entry)
     {
         $now = new \DateTime("now");
         $now = $now->format('Y-m-d H:i:s');
@@ -64,6 +72,7 @@ class InstantWinOccurrence
         if (count($result) == 1) {
             $winOccurrence = $result[0];
             $winOccurrence->setUser($user);
+            $winOccurrence->setEntry($entry);
             $winOccurrence->setActive(0);
             $this->update($winOccurrence);
 

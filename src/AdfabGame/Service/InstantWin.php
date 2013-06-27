@@ -356,7 +356,7 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
 
         $instantWinOccurrencesMapper = $this->getInstantWinOccurrenceMapper();
         // si date après date de gain et date de gain encore active alors desactive date de gain, et winner !
-        $winner = $instantWinOccurrencesMapper->checkInstantWinByGameId($game, $user);
+        $winner = $instantWinOccurrencesMapper->checkInstantWinByGameId($game, $user, $entry);
         // On ferme la participation
         $entry->setActive(false);
 

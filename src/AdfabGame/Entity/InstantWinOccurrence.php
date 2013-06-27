@@ -50,6 +50,12 @@ class InstantWinOccurrence implements InputFilterAwareInterface
      **/
     protected $user;
 
+	/**
+     * @ORM\OneToOne(targetEntity="Entry")
+   	 * @ORM\JoinColumn(name="entry_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $entry;
+
     /**
      * @ORM\ManyToOne(targetEntity="Prize")
      * @ORM\JoinColumn(name="prize_id", referencedColumnName="id", onDelete="CASCADE")
@@ -192,6 +198,24 @@ class InstantWinOccurrence implements InputFilterAwareInterface
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return AdfabGame\Entity\Entry
+     */
+    public function getEntry()
+    {
+    	return $this->entry;
+    }
+
+    /**
+     * @param AdfabGame\Entity\Entry $entry
+     */
+    public function setEntry($entry)
+    {
+    	$this->entry = $entry;
+
+    	return $this;
     }
 
     /**
