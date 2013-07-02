@@ -15,14 +15,14 @@ $form->prepare();
     </ul>
     <div id="my-tab-content" class="tab-content">
         <div class="tab-pane active" id="general">
-                
+
             <?php echo $this->formHidden($form->get('instant_win_id')); ?>
-            
+
             <?php echo $this->formHidden($form->get('id')); ?>
-            
+
             <?php $today = new \DateTime('now');?>
             <?php $today = $today->format('d/m/Y H:i:s');?>
-            
+
             <div class="label-input">
 	        	<?php echo $this->formLabel($form->get('occurrence_date')); ?>
 	            <?php echo $this->formInput($form->get('occurrence_date')); ?>
@@ -33,6 +33,11 @@ $form->prepare();
 	            <?php echo $this->formSelect($form->get('active')); ?>
 	            <?php echo $this->formElementErrors($form->get('active')) ?>
 	        </div>
+	        <div class="label-input">
+		        <?php echo $this->formLabel($form->get('prize')); ?>
+		        <?php echo $this->formSelect($form->get('prize')); ?>
+		        <?php echo $this->formElementErrors($form->get('prize')) ?>
+			</div>
         </div>
     </div>
 </div>

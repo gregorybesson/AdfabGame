@@ -49,7 +49,7 @@ class Module
         		$viewModel = $e->getViewModel()->setTemplate('layout/facebook');
         		$viewModel->facebooktemplate = true;
         	}
-        },150);
+        });
 
     }
 
@@ -155,7 +155,8 @@ class Module
                 'adfabgame_quiz_service'              => 'AdfabGame\Service\Quiz',
                 'adfabgame_instantwin_service'        => 'AdfabGame\Service\InstantWin',
                 'adfabgame_leaderboard_service'       => 'AdfabGame\Service\LeaderBoard',
-                'adfabgame_prizecategory_service'     => 'AdfabGame\Service\PrizeCategory',
+            	'adfabgame_prize_service'     		  => 'AdfabGame\Service\Prize',
+            	'adfabgame_prizecategory_service'     => 'AdfabGame\Service\PrizeCategory',
                 'adfabgame_prizecategoryuser_service' => 'AdfabGame\Service\PrizeCategoryUser',
             ),
 
@@ -300,6 +301,15 @@ class Module
                     );
 
                     return $mapper;
+                },
+
+                'adfabgame_prize_mapper' => function ($sm) {
+                	$mapper = new \AdfabGame\Mapper\Prize(
+                		$sm->get('adfabgame_doctrine_em'),
+                		$sm->get('adfabgame_module_options')
+                	);
+
+                	return $mapper;
                 },
 
                 'adfabgame_prizecategory_mapper' => function ($sm) {

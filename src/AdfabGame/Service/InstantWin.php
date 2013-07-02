@@ -19,6 +19,8 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
      */
     protected $instantWinOccurrenceMapper;
 
+    protected $prizeMapper;
+
     /**
      *
      * saving an instantwin image if any
@@ -115,14 +117,14 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
         } else {
         	$beginning = $today;
         }
-        
+
         if ($game->getEndDate()) {
         	$end = $game->getEndDate();
         } else {
         	$end->add(new \DateInterval($interval));
         }
         $dateInterval = $end->diff($beginning);
-        
+
         switch ($f) {
         	case null:
         	case 'game':
@@ -137,21 +139,21 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
         				$occurrence->setInstantwin($game);
         				$occurrence->setOccurrenceDate($randomDate);
         				$occurrence->setActive(1);
-        		
+
         				$this->getInstantWinOccurrenceMapper()->insert($occurrence);
         			}
         		}
-        		
+
         		break;
         	case 'hour':
         		// TODO : Je recherche tous les IG non gagnés pour chaque jour puis soustrais à ceux à créer
         		$occurences = $this->getInstantWinOccurrenceMapper()->findBy(array('instantwin' => $game));
         		$nbOccurencesToCreate = $game->getOccurrenceNumber() - count($occurences);
         		$nbHoursInterval = $dateInterval->format('%a')*24 + $dateInterval->format('%h');
-        		
+
         		$beginningDrawDate = \DateTime::createFromFormat('m/d/Y H:i:s', $beginning->format('m/d/Y'). ' 00:00:00');
         		$endDrawDate = \DateTime::createFromFormat('m/d/Y H:i:s', $beginning->format('m/d/Y'). ' 00:59:59');
-        		
+
         		if ($nbOccurencesToCreate > 0) {
         			for ($d=1;$d<=$nbHoursInterval;$d++){
         				for ($i=1;$i<=$nbOccurencesToCreate;$i++) {
@@ -161,19 +163,19 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
         					$occurrence->setInstantwin($game);
         					$occurrence->setOccurrenceDate($randomDate);
         					$occurrence->setActive(1);
-        					 
+
         					$this->getInstantWinOccurrenceMapper()->insert($occurrence);
         				}
         				$beginningDrawDate->add(new \DateInterval('PT1H'));
         				$endDrawDate->add(new \DateInterval('PT1H'));
         			}
         		}
-        		
+
         		break;
         	case 'day':
         		// TODO : Je recherche tous les IG non gagnés pour chaque jour puis soustrais à ceux à créer
         		$occurences = $this->getInstantWinOccurrenceMapper()->findBy(array('instantwin' => $game));
-        		$nbOccurencesToCreate = $game->getOccurrenceNumber() - count($occurences);        		
+        		$nbOccurencesToCreate = $game->getOccurrenceNumber() - count($occurences);
         		$nbDaysInterval = $dateInterval->format('%a');
         		$beginningDrawDate = \DateTime::createFromFormat('m/d/Y H:i:s', $beginning->format('m/d/Y'). ' 00:00:00');
         		$endDrawDate = \DateTime::createFromFormat('m/d/Y H:i:s', $beginning->format('m/d/Y'). ' 23:59:59');
@@ -187,14 +189,14 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
 	        				$occurrence->setInstantwin($game);
 	        				$occurrence->setOccurrenceDate($randomDate);
 	        				$occurrence->setActive(1);
-	        		
+
 	        				$this->getInstantWinOccurrenceMapper()->insert($occurrence);
 	        			}
 	        			$beginningDrawDate->add(new \DateInterval('P1D'));
 	        			$endDrawDate->add(new \DateInterval('P1D'));
         			}
         		}
-        		
+
         		break;
         	case 'week':
         		// TODO : Je recherche tous les IG non gagnés pour chaque jour puis soustrais à ceux à créer
@@ -207,7 +209,7 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
         		if($endDrawDate > $end){
         			$endDrawDate = $end;
         		}
-        		
+
         		if ($nbOccurencesToCreate > 0) {
         			for ($d=1;$d<=$nbWeeksInterval;$d++){
         				//echo $beginningDrawDate->format('d/m/Y H:i:s') . " " . $endDrawDate->format('d/m/Y H:i:s') . "<br/>";
@@ -218,7 +220,7 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
         					$occurrence->setInstantwin($game);
         					$occurrence->setOccurrenceDate($randomDate);
         					$occurrence->setActive(1);
-        					 
+
         					$this->getInstantWinOccurrenceMapper()->insert($occurrence);
         				}
         				$beginningDrawDate->add(new \DateInterval('P1W'));
@@ -228,7 +230,7 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
         				}
         			}
         		}
-        		
+
        			break;
    			case 'month':
    				// TODO : Je recherche tous les IG non gagnés pour chaque jour puis soustrais à ceux à créer
@@ -242,7 +244,7 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
    				if($endDrawDate > $end){
    					$endDrawDate = $end;
    				}
-   				
+
    				if ($nbOccurencesToCreate > 0) {
    					for ($d=1;$d<=$nbMonthsInterval;$d++){
    						//echo $beginningDrawDate->format('d/m/Y H:i:s') . " " . $endDrawDate->format('d/m/Y H:i:s') . "<br/>";
@@ -253,7 +255,7 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
    							$occurrence->setInstantwin($game);
    							$occurrence->setOccurrenceDate($randomDate);
    							$occurrence->setActive(1);
-   				
+
    							$this->getInstantWinOccurrenceMapper()->insert($occurrence);
    						}
    						$beginningDrawDate->add(new \DateInterval('P1M'));
@@ -263,7 +265,7 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
    						}
    					}
    				}
-   			
+
         		break;
         }
 
@@ -294,12 +296,18 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
         $form->setData($data);
 
         $instantwin = $this->getGameMapper()->findById($data['instant_win_id']);
+        $prize = $this->getPrizeMapper()->findById($data['prize_id']);
 
         if (!$form->isValid()) {
             return false;
         }
 
         $occurrence->setInstantWin($instantwin);
+        if($prize){
+        	$occurrence->setPrize($prize);
+        } else {
+        	$occurrence->setPrize(null);
+        }
         $this->getInstantWinOccurrenceMapper()->insert($occurrence);
 
         return $occurrence;
@@ -318,8 +326,16 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
         $form->bind($occurrence);
         $form->setData($data);
 
+        $prize = $this->getPrizeMapper()->findById($data['prize']);
+
         if (!$form->isValid()) {
             return false;
+        }
+
+        if($prize){
+        	$occurrence->setPrize($prize);
+        } else {
+        	$occurrence->setPrize(null);
         }
 
         $this->getInstantWinOccurrenceMapper()->update($occurrence);
@@ -346,7 +362,7 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
 
         $instantWinOccurrencesMapper = $this->getInstantWinOccurrenceMapper();
         // si date après date de gain et date de gain encore active alors desactive date de gain, et winner !
-        $winner = $instantWinOccurrencesMapper->checkInstantWinByGameId($game, $user);
+        $winner = $instantWinOccurrencesMapper->checkInstantWinByGameId($game, $user, $entry);
         // On ferme la participation
         $entry->setActive(false);
 
@@ -392,5 +408,32 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
         $this->instantWinOccurrenceMapper = $instantWinOccurrenceMapper;
 
         return $this;
+    }
+
+    /**
+     * getPrizeMapper
+     *
+     * @return PrizeMapperInterface
+     */
+    public function getPrizeMapper()
+    {
+    	if (null === $this->prizeMapper) {
+    		$this->prizeMapper = $this->getServiceManager()->get('adfabgame_prize_mapper');
+    	}
+
+    	return $this->prizeMapper;
+    }
+
+    /**
+     * setInstantWinOccurrenceMapper
+     *
+     * @param  PrizeMapperInterface $prizeMapper
+     * @return InstantWin
+     */
+    public function setPrizeMapper($prizeMapper)
+    {
+    	$this->prizeMapper = $prizeMapper;
+
+    	return $this;
     }
 }

@@ -63,6 +63,10 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $form->get('startDate')->setOptions(array('format' => 'Y-m-d'));
         $form->get('endDate')->setOptions(array('format' => 'Y-m-d'));
         $form->get('closeDate')->setOptions(array('format' => 'Y-m-d'));
+        $count = isset($data['prizes'])?count($data['prizes']):0;
+    	if($form->get('prizes')){
+        	$form->get('prizes')->setCount($count)->prepareFieldset();
+        }
         $form->bind($game);
 
         $path = $this->getOptions()->getMediaPath() . '/';
@@ -211,6 +215,10 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $form->get('startDate')->setOptions(array('format' => 'Y-m-d'));
         $form->get('endDate')->setOptions(array('format' => 'Y-m-d'));
         $form->get('closeDate')->setOptions(array('format' => 'Y-m-d'));
+        $count = isset($data['prizes'])?count($data['prizes']):0;
+    	if($form->get('prizes')){
+        	$form->get('prizes')->setCount($count)->prepareFieldset();
+        }
         $form->bind($game);
 
         $path = $this->getOptions()->getMediaPath() . '/';
@@ -1160,5 +1168,10 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         imagedestroy($new_image_mini);
 
+    }
+    
+    public function getGameEntity()
+    {
+    	return new \AdfabGame\Entity\Game;
     }
 }

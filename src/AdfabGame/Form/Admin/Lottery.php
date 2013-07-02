@@ -46,7 +46,7 @@ class Lottery extends Game
                 ),
                 'attributes' => array(
                     'type' => 'text',
-                    'class'=> 'date'
+                    'class'=> 'datepicker'
                 ),
         ));
 

@@ -166,6 +166,8 @@ return array(
             'adfab-game/lottery/bounce'              => __DIR__ .  '/../view/adfab-game/frontend/lottery/bounce.phtml',
             'adfab-game/lottery/terms'               => __DIR__ .  '/../view/adfab-game/frontend/lottery/terms.phtml',
         	'adfab-game/lottery/fangate'             => __DIR__ .  '/../view/adfab-game/frontend/lottery/fangate.phtml',
+        	'adfab-game/lottery/prizes' 		 	 => __DIR__ .  '/../view/adfab-game/frontend/lottery/prizes.phtml',
+        	'adfab-game/lottery/prize' 			 	 => __DIR__ .  '/../view/adfab-game/frontend/lottery/prize.phtml',
             'adfab-game/post-vote/index'             => __DIR__ .  '/../view/adfab-game/frontend/postvote/index.phtml',
             'adfab-game/post-vote/list'              => __DIR__ .  '/../view/adfab-game/frontend/postvote/list.phtml',
             'adfab-game/post-vote/play'              => __DIR__ .  '/../view/adfab-game/frontend/postvote/play.phtml',
@@ -175,18 +177,24 @@ return array(
             'adfab-game/post-vote/bounce'            => __DIR__ .  '/../view/adfab-game/frontend/postvote/bounce.phtml',
             'adfab-game/post-vote/terms'             => __DIR__ .  '/../view/adfab-game/frontend/postvote/terms.phtml',
         	'adfab-game/post-vote/fangate'           => __DIR__ .  '/../view/adfab-game/frontend/postvote/fangate.phtml',
+        	'adfab-game/post-vote/prizes' 		 	 => __DIR__ .  '/../view/adfab-game/frontend/post-vote/prizes.phtml',
+        	'adfab-game/post-vote/prize' 			 => __DIR__ .  '/../view/adfab-game/frontend/post-vote/prize.phtml',
             'adfab-game/quiz/index'                  => __DIR__ .  '/../view/adfab-game/frontend/quiz/index.phtml',
             'adfab-game/quiz/play'                   => __DIR__ .  '/../view/adfab-game/frontend/quiz/play.phtml',
             'adfab-game/quiz/result'                 => __DIR__ .  '/../view/adfab-game/frontend/quiz/result.phtml',
             'adfab-game/quiz/bounce'                 => __DIR__ .  '/../view/adfab-game/frontend/quiz/bounce.phtml',
             'adfab-game/quiz/terms'                  => __DIR__ .  '/../view/adfab-game/frontend/quiz/terms.phtml',
         	'adfab-game/quiz/fangate'                => __DIR__ .  '/../view/adfab-game/frontend/quiz/fangate.phtml',
+        	'adfab-game/quiz/prizes' 		 	 	 => __DIR__ .  '/../view/adfab-game/frontend/quiz/prizes.phtml',
+        	'adfab-game/quiz/prize' 			 	 => __DIR__ .  '/../view/adfab-game/frontend/quiz/prize.phtml',
             'adfab-game/instant-win/index'           => __DIR__ .  '/../view/adfab-game/frontend/instantwin/index.phtml',
             'adfab-game/instant-win/play'            => __DIR__ .  '/../view/adfab-game/frontend/instantwin/play.phtml',
             'adfab-game/instant-win/result'          => __DIR__ .  '/../view/adfab-game/frontend/instantwin/result.phtml',
             'adfab-game/instant-win/bounce'          => __DIR__ .  '/../view/adfab-game/frontend/instantwin/bounce.phtml',
             'adfab-game/instant-win/terms'           => __DIR__ .  '/../view/adfab-game/frontend/instantwin/terms.phtml',
         	'adfab-game/instant-win/fangate'         => __DIR__ .  '/../view/adfab-game/frontend/instantwin/fangate.phtml',
+        	'adfab-game/instant-win/prizes' 		 => __DIR__ .  '/../view/adfab-game/frontend/instantwin/prizes.phtml',
+        	'adfab-game/instant-win/prize' 			 => __DIR__ .  '/../view/adfab-game/frontend/instantwin/prize.phtml',
             'adfab-game/prize-category/index'        => __DIR__ .  '/../view/adfab-game/frontend/prize-category/index.phtml',
             'adfab-game/quiz/leaderboard'            => __DIR__ .  '/../view/adfab-game/admin/quiz/leaderboard.phtml',
             'adfab-game/quiz/list-question'          => __DIR__ .  '/../view/adfab-game/admin/quiz/list-question.phtml',
@@ -367,6 +375,29 @@ return array(
                 		),
                		),
                 ),
+            	'prizes' => array(
+           			'type' => 'Literal',
+       				'options' => array(
+   						'route' => '/lots',
+   						'defaults' => array(
+ 							'controller' => 'adfabgame_quiz',
+ 							'action'     => 'prizes',
+    					),
+       				),
+       				'may_terminate' => true,
+       				'child_routes' => array(
+    					'prize' => array(
+    						'type' => 'Segment',
+        					'options' => array(
+        						'route' => '/:prize',
+        						'defaults' => array(
+        							'controller' => 'adfabgame_quiz',
+        							'action'     => 'prize',
+        						),
+        					),
+        				),
+        			),
+           		),
             ),
 
             'lottery' => array(
@@ -461,6 +492,29 @@ return array(
            				),
               		),
                 ),
+            	'prizes' => array(
+       				'type' => 'Literal',
+       				'options' => array(
+   						'route' => '/lots',
+   						'defaults' => array(
+							'controller' => 'adfabgame_lottery',
+							'action'     => 'prizes',
+   						),
+       				),
+       				'may_terminate' => true,
+       				'child_routes' => array(
+   						'prize' => array(
+							'type' => 'Segment',
+							'options' => array(
+								'route' => '/:prize',
+    							'defaults' => array(
+    								'controller' => 'adfabgame_lottery',
+    								'action'     => 'prize',
+    							),
+        					),
+        				),
+        			),
+           		),
             ),
 
             'instantwin' => array(
@@ -544,16 +598,39 @@ return array(
                             ),
                         ),
                     ),
-                		'fangate' => array(
-                				'type' => 'Literal',
-                				'options' => array(
-                						'route' => '/fangate',
-                						'defaults' => array(
-                								'controller' => 'adfabgame_instantwin',
-                								'action'     => 'fangate',
-                						),
-                				),
+                	'fangate' => array(
+               			'type' => 'Literal',
+           				'options' => array(
+                			'route' => '/fangate',
+                			'defaults' => array(
+   								'controller' => 'adfabgame_instantwin',
+                				'action'     => 'fangate',
+                			),
+               			),
+               		),
+                	'prizes' => array(
+                		'type' => 'Literal',
+                		'options' => array(
+       						'route' => '/lots',
+                			'defaults' => array(
+               					'controller' => 'adfabgame_instantwin',
+   								'action'     => 'prizes',
+                			),
                 		),
+                		'may_terminate' => true,
+                		'child_routes' => array(
+               				'prize' => array(
+   								'type' => 'Segment',
+                				'options' => array(
+                					'route' => '/:prize',
+      								'defaults' => array(
+                						'controller' => 'adfabgame_instantwin',
+      									'action'     => 'prize',
+                					),
+                				),
+                			),
+                		),
+                	),
                 ),
             ),
 
@@ -738,6 +815,29 @@ return array(
               				),
                			),
                		),
+                	'prizes' => array(
+                		'type' => 'Literal',
+                		'options' => array(
+                			'route' => '/lots',
+                			'defaults' => array(
+                				'controller' => 'adfabgame_postvote',
+                				'action'     => 'prizes',
+                			),
+                		),
+                		'may_terminate' => true,
+                		'child_routes' => array(
+                			'prize' => array(
+                				'type' => 'Segment',
+                				'options' => array(
+                					'route' => '/:prize',
+                					'defaults' => array(
+                						'controller' => 'adfabgame_postvote',
+                						'action'     => 'prize',
+                					),
+                				),
+                			),
+                		),
+                	),
                 ),
             ),
             'prizecategories' => array(

@@ -21,7 +21,7 @@ if (isset($fm[0]))
         <!--<th><?php echo $this->translate('Id'); ?></th>-->
         <th>
         	<?php echo $this->translate('Date'); ?>
-        	
+
         	<?php if($this->filter == 'ASC'): ?>
         	    <a href="<?php echo $this->url('zfcadmin/adfabgame/instantwin-occurrence-list', array('gameId' => $this->gameId, 'filter' => 'DESC')); ?>">
         	    	<img src="/images/admin/arrow-down.png" alt="" />
@@ -33,6 +33,7 @@ if (isset($fm[0]))
         	<?php endif; ?>
 
         <th><?php echo $this->translate('Gagnants'); ?></th>
+        <th><?php echo $this->translate('Lots'); ?></th>
         <th></th>
         <th></th>
     </tr>
@@ -40,9 +41,10 @@ if (isset($fm[0]))
         <tr>
             <!--<td><?php echo $occurrence->getId() ?></td>-->
             <td><?php echo $occurrence->getOccurrenceDate()->format('d/m/Y H:i') ?></td>
-            <td><?php echo (! $occurrence->getActive())? $occurrence->getUser()->getFirstName().' '.$occurrence->getUser()->getLastName() :''; ?></td>
+            <td><?php echo (! $occurrence->getActive())? $occurrence->getUser()->getEmail() :''; ?></td>
             <?php $editLink   = $this->url('zfcadmin/adfabgame/instantwin-occurrence-edit', array('gameId' => $gameId, 'occurrenceId' => $occurrence->getId()));?>
             <?php $deleteLink = $this->url('zfcadmin/adfabgame/instantwin-occurrence-remove', array('occurrenceId' => $occurrence->getId()));?>
+            <td><?php echo ($occurrence->getPrize())? $occurrence->getPrize()->getTitle():''; ?></td>
             <td><?php echo (! $occurrence->getActive())? 'Gagné' :''; ?></td>
             <td>
                 <a href='<?php echo $editLink ?>'><?php echo $this->translate('Edit'); ?></a> | <a href='<?php echo $deleteLink ?>'><?php echo $this->translate('Delete'); ?></a>

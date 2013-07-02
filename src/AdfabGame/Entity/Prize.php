@@ -14,9 +14,9 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\Table(name="game_prize")
  */
 class Prize {
-	
+
 	protected $inputFilter;
-	
+
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer");
@@ -25,59 +25,64 @@ class Prize {
 	protected $id;
 	
 	/**
+	 * @ORM\ManyToOne(targetEntity="Game", inversedBy="prizes")
+	 *
+	 **/
+	protected $game;
+
+	/**
 	 * @ORM\Column(type="string", length=255, nullable=false)
 	 */
 	protected $title;
-	
+
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=false)
 	 */
 	protected $identifier;
-	
+
 	/**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="PrizeCategory")
      * @ORM\JoinColumn(name="prize_category_id", referencedColumnName="id")
      **/
 	protected $prizeCategory;
-	
+
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	protected $content;
-	
+
 	/**
 	 * @ORM\Column(type="integer", nullable=false)
 	 */
 	protected $qty = 0;
-	
+
 	/**
 	 * @ORM\Column(name="unit_price", type="float", nullable=false)
 	 */
 	protected $unitPrice = 1;
-	
+
 	/**
 	 * @ORM\Column(type="string", length=10, nullable=true)
 	 */
 	protected $currency;
-	
+
 	/**
 	 * @ORM\Column(type="datetime")
 	 */
 	protected $created_at;
-	
+
 	/**
 	 * @ORM\Column(type="datetime")
 	 */
 	protected $updated_at;
-	
+
 	/** @PrePersist */
 	public function createChrono()
 	{
 		$this->created_at = new \DateTime("now");
 		$this->updated_at = new \DateTime("now");
 	}
-	
+
 	/** @PreUpdate */
 	public function updateChrono()
 	{
@@ -96,6 +101,24 @@ class Prize {
 	 */
 	public function setId($id) {
 		$this->id = $id;
+	}
+	
+	/**
+	 * @return the unknown_type
+	 */
+	public function getGame()
+	{
+		return $this->game;
+	}
+	
+	/**
+	 * @param unknown_type $game
+	 */
+	public function setGame($game)
+	{
+		$this->game = $game;
+	
+		return $this;
 	}
 
 	/**
@@ -223,6 +246,50 @@ class Prize {
 	public function setUpdated_at($updated_at) {
 		$this->updated_at = $updated_at;
 	}
+	
+	/**
+	 * Convert the object to an array.
+	 *
+	 * @return array
+	 */
+	public function getArrayCopy()
+	{
+		$obj_vars = get_object_vars($this);
+	
+		return $obj_vars;
+	}
+	
+	/**
+	 * Populate from an array.
+	 *
+	 * @param array $data
+	 */
+	public function populate($data = array())
+	{
+		if (isset($data['content']) && $data['content'] != null) {
+			$this->content = $data['content'];
+		}
+	
+		if (isset($data['title']) && $data['title'] != null) {
+			$this->title = $data['title'];
+		}
+	
+		if (isset($data['qty']) && $data['qty'] != null) {
+			$this->qty = $data['qty'];
+		}
+	
+		if (isset($data['identifier']) && $data['identifier'] != null) {
+			$this->identifier = $data['identifier'];
+		}
+	
+		if (isset($data['unitPrice']) && $data['unitPrice'] != null) {
+			$this->unitPrice = $data['unitPrice'];
+		}
+	
+		if (isset($data['currency']) && $data['currency'] != null) {
+			$this->currency = $data['currency'];
+		}
+	}
 
 	/**
 	 * @return the $inputFilter
@@ -231,13 +298,13 @@ class Prize {
 		if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $factory = new InputFactory();
-            
+
             $this->inputFilter = $inputFilter;
         }
-            
+
         return $this->inputFilter;
 	}
-	
+
 	/**
 	 * @param field_type $inputFilter
 	 */

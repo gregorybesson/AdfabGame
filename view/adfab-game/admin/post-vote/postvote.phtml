@@ -13,6 +13,7 @@ $form->prepare();
     <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
         <li class="active"><a href="#general" data-toggle="tab"><?php echo $this->translate('General'); ?></a></li>
         <li><a href="#mechanics" data-toggle="tab"><?php echo $this->translate('Game Mechanics'); ?></a></li>
+        <li><a href="#prizes" data-toggle="tab"><?php echo $this->translate('Lots'); ?></a></li>
         <li><a href="#platform" data-toggle="tab"><?php echo $this->translate('Plateforme'); ?></a></li>
         <li><a href="#facebook" data-toggle="tab"><?php echo $this->translate('Facebook'); ?></a></li>
         <li><a href="#design" data-toggle="tab"><?php echo $this->translate('Design'); ?></a></li>
@@ -48,7 +49,7 @@ $form->prepare();
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
         $('#tabs').tab();
-        $('.date').datepicker({
+        $('.datepicker').datepicker({
             dateFormat : 'dd/mm/yy'
         });
     });
