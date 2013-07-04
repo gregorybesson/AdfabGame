@@ -73,9 +73,6 @@ class Quiz extends Game implements ServiceManagerAwareInterface
 
         if (!empty($data['upload_image']['tmp_name'])) {
             ErrorHandler::start();
-			if(strpos($data['upload_image']['name'], ' ') > 0){
-				$data['upload_image']['name'] = str_replace(" ","_",$data['upload_image']['name']);
-			}
             move_uploaded_file($data['upload_image']['tmp_name'], $path . $question->getId() . "-" . $data['upload_image']['name']);
             $question->setImage($media_url . $question->getId() . "-" . $data['upload_image']['name']);
             ErrorHandler::stop(true);
@@ -108,9 +105,6 @@ class Quiz extends Game implements ServiceManagerAwareInterface
 
         if (!empty($data['upload_image']['tmp_name'])) {
             ErrorHandler::start();
-			if(strpos($data['upload_image']['name'], ' ') > 0){
-				$data['upload_image']['name'] = str_replace(" ","_",$data['upload_image']['name']);
-			}
             move_uploaded_file($data['upload_image']['tmp_name'], $path . $question->getId() . "-" . $data['upload_image']['name']);
             $question->setImage($media_url . $question->getId() . "-" . $data['upload_image']['name']);
             ErrorHandler::stop(true);

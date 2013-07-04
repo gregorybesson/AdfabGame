@@ -64,8 +64,8 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $form->get('endDate')->setOptions(array('format' => 'Y-m-d'));
         $form->get('closeDate')->setOptions(array('format' => 'Y-m-d'));
         $count = isset($data['prizes'])?count($data['prizes']):0;
-    	if($form->get('prizes')){
-        	$form->get('prizes')->setCount($count)->prepareFieldset();
+        if($form->get('prizes')){
+            $form->get('prizes')->setCount($count)->prepareFieldset();
         }
         $form->bind($game);
 
@@ -82,7 +82,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $identifierInput->getValidatorChain()->addValidator($noObjectExistsValidator);
 
         // I must switch from original format to the Y-m-d format because this is the only one accepted by new DateTime($value)
-    	if (isset($data['publicationDate']) && $data['publicationDate']) {
+        if (isset($data['publicationDate']) && $data['publicationDate']) {
             $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['publicationDate']);
             $data['publicationDate'] = $tmpDate->format('Y-m-d');
         }
@@ -112,26 +112,26 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $form->setData($data);
 
         if (!$form->isValid()) {
-        	if (isset($data['publicationDate']) && $data['publicationDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['publicationDate']);
-	            $data['publicationDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('publicationDate' => $data['publicationDate']));
-	        }
-			if (isset($data['startDate']) && $data['startDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['startDate']);
-	            $data['startDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('startDate' => $data['startDate']));
-	        }
-			if (isset($data['endDate']) && $data['endDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['endDate']);
-	            $data['endDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('endDate' => $data['endDate']));
-	        }
-			if (isset($data['closeDate']) && $data['closeDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['closeDate']);
-	            $data['closeDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('closeDate' => $data['closeDate']));
-	        }
+            if (isset($data['publicationDate']) && $data['publicationDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['publicationDate']);
+                $data['publicationDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('publicationDate' => $data['publicationDate']));
+            }
+            if (isset($data['startDate']) && $data['startDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['startDate']);
+                $data['startDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('startDate' => $data['startDate']));
+            }
+            if (isset($data['endDate']) && $data['endDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['endDate']);
+                $data['endDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('endDate' => $data['endDate']));
+            }
+            if (isset($data['closeDate']) && $data['closeDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['closeDate']);
+                $data['closeDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('closeDate' => $data['closeDate']));
+            }
             return false;
         }
 
@@ -151,9 +151,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if (!empty($data['uploadMainImage']['tmp_name'])) {
             ErrorHandler::start();
-			if(strpos($data['uploadMainImage']['name'], ' ') > 0){
-				$data['uploadMainImage']['name'] = str_replace(" ","_",$data['uploadMainImage']['name']);
-			}
             move_uploaded_file($data['uploadMainImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadMainImage']['name']);
             $game->setMainImage($media_url . $game->getId() . "-" . $data['uploadMainImage']['name']);
             ErrorHandler::stop(true);
@@ -161,9 +158,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if (!empty($data['uploadSecondImage']['tmp_name'])) {
             ErrorHandler::start();
-			if(strpos($data['uploadSecondImage']['name'], ' ') > 0){
-				$data['uploadSecondImage']['name'] = str_replace(" ","_",$data['uploadSecondImage']['name']);
-			}
             move_uploaded_file($data['uploadSecondImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadSecondImage']['name']);
             $game->setSecondImage($media_url . $game->getId() . "-" . $data['uploadSecondImage']['name']);
             ErrorHandler::stop(true);
@@ -171,9 +165,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if (!empty($data['uploadFbShareImage']['tmp_name'])) {
             ErrorHandler::start();
-			if(strpos($data['uploadFbShareImage']['name'], ' ') > 0){
-				$data['uploadFbShareImage']['name'] = str_replace(" ","_",$data['uploadFbShareImage']['name']);
-			}
             move_uploaded_file($data['uploadFbShareImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadFbShareImage']['name']);
             $game->setFbShareImage($media_url . $game->getId() . "-" . $data['uploadFbShareImage']['name']);
             ErrorHandler::stop(true);
@@ -181,9 +172,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if (!empty($data['uploadFbPageTabImage']['tmp_name'])) {
             ErrorHandler::start();
-			if(strpos($data['uploadFbPageTabImage']['name'], ' ') > 0){
-				$data['uploadFbPageTabImage']['name'] = str_replace(" ","_",$data['uploadFbPageTabImage']['name']);
-			}
             $extension = $this->getExtension ( strtolower ( $data['uploadFbPageTabImage']['name'] ) );
             $src = $this->get_src ($extension, $data['uploadFbPageTabImage']['tmp_name']);
             $this->resize($data['uploadFbPageTabImage']['tmp_name'],$extension, $path . $game->getId() . "-" . $data['uploadFbPageTabImage']['name'], $src,  111, 74);
@@ -216,27 +204,27 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $form->get('endDate')->setOptions(array('format' => 'Y-m-d'));
         $form->get('closeDate')->setOptions(array('format' => 'Y-m-d'));
         $count = isset($data['prizes'])?count($data['prizes']):0;
-    	if($form->get('prizes')){
-        	$form->get('prizes')->setCount($count)->prepareFieldset();
+        if($form->get('prizes')){
+            $form->get('prizes')->setCount($count)->prepareFieldset();
         }
         $form->bind($game);
 
         $path = $this->getOptions()->getMediaPath() . '/';
         $media_url = $this->getOptions()->getMediaUrl() . '/';
-		
-		$identifierInput = $form->getInputFilter()->get('identifier');
+        
+        $identifierInput = $form->getInputFilter()->get('identifier');
         $noObjectExistsValidator = new NoObjectExistsValidator(array(
             'object_repository' => $entityManager->getRepository('AdfabGame\Entity\Game'),
             'fields'            => 'identifier',
             'messages'          => array('objectFound' => 'This url already exists !')
         ));
-		
-		if($game->getIdentifier() != $data['identifier']){
-			$identifierInput->getValidatorChain()->addValidator($noObjectExistsValidator);
-		}
+        
+        if($game->getIdentifier() != $data['identifier']){
+            $identifierInput->getValidatorChain()->addValidator($noObjectExistsValidator);
+        }
     
-    	// I must switch from original format to the Y-m-d format because this is the only one accepted by new DateTime($value)
-    	if (isset($data['publicationDate']) && $data['publicationDate']) {
+        // I must switch from original format to the Y-m-d format because this is the only one accepted by new DateTime($value)
+        if (isset($data['publicationDate']) && $data['publicationDate']) {
             $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['publicationDate']);
             $data['publicationDate'] = $tmpDate->format('Y-m-d');
         }
@@ -273,34 +261,31 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         }
 
         if (!$form->isValid()) {
-        	if (isset($data['publicationDate']) && $data['publicationDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['publicationDate']);
-	            $data['publicationDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('publicationDate' => $data['publicationDate']));
-	        }
-			if (isset($data['startDate']) && $data['startDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['startDate']);
-	            $data['startDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('startDate' => $data['startDate']));
-	        }
-			if (isset($data['endDate']) && $data['endDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['endDate']);
-	            $data['endDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('endDate' => $data['endDate']));
-	        }
-			if (isset($data['closeDate']) && $data['closeDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['closeDate']);
-	            $data['closeDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('closeDate' => $data['closeDate']));
-	        }
+            if (isset($data['publicationDate']) && $data['publicationDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['publicationDate']);
+                $data['publicationDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('publicationDate' => $data['publicationDate']));
+            }
+            if (isset($data['startDate']) && $data['startDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['startDate']);
+                $data['startDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('startDate' => $data['startDate']));
+            }
+            if (isset($data['endDate']) && $data['endDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['endDate']);
+                $data['endDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('endDate' => $data['endDate']));
+            }
+            if (isset($data['closeDate']) && $data['closeDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['closeDate']);
+                $data['closeDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('closeDate' => $data['closeDate']));
+            }
             return false;
         }
 
         if (!empty($data['uploadMainImage']['tmp_name'])) {
             ErrorHandler::start();
-			if(strpos($data['uploadMainImage']['name'], ' ') > 0){
-				$data['uploadMainImage']['name'] = str_replace(" ","_",$data['uploadMainImage']['name']);
-			}
             move_uploaded_file($data['uploadMainImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadMainImage']['name']);
             $game->setMainImage($media_url . $game->getId() . "-" . $data['uploadMainImage']['name']);
             ErrorHandler::stop(true);
@@ -308,9 +293,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if (!empty($data['uploadSecondImage']['tmp_name'])) {
             ErrorHandler::start();
-			if(strpos($data['uploadSecondImage']['name'], ' ') > 0){
-				$data['uploadSecondImage']['name'] = str_replace(" ","_",$data['uploadSecondImage']['name']);
-			}
             move_uploaded_file($data['uploadSecondImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadSecondImage']['name']);
             $game->setSecondImage($media_url . $game->getId() . "-" . $data['uploadSecondImage']['name']);
             ErrorHandler::stop(true);
@@ -325,9 +307,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if (!empty($data['uploadFbShareImage']['tmp_name'])) {
             ErrorHandler::start();
-			if(strpos($data['uploadFbShareImage']['name'], ' ') > 0){
-				$data['uploadFbShareImage']['name'] = str_replace(" ","_",$data['uploadFbShareImage']['name']);
-			}
             move_uploaded_file($data['uploadFbShareImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadFbShareImage']['name']);
             $game->setFbShareImage($media_url . $game->getId() . "-" . $data['uploadFbShareImage']['name']);
             ErrorHandler::stop(true);
@@ -335,9 +314,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if (!empty($data['uploadFbPageTabImage']['tmp_name'])) {
             ErrorHandler::start();
-			if(strpos($data['uploadFbPageTabImage']['name'], ' ') > 0){
-				$data['uploadFbPageTabImage']['name'] = str_replace(" ","_",$data['uploadFbPageTabImage']['name']);
-			}
+
             $extension = $this->getExtension ( strtolower ( $data['uploadFbPageTabImage']['name'] ) );
             $src = $this->get_src ($extension, $data['uploadFbPageTabImage']['tmp_name']);
             $this->resize($data['uploadFbPageTabImage']['tmp_name'],$extension, $path . $game->getId() . "-" . $data['uploadFbPageTabImage']['name'], $src,  111, 74);
@@ -595,22 +572,22 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     
     public function checkIsFan($game)
     {
-    	// If on Facebook, check if you have to be a FB fan to play the game
-    	$session = new Container('facebook');
-    	
-    	if ($session->offsetExists('signed_request')) {
-    		// I'm on Facebook
-    		$sr = $session->offsetGet('signed_request');
-    		if($sr['page']['liked'] == 1){
+        // If on Facebook, check if you have to be a FB fan to play the game
+        $session = new Container('facebook');
+        
+        if ($session->offsetExists('signed_request')) {
+            // I'm on Facebook
+            $sr = $session->offsetGet('signed_request');
+            if($sr['page']['liked'] == 1){
     
-    			return true;
-    		}
-    	} else{
-    		// I'm not on Facebook
-    		return true;
-    	}
+                return true;
+            }
+        } else{
+            // I'm not on Facebook
+            return true;
+        }
     
-    	return false;
+        return false;
     }
 
     /**
@@ -660,10 +637,10 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         $mailService = $this->getServiceManager()->get('adfabgame_message');
         $mailSent    = false;
-        $from 	 	 = $this->getOptions()->getEmailFromAddress();
-		$subject 	 = $this->getOptions()->getShareSubjectLine();
-		$renderer 	 = $this->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
-        $skinUrl 	 = $renderer->url('home', array(), array('force_canonical' => true));
+        $from        = $this->getOptions()->getEmailFromAddress();
+        $subject     = $this->getOptions()->getShareSubjectLine();
+        $renderer    = $this->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
+        $skinUrl     = $renderer->url('home', array(), array('force_canonical' => true));
         $secretKey   = strtoupper(substr(sha1($user->getId().'####'.time()),0,15));
 
 
@@ -699,11 +676,11 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     {
 
         $mailService = $this->getServiceManager()->get('adfabgame_message');
-        $from 		 = $this->getOptions()->getEmailFromAddress();
+        $from        = $this->getOptions()->getEmailFromAddress();
         $to          = $user->getEmail();
-        $subject 	 = $this->getOptions()->getParticipationSubjectLine();
-		$renderer    = $this->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
-        $skinUrl 	 = $renderer->url('home', array(), array('force_canonical' => true));
+        $subject     = $this->getOptions()->getParticipationSubjectLine();
+        $renderer    = $this->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
+        $skinUrl     = $renderer->url('home', array(), array('force_canonical' => true));
 
         $message = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'post' => $post, 'skinUrl' => $skinUrl));
         $mailService->send($message);
@@ -863,51 +840,32 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
             return $err;
         } else {
 
-            $fileNewname = $this->fileNewname($path, $file['name']);
-			
-            $adapter = new \Zend\File\Transfer\Adapter\Http();
-            // 500ko
-            $size = new Size(array('max'=>512000));
-            $is_image = new IsImage('jpeg,png,gif,jpg');
-            $adapter->setValidators(array($size, $is_image), $fileNewname);
+            if (file_exists($path.$file["name"])) {
+                $message.='File already exist';
 
-            if (!$adapter->isValid()) {
-                $dataError = $adapter->getMessages();
-                $error = array();
-                foreach ($dataError as $key=>$row) {
-                    $error[] = $row;
+                return $file["name"];
+            } else {
+                $adapter = new \Zend\File\Transfer\Adapter\Http();
+                // 500ko
+                $size = new Size(array('max'=>512000));
+                $is_image = new IsImage('jpeg,png,gif,jpg');
+                $adapter->setValidators(array($size, $is_image), $file['name']);
+
+                if (!$adapter->isValid()) {
+                    $dataError = $adapter->getMessages();
+                    $error = array();
+                    foreach ($dataError as $key=>$row) {
+                        $error[] = $row;
+                    }
+
+                    return false;
                 }
-
-                return false;
+                @move_uploaded_file($file["tmp_name"],$path.$file["name"]);
             }
-            @move_uploaded_file($file["tmp_name"],$path.$fileNewname);
         }
 
-        return $fileNewname;
+        return $file["name"];
     }
-
-	public function fileNewname($path, $filename){
-	    if ($pos = strrpos($filename, '.')) {
-	        $name = substr($filename, 0, $pos);
-			if(strpos($name, ' ') > 0){
-				$name= str_replace(" ","_",$name);
-			}
-	        $ext = substr($filename, $pos);
-	    } else {
-	        $name = $filename;
-	    }
-	
-	    $newpath = $path.$filename;
-	    $newname = $filename;
-	    $counter = 0;
-	    while (file_exists($newpath)) {
-	        $newname = $name .'_'. $counter . $ext;
-	        $newpath = $path.$newname;
-	        $counter++;
-	    }
-	
-	    return $newname;
-	}
 
     public function findBy($array, $sort)
     {
@@ -923,82 +881,82 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     {
         return $this->getEntryMapper()->findAll();
     }
-	
-	/**
+    
+    /**
      * This function returns the list of games, order by $type
      */
     public function getGamesOrderBy($type='createdAt', $order='DESC')
-	{
-		$em = $this->getServiceManager()->get('zfcuser_doctrine_em');
-		$today = new \DateTime("now");
-		$today = $today->format('Y-m-d') . ' 23:59:59';
-		
-		$onlineGames = '(
-			(
-				CASE WHEN (
-					g.active = 1
-					AND g.broadcastPlatform = 1
-					AND (g.startDate <= :date OR g.startDate IS NULL)
-					AND (g.closeDate >= :date OR g.closeDate IS NULL)
-				) THEN 1 ELSE 0 END
-			) +
-			(
-				CASE WHEN (
-					g.active = 0
-					AND (g.broadcastPlatform = 0 OR g.broadcastPlatform IS NULL)
-					AND g.startDate > :date
-					AND g.closeDate < :date
-				) THEN 1 ELSE 0 END
-			)
-		)';
-		
-		switch ($type) {
-			case 'startDate' :
-				$filter = 'g.startDate';
-				break;
+    {
+        $em = $this->getServiceManager()->get('zfcuser_doctrine_em');
+        $today = new \DateTime("now");
+        $today = $today->format('Y-m-d') . ' 23:59:59';
+        
+        $onlineGames = '(
+            (
+                CASE WHEN (
+                    g.active = 1
+                    AND g.broadcastPlatform = 1
+                    AND (g.startDate <= :date OR g.startDate IS NULL)
+                    AND (g.closeDate >= :date OR g.closeDate IS NULL)
+                ) THEN 1 ELSE 0 END
+            ) +
+            (
+                CASE WHEN (
+                    g.active = 0
+                    AND (g.broadcastPlatform = 0 OR g.broadcastPlatform IS NULL)
+                    AND g.startDate > :date
+                    AND g.closeDate < :date
+                ) THEN 1 ELSE 0 END
+            )
+        )';
+        
+        switch ($type) {
+            case 'startDate' :
+                $filter = 'g.startDate';
+                break;
             case 'activeGames' :
-				$filter = 'g.active';
-				break;
-			case 'onlineGames' :
-				$filter = $onlineGames;
-				break;
-			case 'createdAt' :
+                $filter = 'g.active';
+                break;
+            case 'onlineGames' :
+                $filter = $onlineGames;
+                break;
+            case 'createdAt' :
                 $filter = 'g.createdAt';
                 break;
-		}
-		
-		$query = $em->createQuery('
-			SELECT g FROM AdfabGame\Entity\Game g
-			ORDER BY '.$filter.' '.$order.'
-		');
-		if($filter == $onlineGames) {
-			$query->setParameter('date', $today);
-		}
+        }
+        
+        $query = $em->createQuery('
+            SELECT g FROM AdfabGame\Entity\Game g
+            ORDER BY '.$filter.' '.$order.'
+        ');
+        if($filter == $onlineGames) {
+            $query->setParameter('date', $today);
+        }
         $games = $query->getResult();
 
         return $games;
-	}
-	
-	/**
+    }
+    
+    /**
      * This function returns the user's first entry if it's his first participation in $game
      * @param  unknown_type $game
      */
-	public function findFirstEntries($game)
-	{
-		$em = $this->getServiceManager()->get('zfcuser_doctrine_em');
-		
-		$query = $em->createQuery('
-			SELECT e
-			FROM AdfabGame\Entity\Entry e
-			WHERE e.id IN (SELECT l.id FROM AdfabGame\Entity\Entry l GROUP BY l.user)
-			AND e.game = :game
-			ORDER BY e.created_at ASC
-		');
-				
-		$query->setParameter('game', $game);
-		$result = $query->getResult();
-		return $result;
-	}
+    public function findFirstEntries($game)
+    {
+        $em = $this->getServiceManager()->get('zfcuser_doctrine_em');
+        
+        $query = $em->createQuery('
+            SELECT e
+            FROM AdfabGame\Entity\Entry e
+            WHERE e.id IN (SELECT l.id FROM AdfabGame\Entity\Entry l GROUP BY l.user)
+            AND e.game = :game
+            ORDER BY e.created_at ASC
+        ');
+                
+        $query->setParameter('game', $game);
+        $result = $query->getResult();
+        return $result;
+    }
 
     /**
      * getGameMapper
@@ -1172,6 +1130,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     
     public function getGameEntity()
     {
-    	return new \AdfabGame\Entity\Game;
+        return new \AdfabGame\Entity\Game;
     }
 }
