@@ -66,6 +66,10 @@ class GameController extends AbstractActionController
                     'pageGames' => 'games',
                     'pageWinners' => ''
                 ),
+                'headParams' => array(
+                    'headTitle' => $game->getTitle(),
+                    'headDescription' => $game->getTitle(),
+                ),
             )
         );
 
@@ -450,6 +454,10 @@ class GameController extends AbstractActionController
                     'pageGames' => 'games',
                     'pageWinners' => ''
                 ),
+                'headParams' => array(
+                    'headTitle' => $game->getTitle(),
+                    'headDescription' => $game->getTitle(),
+                ),
             )
         );
 
@@ -516,6 +524,10 @@ class GameController extends AbstractActionController
                     'pageGames' => 'games',
                     'pageWinners' => ''
                 ),
+                'headParams' => array(
+                    'headTitle' => $game->getTitle(),
+                    'headDescription' => $game->getTitle(),
+                ),
             )
         );
 		$fbAppId = '';
@@ -564,23 +576,6 @@ class GameController extends AbstractActionController
         $bitlyclient = $this->getOptions()->getBitlyUrl();
         $bitlyuser = $this->getOptions()->getBitlyUsername();
         $bitlykey = $this->getOptions()->getBitlyApiKey();
-        
-        // Head title
-        $viewHelperManager = $this->getServiceLocator()->get('viewHelperManager');
-        $headTitleHelper   = $viewHelperManager->get('headTitle');
-        $headTitleHelper->append($game->getTitle());
-        $headTitle='';
-        if (isset($config['defaultHead']['defaultHeadTitle'])) {
-            $headTitle = $config['defaultHead']['defaultHeadTitle'];
-            $headTitleHelper->append($headTitle);
-        }
-        
-        // Head Meta description
-        $description = 'Découvrez le jeu ' . $game->getTitle();
-        if (isset($config['defaultHead']['gameHeadDescription'])) {
-            $description .= $config['defaultHead']['gameHeadDescription'];
-        }
-        $this->getViewHelper('HeadMeta')->setName('description', $description);
 
         $this->getViewHelper('HeadMeta')->setProperty('og:title', $fbShareMessage);
         $this->getViewHelper('HeadMeta')->setProperty('og:image', $fbShareImage);
@@ -647,6 +642,10 @@ class GameController extends AbstractActionController
     							'pageGames' => 'games',
     							'pageWinners' => ''
     					),
+                        'headParams' => array(
+                            'headTitle' => $game->getTitle(),
+                            'headDescription' => $game->getTitle(),
+                        ),
     			)
     	);
 
@@ -724,6 +723,10 @@ class GameController extends AbstractActionController
     							'pageGames' => 'games',
     							'pageWinners' => ''
     					),
+                        'headParams' => array(
+                            'headTitle' => $game->getTitle(),
+                            'headDescription' => $game->getTitle(),
+                        ),
     			)
     	);
 
