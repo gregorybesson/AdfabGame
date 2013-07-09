@@ -50,6 +50,18 @@ class InstantWinOccurrence implements InputFilterAwareInterface
      **/
     protected $user;
 
+	/**
+     * @ORM\OneToOne(targetEntity="Entry")
+   	 * @ORM\JoinColumn(name="entry_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $entry;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Prize")
+     * @ORM\JoinColumn(name="prize_id", referencedColumnName="id", onDelete="CASCADE")
+     **/
+    protected $prize;
+
     /**
      * @ORM\Column(type="datetime")
      */
@@ -121,6 +133,24 @@ class InstantWinOccurrence implements InputFilterAwareInterface
     /**
      * @return the unknown_type
      */
+    public function getPrize()
+    {
+    	return $this->prize;
+    }
+
+    /**
+     * @param unknown_type $prize
+     */
+    public function setPrize($prize)
+    {
+    	$this->prize = $prize;
+
+    	return $this;
+    }
+
+    /**
+     * @return the unknown_type
+     */
     public function getOccurrenceDate()
     {
         return $this->occurrence_date;
@@ -168,6 +198,24 @@ class InstantWinOccurrence implements InputFilterAwareInterface
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return AdfabGame\Entity\Entry
+     */
+    public function getEntry()
+    {
+    	return $this->entry;
+    }
+
+    /**
+     * @param AdfabGame\Entity\Entry $entry
+     */
+    public function setEntry($entry)
+    {
+    	$this->entry = $entry;
+
+    	return $this;
     }
 
     /**
@@ -255,6 +303,11 @@ class InstantWinOccurrence implements InputFilterAwareInterface
             $inputFilter->add($factory->createInput(array(
                 'name' => 'active',
                 'required' => true,
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+            		'name' => 'prize',
+            		'required' => false,
             )));
 
             $this->inputFilter = $inputFilter;

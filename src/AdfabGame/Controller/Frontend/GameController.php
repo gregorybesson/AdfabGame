@@ -14,6 +14,8 @@ class GameController extends AbstractActionController
      */
     protected $gameService;
 
+    protected $prizeService;
+
     protected $options;
 
     public function indexAction()
@@ -27,7 +29,7 @@ class GameController extends AbstractActionController
         if (!$game) {
             return $this->notFoundAction();
         }
-        
+
         // If on Facebook, check if you have to be a FB fan to play the game
         if($game->getFbFan()){
         	$isFan = $sg->checkIsFan($game);
@@ -63,6 +65,10 @@ class GameController extends AbstractActionController
                 'currentPage' => array(
                     'pageGames' => 'games',
                     'pageWinners' => ''
+                ),
+                'headParams' => array(
+                    'headTitle' => $game->getTitle(),
+                    'headDescription' => $game->getTitle(),
                 ),
             )
         );
@@ -174,7 +180,7 @@ class GameController extends AbstractActionController
         $adserving = $this->getOptions()->getAdServing();
         $adserving['cat2'] = 'game';
         $adserving['cat3'] = '&EASTgameid='.$game->getId();
-        
+
         // I change the label of the quiz in the breadcrumb ...
         $this->layout()->setVariables(
             array(
@@ -188,7 +194,7 @@ class GameController extends AbstractActionController
         );
 
         $fbShareMessage = $this->getOptions()->getDefaultShareMessage();
-        
+
         if ($game->getFbShareMessage()) {
             $fbShareMessage = $game->getFbShareMessage();
         } else {
@@ -214,7 +220,7 @@ class GameController extends AbstractActionController
         } else {
             $fbRequestMessage = urlencode(str_replace('__placeholder__', $game->getTitle(), $this->getOptions()->getDefaultShareMessage()));
         }
-        
+
         if ($game->getTwShareMessage()) {
             $twShareMessage = $game->getTwShareMessage() . $socialLinkUrl;
         } else {
@@ -383,7 +389,7 @@ class GameController extends AbstractActionController
         $adserving = $this->getOptions()->getAdServing();
         $adserving['cat2'] = 'game';
         $adserving['cat3'] = '&EASTgameid='.$game->getId();
-        
+
         // I change the label of the quiz in the breadcrumb ...
         $this->layout()->setVariables(
             array(
@@ -438,7 +444,7 @@ class GameController extends AbstractActionController
         $adserving = $this->getOptions()->getAdServing();
         $adserving['cat2'] = 'game';
         $adserving['cat3'] = '&EASTgameid='.$game->getId();
-        
+
         // I change the label of the quiz in the breadcrumb ...
         $this->layout()->setVariables(
             array(
@@ -447,6 +453,10 @@ class GameController extends AbstractActionController
                 'currentPage' => array(
                     'pageGames' => 'games',
                     'pageWinners' => ''
+                ),
+                'headParams' => array(
+                    'headTitle' => $game->getTitle(),
+                    'headDescription' => $game->getTitle(),
                 ),
             )
         );
@@ -504,7 +514,7 @@ class GameController extends AbstractActionController
         $adserving = $this->getOptions()->getAdServing();
         $adserving['cat2'] = 'game';
         $adserving['cat3'] = '&EASTgameid='.$game->getId();
-        
+
         // I change the label of the quiz in the breadcrumb ...
         $this->layout()->setVariables(
             array(
@@ -514,18 +524,22 @@ class GameController extends AbstractActionController
                     'pageGames' => 'games',
                     'pageWinners' => ''
                 ),
+                'headParams' => array(
+                    'headTitle' => $game->getTitle(),
+                    'headDescription' => $game->getTitle(),
+                ),
             )
         );
 		$fbAppId = '';
-		$config = $sg->getServiceManager()->get('config');        
+		$config = $sg->getServiceManager()->get('config');
         $basePath = $this->getRequest()->getUri()->getHost();
-		
+
 		if($basePath == $config['channel']['facebook']){
 			$fbAppId = $game->getFbAppId();
 		} elseif (isset($config['facebook']['fb_appid'])) {
             $fbAppId = $config['facebook']['fb_appid'];
         }
-        
+
         if ($game->getFbShareMessage()) {
             $fbShareMessage = $game->getFbShareMessage();
         } else {
@@ -552,7 +566,7 @@ class GameController extends AbstractActionController
             $fbRequestMessage = str_replace('__placeholder__', $game->getTitle(), $this->getOptions()->getDefaultShareMessage());
         }
 
-        
+
         if ($game->getTwShareMessage()) {
             $twShareMessage = $game->getTwShareMessage() . $socialLinkUrl;
         } else {
@@ -589,7 +603,166 @@ class GameController extends AbstractActionController
             )
         );
     }
-    
+
+    public function prizesAction()
+    {
+    	$identifier = $this->getEvent()->getRouteMatch()->getParam('id');
+    	$user = $this->zfcUserAuthentication()->getIdentity();
+    	$sg = $this->getGameService();
+
+    	$game = $sg->checkGame($identifier);
+    	if (!$game) {
+    		return $this->notFoundAction();
+    	}
+
+    	if (count($game->getPrizes()) == 0){
+    		return $this->notFoundAction();
+    	}
+
+    	// If this game has a specific layout...
+    	if ($game->getLayout()) {
+    		$layoutViewModel = $this->layout();
+    		$layoutViewModel->setTemplate($game->getLayout());
+    	}
+
+    	// If this game has a specific stylesheet...
+    	if ($game->getStylesheet()) {
+    		$this->getViewHelper('HeadLink')->appendStylesheet($this->getRequest()->getBaseUrl(). '/' . $game->getStylesheet());
+    	}
+
+    	$adserving = $this->getOptions()->getAdServing();
+    	$adserving['cat2'] = 'game';
+    	$adserving['cat3'] = '&EASTgameid='.$game->getId();
+    	// I change the label in the breadcrumb ...
+    	$this->layout()->setVariables(
+    			array(
+    					'breadcrumbTitle' => $game->getTitle(),
+    					'adserving'       => $adserving,
+    					'currentPage' => array(
+    							'pageGames' => 'games',
+    							'pageWinners' => ''
+    					),
+                        'headParams' => array(
+                            'headTitle' => $game->getTitle(),
+                            'headDescription' => $game->getTitle(),
+                        ),
+    			)
+    	);
+
+    	$fbAppId = '';
+    	$config = $sg->getServiceManager()->get('config');
+    	if (isset($config['facebook']['fb_appid'])) {
+    		$fbAppId = $config['facebook']['fb_appid'];
+    	}
+
+    	$bitlyclient = $this->getOptions()->getBitlyUrl();
+    	$bitlyuser = $this->getOptions()->getBitlyUsername();
+    	$bitlykey = $this->getOptions()->getBitlyApiKey();
+
+    	$this->getViewHelper('HeadMeta')->setProperty('fb:app', $fbAppId);
+    	$this->getViewHelper('HeadMeta')->setProperty('bt:client', $bitlyclient);
+    	$this->getViewHelper('HeadMeta')->setProperty('bt:user', $bitlyuser);
+    	$this->getViewHelper('HeadMeta')->setProperty('bt:key', $bitlykey);
+
+    	// right column
+    	$column = new ViewModel();
+    	$column->setTemplate($this->layout()->col_right);
+    	$column->setVariables(array('game' => $game));
+
+    	$this->layout()->addChild($column, 'column_right');
+
+    	$viewModel = new ViewModel(
+    		array(
+    			'game'             => $game,
+    			'flashMessages'    => $this->flashMessenger()->getMessages(),
+    		)
+    	);
+
+    	return $viewModel;
+    }
+
+    public function prizeAction()
+    {
+    	$identifier = $this->getEvent()->getRouteMatch()->getParam('id');
+    	$user = $this->zfcUserAuthentication()->getIdentity();
+    	$sg = $this->getGameService();
+
+    	$game = $sg->checkGame($identifier);
+    	if (!$game) {
+    		return $this->notFoundAction();
+    	}
+
+    	$prizeIdentifier = $this->getEvent()->getRouteMatch()->getParam('prize');
+		$sp = $this->getPrizeService();
+
+		$prize = $sp->getPrizeMapper()->findByIdentifier($prizeIdentifier);
+		if (!$prize) {
+			return $this->notFoundAction();
+		}
+
+    	// If this game has a specific layout...
+    	if ($game->getLayout()) {
+    		$layoutViewModel = $this->layout();
+    		$layoutViewModel->setTemplate($game->getLayout());
+    	}
+
+    	// If this game has a specific stylesheet...
+    	if ($game->getStylesheet()) {
+    		$this->getViewHelper('HeadLink')->appendStylesheet($this->getRequest()->getBaseUrl(). '/' . $game->getStylesheet());
+    	}
+
+    	$adserving = $this->getOptions()->getAdServing();
+    	$adserving['cat2'] = 'game';
+    	$adserving['cat3'] = '&EASTgameid='.$game->getId();
+    	// I change the label in the breadcrumb ...
+    	$this->layout()->setVariables(
+    			array(
+    					'breadcrumbTitle' => $game->getTitle(),
+    					'adserving'       => $adserving,
+    					'currentPage' => array(
+    							'pageGames' => 'games',
+    							'pageWinners' => ''
+    					),
+                        'headParams' => array(
+                            'headTitle' => $game->getTitle(),
+                            'headDescription' => $game->getTitle(),
+                        ),
+    			)
+    	);
+
+    	$fbAppId = '';
+    	$config = $sg->getServiceManager()->get('config');
+    	if (isset($config['facebook']['fb_appid'])) {
+    		$fbAppId = $config['facebook']['fb_appid'];
+    	}
+
+    	$bitlyclient = $this->getOptions()->getBitlyUrl();
+    	$bitlyuser = $this->getOptions()->getBitlyUsername();
+    	$bitlykey = $this->getOptions()->getBitlyApiKey();
+
+    	$this->getViewHelper('HeadMeta')->setProperty('fb:app', $fbAppId);
+    	$this->getViewHelper('HeadMeta')->setProperty('bt:client', $bitlyclient);
+    	$this->getViewHelper('HeadMeta')->setProperty('bt:user', $bitlyuser);
+    	$this->getViewHelper('HeadMeta')->setProperty('bt:key', $bitlykey);
+
+    	// right column
+    	$column = new ViewModel();
+    	$column->setTemplate($this->layout()->col_right);
+    	$column->setVariables(array('game' => $game));
+
+    	$this->layout()->addChild($column, 'column_right');
+
+    	$viewModel = new ViewModel(
+    		array(
+    			'game'             => $game,
+    			'prize'     	   => $prize,
+  				'flashMessages'    => $this->flashMessenger()->getMessages(),
+   			)
+    	);
+
+    	return $viewModel;
+    }
+
     protected function getViewHelper($helperName)
     {
         return $this->getServiceLocator()->get('viewhelpermanager')->get($helperName);
@@ -609,6 +782,22 @@ class GameController extends AbstractActionController
         $this->gameService = $gameService;
 
         return $this;
+    }
+
+    public function getPrizeService()
+    {
+    	if (!$this->prizeService) {
+    		$this->prizeService = $this->getServiceLocator()->get('adfabgame_prize_service');
+    	}
+
+    	return $this->prizeService;
+    }
+
+    public function setPrizeService(PrizeService $prizeService)
+    {
+    	$this->prizeService = $prizeService;
+
+    	return $this;
     }
 
     public function getOptions()

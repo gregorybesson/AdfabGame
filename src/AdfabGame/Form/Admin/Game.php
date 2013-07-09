@@ -35,7 +35,6 @@ class Game extends ProvidesEventsForm
         // https://github.com/doctrine/DoctrineModule/blob/master/docs/hydrator.md
         //$this->setHydrator(new DoctrineHydrator($entityManager, 'AdfabGame\Entity\Game'));
 
-        parent::__construct();
         $this->setAttribute('enctype', 'multipart/form-data');
 
         $this->add(array(
@@ -166,14 +165,6 @@ class Game extends ProvidesEventsForm
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
-            'name' => 'displayHome',
-            'options' => array(
-                'label' => 'Publier ce jeu sur la home',
-            ),
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'pushHome',
             'options' => array(
                 'label' => 'Publier ce jeu sur le slider Home',
@@ -189,7 +180,7 @@ class Game extends ProvidesEventsForm
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class'=> 'date'
+                'class'=> 'datepicker'
             )
         ));
 
@@ -202,7 +193,7 @@ class Game extends ProvidesEventsForm
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class'=> 'date'
+                'class'=> 'datepicker'
             )
         ));
 
@@ -215,9 +206,9 @@ class Game extends ProvidesEventsForm
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class'=> 'date'
+                'class'=> 'datepicker'
             )
-        ));
+        )); 
 
         $this->add(array(
             'type' => 'Zend\Form\Element\DateTime',
@@ -228,7 +219,7 @@ class Game extends ProvidesEventsForm
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class'=> 'date'
+                'class'=> 'datepicker'
             )
         ));
 
@@ -541,6 +532,21 @@ class Game extends ProvidesEventsForm
                     'rows' => '4',
                     'id' => 'twShareMessage'
                 )
+        ));
+        
+        $prizeFieldset = new PrizeFieldset(null,$sm,$translator);
+        $this->add(array(
+        		'type'    => 'Zend\Form\Element\Collection',
+        		'name'    => 'prizes',
+        		'options' => array(
+        				'id'    => 'prizes',
+        				'label' => $translator->translate('List of prizes', 'adfabgame'),
+        				'count' => 0,
+        				'should_create_template' => true,
+        				'allow_add' => true,
+        				'allow_remove' => true,
+        				'target_element' => $prizeFieldset
+        		)
         ));
 
         $submitElement = new Element\Button('submit');
