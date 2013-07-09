@@ -66,6 +66,10 @@ class GameController extends AbstractActionController
                     'pageGames' => 'games',
                     'pageWinners' => ''
                 ),
+                'headParams' => array(
+                    'headTitle' => $game->getTitle(),
+                    'headDescription' => $game->getTitle(),
+                ),
             )
         );
 
@@ -450,6 +454,10 @@ class GameController extends AbstractActionController
                     'pageGames' => 'games',
                     'pageWinners' => ''
                 ),
+                'headParams' => array(
+                    'headTitle' => $game->getTitle(),
+                    'headDescription' => $game->getTitle(),
+                ),
             )
         );
 
@@ -515,6 +523,10 @@ class GameController extends AbstractActionController
                 'currentPage' => array(
                     'pageGames' => 'games',
                     'pageWinners' => ''
+                ),
+                'headParams' => array(
+                    'headTitle' => $game->getTitle(),
+                    'headDescription' => $game->getTitle(),
                 ),
             )
         );
@@ -630,6 +642,10 @@ class GameController extends AbstractActionController
     							'pageGames' => 'games',
     							'pageWinners' => ''
     					),
+                        'headParams' => array(
+                            'headTitle' => $game->getTitle(),
+                            'headDescription' => $game->getTitle(),
+                        ),
     			)
     	);
 
@@ -707,6 +723,10 @@ class GameController extends AbstractActionController
     							'pageGames' => 'games',
     							'pageWinners' => ''
     					),
+                        'headParams' => array(
+                            'headTitle' => $game->getTitle(),
+                            'headDescription' => $game->getTitle(),
+                        ),
     			)
     	);
 
