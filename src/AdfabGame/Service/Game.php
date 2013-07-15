@@ -632,7 +632,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         return $entry;
     }
 
-    public function sendShareMail($data, $game, $user, $template = 'share_game', $topic = NULL)
+    public function sendShareMail($data, $game, $user, $template = 'share_game', $topic = NULL, $userTimer = array())
     {
 
         $mailService = $this->getServiceManager()->get('adfabgame_message');
@@ -650,17 +650,17 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if ($data['email1']) {
             $mailSent = true;
-            $message = $mailService->createHtmlMessage($from, $data['email1'], $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl));
+            $message = $mailService->createHtmlMessage($from, $data['email1'], $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl, 'userTimer' => $userTimer));
             $mailService->send($message);
         }
         if ($data['email2'] && $data['email2'] != $data['email1']) {
             $mailSent = true;
-            $message = $mailService->createHtmlMessage($from, $data['email2'], $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl));
+            $message = $mailService->createHtmlMessage($from, $data['email2'], $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl, 'userTimer' => $userTimer));
             $mailService->send($message);
         }
         if ($data['email3'] && $data['email3'] != $data['email2'] && $data['email3'] != $data['email1']) {
             $mailSent = true;
-            $message = $mailService->createHtmlMessage($from, $data['email3'], $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl));
+            $message = $mailService->createHtmlMessage($from, $data['email3'], $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl, 'userTimer' => $userTimer));
             $mailService->send($message);
         }
         if ($mailSent) {
