@@ -69,7 +69,7 @@ if (isset($fm[0]))
             <td>
                 <a href='<?php echo $leaderboardLink ?>'><?php echo $this->translate('Leader Board'); ?></a> | <a href='<?php echo $editLink ?>'><?php echo $this->translate('Edit'); ?></a> | <a href='<?php echo $deleteLink ?>'><?php echo $this->translate('Delete'); ?></a><?php if($optionLink != ''):?> | <a href='<?php echo $optionLink ?>'><?php echo $this->translate('Add options'); ?></a><?php endif;?>
             </td>
-            <td><?php echo count($game->leaderboard); ?></td>
+            <td><?php echo $game->leaderboard; ?></td>
             <td><?php echo count($this->partnerSubscriber($game->getPartner(), false));?></td>
         </tr>
     <?php endforeach; ?>
