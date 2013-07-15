@@ -1,7 +1,7 @@
 <?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame');// Pour le texte ?>
 
 <?php
-$defaultMsg = ($game->getTimer() && isset($this->userTimer['timer'])) ? 'J\'ai eu '.$this->userTimer['ratio'].'% de bonnes réponses en '.$this->userTimer['timer'].' secondes au jeu '.$this->game->getTitle().'. Venez faire mieux ! ' : 'Venez jouer au jeu : ' . $this->game->getTitle() . ' du Club Playground ';
+$defaultMsg = (isset($this->userTimer['timer'])) ? 'J\'ai eu '.$this->userTimer['ratio'].'% de bonnes réponses en '.$this->userTimer['timer'].' secondes au jeu '.$this->game->getTitle().'. Venez faire mieux ! ' : 'Venez jouer au jeu : ' . $this->game->getTitle() . ' du Club Playground ';
 
 $twShareMsg = ($this->game->getTwShareMessage()) ? $this->game->getTwShareMessage() : $defaultMsg;
 $fbShareMsg = ($this->game->getFbShareMessage()) ? $this->game->getFbShareMessage() : $defaultMsg;
