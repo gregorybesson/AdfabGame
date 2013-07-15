@@ -885,7 +885,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
     /**
      * This function returns the list of games, order by $type
      */
-    public function getGamesOrderBy($type='createdAt', $order='DESC')
+    public function getQueryGamesOrderBy($type='createdAt', $order='DESC')
     {
         $em = $this->getServiceManager()->get('zfcuser_doctrine_em');
         $today = new \DateTime("now");
@@ -932,9 +932,15 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         if($filter == $onlineGames) {
             $query->setParameter('date', $today);
         }
-        $games = $query->getResult();
-
-        return $games;
+        return $query;
+    }
+    
+    /**
+     * This function returns the list of games, order by $type
+     */
+    public function getGamesOrderBy($type='createdAt', $order='DESC')
+    {
+        return $this->getQueryGamesOrderBy($type,$order)->getResult();
     }
     
     /**
