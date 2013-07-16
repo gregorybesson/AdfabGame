@@ -137,11 +137,16 @@ class PostVote extends Game implements ServiceManagerAwareInterface
         $position=1;
         //$postVotePostElementMapper->removeAll($post);
         foreach ($data as $name => $value) {
+            $postElement = $postVotePostElementMapper->findOneBy(array('post' => $post, 'name' => $name));
+            if (! $postElement) {
+                $postElement = new \AdfabGame\Entity\PostVotePostElement();
+            }
+            $postElement->setName($name);
+            $postElement->setPosition($position);
             // TODO : Manage uploads
-            if (is_array($value)) {
-                if (!empty($value['tmp_name'])) {
-
-                    ErrorHandler::start();
+            if (is_array($value) && isset($value['tmp_name'])) {
+				if ( ! $value['error'] ) {
+                	ErrorHandler::start();
 /*
                     $adapter = new \Zend\File\Transfer\Adapter\Http();
                     // 400ko
@@ -164,33 +169,19 @@ class PostVote extends Game implements ServiceManagerAwareInterface
                         return false;
                     }
 */
+					$value['name'] = $this->fileNewname($path, $value['name'], true);
                     move_uploaded_file($value['tmp_name'], $path . $value['name']);
-                    $postElement = $postVotePostElementMapper->findOneBy(array('post' => $post, 'name' => $name));
-                    if (! $postElement) {
-                        $postElement = new \AdfabGame\Entity\PostVotePostElement();
-                    }
-                    $postElement->setName($name);
-                    $postElement->setPosition($position);
                     $postElement->setValue($media_url . $value['name']);
-                    $postElement->setPost($post);
-                    $postElement = $postVotePostElementMapper->insert($postElement);
                     ErrorHandler::stop(true);
                 }
             } else {
-                $postElement = $postVotePostElementMapper->findOneBy(array('post' => $post, 'name' => $name));
-                if (! $postElement) {
-                    $postElement = new \AdfabGame\Entity\PostVotePostElement();
-                }
-                $postElement->setName($name);
-                $postElement->setPosition($position);
                 $postElement->setValue($value);
-                $postElement->setPost($post);
-                $postElement = $postVotePostElementMapper->insert($postElement);
             }
+            $postElement->setPost($post);
+            $postElement = $postVotePostElementMapper->insert($postElement);
             $position++;
         }
         $postvotePostMapper->update($post);
-
         return $post;
     }
 

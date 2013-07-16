@@ -151,22 +151,25 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if (!empty($data['uploadMainImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadMainImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadMainImage']['name']);
-            $game->setMainImage($media_url . $game->getId() . "-" . $data['uploadMainImage']['name']);
+			$data['uploadMainImage']['name'] = $this->fileNewname($path, $game->getId() . "-" . $data['uploadMainImage']['name']);
+            move_uploaded_file($data['uploadMainImage']['tmp_name'], $path . $data['uploadMainImage']['name']);
+            $game->setMainImage($media_url . $data['uploadMainImage']['name']);
             ErrorHandler::stop(true);
         }
 
         if (!empty($data['uploadSecondImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadSecondImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadSecondImage']['name']);
-            $game->setSecondImage($media_url . $game->getId() . "-" . $data['uploadSecondImage']['name']);
+			$data['uploadSecondImage']['name'] = $this->fileNewname($path, $game->getId() . "-" . $data['uploadSecondImage']['name']);
+            move_uploaded_file($data['uploadSecondImage']['tmp_name'], $path . $data['uploadSecondImage']['name']);
+            $game->setSecondImage($media_url . $data['uploadSecondImage']['name']);
             ErrorHandler::stop(true);
         }
 
         if (!empty($data['uploadFbShareImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadFbShareImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadFbShareImage']['name']);
-            $game->setFbShareImage($media_url . $game->getId() . "-" . $data['uploadFbShareImage']['name']);
+			$data['uploadFbShareImage']['name'] = $this->fileNewname($path, $game->getId() . "-" . $data['uploadFbShareImage']['name']);
+            move_uploaded_file($data['uploadFbShareImage']['tmp_name'], $path . $data['uploadFbShareImage']['name']);
+            $game->setFbShareImage($media_url . $data['uploadFbShareImage']['name']);
             ErrorHandler::stop(true);
         }
 
@@ -286,15 +289,17 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if (!empty($data['uploadMainImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadMainImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadMainImage']['name']);
-            $game->setMainImage($media_url . $game->getId() . "-" . $data['uploadMainImage']['name']);
+			$data['uploadMainImage']['name'] = $this->fileNewname($path, $game->getId() . "-" . $data['uploadMainImage']['name']);
+            move_uploaded_file($data['uploadMainImage']['tmp_name'], $path . $data['uploadMainImage']['name']);
+            $game->setMainImage($media_url . $data['uploadMainImage']['name']);
             ErrorHandler::stop(true);
         }
 
         if (!empty($data['uploadSecondImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadSecondImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadSecondImage']['name']);
-            $game->setSecondImage($media_url . $game->getId() . "-" . $data['uploadSecondImage']['name']);
+			$data['uploadSecondImage']['name'] = $this->fileNewname($path, $game->getId() . "-" . $data['uploadSecondImage']['name']);
+            move_uploaded_file($data['uploadSecondImage']['tmp_name'], $path . $data['uploadSecondImage']['name']);
+            $game->setSecondImage($media_url . $data['uploadSecondImage']['name']);
             ErrorHandler::stop(true);
         }
 
@@ -307,8 +312,9 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if (!empty($data['uploadFbShareImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadFbShareImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadFbShareImage']['name']);
-            $game->setFbShareImage($media_url . $game->getId() . "-" . $data['uploadFbShareImage']['name']);
+			$data['uploadFbShareImage']['name'] = $this->fileNewname($path, $game->getId() . "-" . $data['uploadFbShareImage']['name']);
+            move_uploaded_file($data['uploadFbShareImage']['tmp_name'], $path . $data['uploadFbShareImage']['name']);
+            $game->setFbShareImage($media_url . $data['uploadFbShareImage']['name']);
             ErrorHandler::stop(true);
         }
 
@@ -840,32 +846,50 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
             return $err;
         } else {
 
-            if (file_exists($path.$file["name"])) {
-                $message.='File already exist';
+			$fileNewname = $this->fileNewname($path, $file['name'], true);
+            $adapter = new \Zend\File\Transfer\Adapter\Http();
+            // 500ko
+            $size = new Size(array('max'=>512000));
+            $is_image = new IsImage('jpeg,png,gif,jpg');
+            $adapter->setValidators(array($size, $is_image), $fileNewname);
 
-                return $file["name"];
-            } else {
-                $adapter = new \Zend\File\Transfer\Adapter\Http();
-                // 500ko
-                $size = new Size(array('max'=>512000));
-                $is_image = new IsImage('jpeg,png,gif,jpg');
-                $adapter->setValidators(array($size, $is_image), $file['name']);
-
-                if (!$adapter->isValid()) {
-                    $dataError = $adapter->getMessages();
-                    $error = array();
-                    foreach ($dataError as $key=>$row) {
-                        $error[] = $row;
-                    }
-
-                    return false;
+            if (!$adapter->isValid()) {
+                $dataError = $adapter->getMessages();
+                $error = array();
+                foreach ($dataError as $key=>$row) {
+                    $error[] = $row;
                 }
-                @move_uploaded_file($file["tmp_name"],$path.$file["name"]);
+
+                return false;
             }
+			
+			@move_uploaded_file($file["tmp_name"],$path.$fileNewname);
+
+            
+           
         }
 
-        return $file["name"];
+        return $fileNewname;
     }
+
+	public function fileNewname($path, $filename, $generate = false){
+		$sanitize = new Sanitize();
+		$name = $sanitize->filter($filename);
+		$newpath = $path.$name;
+		
+		if($generate){
+		    if(file_exists($newpath)) {
+		    	$filename = pathinfo($name, PATHINFO_FILENAME);
+				$ext = pathinfo($name, PATHINFO_EXTENSION);
+		    	
+		        $name = $filename .'_'. rand(0, 99) .'.'. $ext;
+		    }
+		}
+		
+		unset($sanitize);
+		
+	    return $name;
+	}
 
     public function findBy($array, $sort)
     {

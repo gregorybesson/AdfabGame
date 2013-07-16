@@ -41,8 +41,9 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
                 $media_url = $this->getOptions()->getMediaUrl() . '/';
 
                 ErrorHandler::start();
-                move_uploaded_file($data['uploadScratchcardImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadScratchcardImage']['name']);
-                $game->setScratchcardImage($media_url . $game->getId() . "-" . $data['uploadScratchcardImage']['name']);
+				$data['uploadScratchcardImage']['name'] = $this->fileNewname($path, $game->getId() . "-" . $data['uploadScratchcardImage']['name']);
+                move_uploaded_file($data['uploadScratchcardImage']['tmp_name'], $path . $data['uploadScratchcardImage']['name']);
+                $game->setScratchcardImage($media_url . $data['uploadScratchcardImage']['name']);
                 ErrorHandler::stop(true);
 
                 $game = $this->getGameMapper()->update($game);
@@ -76,8 +77,9 @@ class InstantWin extends Game implements ServiceManagerAwareInterface
                 $media_url = $this->getOptions()->getMediaUrl() . '/';
 
                 ErrorHandler::start();
-                move_uploaded_file($data['uploadScratchcardImage']['tmp_name'], $path . $game->getId() . "-" . $data['uploadScratchcardImage']['name']);
-                $game->setScratchcardImage($media_url . $game->getId() . "-" . $data['uploadScratchcardImage']['name']);
+                $data['uploadScratchcardImage']['name'] = $this->fileNewname($path, $game->getId() . "-" . $data['uploadScratchcardImage']['name']);
+                move_uploaded_file($data['uploadScratchcardImage']['tmp_name'], $path . $data['uploadScratchcardImage']['name']);
+                $game->setScratchcardImage($media_url . $data['uploadScratchcardImage']['name']);
                 ErrorHandler::stop(true);
 
                 $game = $this->getGameMapper()->update($game);
