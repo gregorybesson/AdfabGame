@@ -17,6 +17,7 @@ use Zend\File\Transfer\Adapter\Http;
 use Zend\Validator\File\Size;
 use Zend\Validator\File\IsImage;
 use Zend\Stdlib\ErrorHandler;
+use AdfabCore\Filter\Sanitize;
 
 class Game extends EventProvider implements ServiceManagerAwareInterface
 {
