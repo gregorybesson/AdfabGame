@@ -623,14 +623,14 @@ class GameController extends AbstractActionController
     	$adserving['cat3'] = '&EASTgameid='.$game->getId();
     	// I change the label in the breadcrumb ...
     	$this->layout()->setVariables(
-    			array(
-    					'breadcrumbTitle' => $game->getTitle(),
-    					'adserving'       => $adserving,
-    					'currentPage' => array(
-    							'pageGames' => 'games',
-    							'pageWinners' => ''
-    					),
-    			)
+			array(
+				'breadcrumbTitle' => $game->getTitle(),
+				'adserving'       => $adserving,
+				'currentPage' => array(
+					'pageGames' => 'games',
+					'pageWinners' => ''
+				),
+			)
     	);
 
     	$fbAppId = '';
@@ -740,6 +740,12 @@ class GameController extends AbstractActionController
    			)
     	);
 
+    	return $viewModel;
+    }
+    
+    public function fangateAction()
+    {
+    	$viewModel = new ViewModel();
     	return $viewModel;
     }
 

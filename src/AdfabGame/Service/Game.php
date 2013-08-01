@@ -211,18 +211,18 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         $path = $this->getOptions()->getMediaPath() . '/';
         $media_url = $this->getOptions()->getMediaUrl() . '/';
-		
+
 		$identifierInput = $form->getInputFilter()->get('identifier');
         $noObjectExistsValidator = new NoObjectExistsValidator(array(
             'object_repository' => $entityManager->getRepository('AdfabGame\Entity\Game'),
             'fields'            => 'identifier',
             'messages'          => array('objectFound' => 'This url already exists !')
         ));
-		
+
 		if($game->getIdentifier() != $data['identifier']){
 			$identifierInput->getValidatorChain()->addValidator($noObjectExistsValidator);
 		}
-    
+
     	// I must switch from original format to the Y-m-d format because this is the only one accepted by new DateTime($value)
     	if (isset($data['publicationDate']) && $data['publicationDate']) {
             $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['publicationDate']);
@@ -554,7 +554,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
      */
     public function checkExistingEntry($game, $user=null, $active=null)
     {
-        $entryMapper = $this->getEntryMapper();
         $entry = false;
 
         if (! is_null($active)) {
@@ -564,29 +563,29 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         }
 
         if ($user) {
-            $entry = $entryMapper->findOneBy($search);
+            $entry = $this->getEntryMapper()->findOneBy($search);
         }
 
         return $entry;
     }
-    
+
     public function checkIsFan($game)
     {
     	// If on Facebook, check if you have to be a FB fan to play the game
     	$session = new Container('facebook');
-    	
+
     	if ($session->offsetExists('signed_request')) {
     		// I'm on Facebook
     		$sr = $session->offsetGet('signed_request');
     		if($sr['page']['liked'] == 1){
-    
+
     			return true;
     		}
     	} else{
     		// I'm not on Facebook
     		return true;
     	}
-    
+
     	return false;
     }
 
@@ -601,7 +600,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
      */
     public function play($game, $user)
     {
-        $entryMapper = $this->getEntryMapper();
 
         // certaines participations peuvent rester ouvertes. On autorise alors le joueur à reprendre là ou il en était
         // par exemple les postvote...
@@ -625,7 +623,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
             $entry->setUser($user);
             $entry->setPoints(0);
 
-            $entry = $entryMapper->insert($entry);
+            $entry = $this->getEntryMapper()->insert($entry);
             $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $user, 'game' => $game));
         }
 
@@ -733,19 +731,20 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
      */
     public function allowBonus($game, $user)
     {
-        $entryMapper = $this->getEntryMapper();
 
         if (!$game->getPlayBonus() || $game->getPlayBonus() == 'none') {
             return false;
         } elseif ($game->getPlayBonus() == 'one') {
-            if ($entryMapper->findOneBy(array('game' => $game, 'user' => $user, 'bonus' => 1))) {
+            if ($this->getEntryMapper()->findOneBy(array('game' => $game, 'user' => $user, 'bonus' => 1))) {
                 return false;
+            } else {
+                return true;
             }
         } elseif ($game->getPlayBonus() == 'per_entry') {
-            return $entryMapper->checkBonusEntry($game,$user);
+            return $this->getEntryMapper()->checkBonusEntry($game,$user);
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -758,7 +757,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
      */
     public function playBonus($game, $user, $winner = 0)
     {
-        $entryMapper = $this->getEntryMapper();
 
         if ($this->allowBonus($game, $user)) {
             $entry = new Entry();
@@ -769,7 +767,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
             $entry->setBonus(1);
             $entry->setWinner($winner);
 
-            $entry = $entryMapper->insert($entry);
+            $entry = $this->getEntryMapper()->insert($entry);
 
             return true;
         }
@@ -867,21 +865,30 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         return $file["name"];
     }
 
+    /**
+     * TODO : Remove this method from the service
+     */
     public function findBy($array, $sort)
     {
          return $this->getGameMapper()->findBy($array, $sort);
     }
 
+    /**
+     * TODO : Remove this method from the service
+     */
     public function findAll()
     {
         return $this->getGameMapper()->findAll();
     }
 
+    /**
+     * TODO : Remove this method from the service
+     */
     public function findAllEntry()
     {
         return $this->getEntryMapper()->findAll();
     }
-	
+
 	/**
      * This function returns the list of games, order by $type
      */
@@ -890,7 +897,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 		$em = $this->getServiceManager()->get('zfcuser_doctrine_em');
 		$today = new \DateTime("now");
 		$today = $today->format('Y-m-d') . ' 23:59:59';
-		
+
 		$onlineGames = '(
 			(
 				CASE WHEN (
@@ -909,7 +916,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 				) THEN 1 ELSE 0 END
 			)
 		)';
-		
+
 		switch ($type) {
 			case 'startDate' :
 				$filter = 'g.startDate';
@@ -924,7 +931,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
                 $filter = 'g.createdAt';
                 break;
 		}
-		
+
 		$query = $em->createQuery('
 			SELECT g FROM AdfabGame\Entity\Game g
 			ORDER BY '.$filter.' '.$order.'
@@ -936,7 +943,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         return $games;
 	}
-	
+
 	/**
      * This function returns the user's first entry if it's his first participation in $game
      * @param  unknown_type $game
@@ -944,7 +951,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 	public function findFirstEntries($game)
 	{
 		$em = $this->getServiceManager()->get('zfcuser_doctrine_em');
-		
+
 		$query = $em->createQuery('
 			SELECT e
 			FROM AdfabGame\Entity\Entry e
@@ -952,7 +959,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 			AND e.game = :game
 			ORDER BY e.created_at ASC
 		');
-				
+
 		$query->setParameter('game', $game);
 		$result = $query->getResult();
 		return $result;
@@ -1127,7 +1134,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         imagedestroy($new_image_mini);
 
     }
-    
+
     public function getGameEntity()
     {
     	return new \AdfabGame\Entity\Game;
