@@ -103,13 +103,13 @@ return array(
                     ),
                 ),
                 'adfabgame'   => array(
-                    'default_layout' => 'layout/1column',
+                    'default_layout' => 'adfab-game/layout/1column-custom.phtml',
                     'children_views' => array(
                         'col_right'  => 'adfab-game/layout/col-quiz.phtml',
                     ),
                     'actions' => array(
                         'index' => array(
-                            'default_layout' => 'layout/2columns-right',
+                            'default_layout' => 'adfab-game/layout/2columns-right',
                             'children_views' => array(
                                 'col_right'  => 'adfab-game/layout/col-quiz.phtml',
                             ),
@@ -417,30 +417,30 @@ return array(
                				),
                 		),
                		),
+                    'prizes' => array(
+                    		'type' => 'Literal',
+                    		'options' => array(
+                    				'route' => '/lots',
+                    				'defaults' => array(
+                    						'controller' => 'adfabgame_quiz',
+                    						'action'     => 'prizes',
+                    				),
+                    		),
+                    		'may_terminate' => true,
+                    		'child_routes' => array(
+                    				'prize' => array(
+                    						'type' => 'Segment',
+                    						'options' => array(
+                    								'route' => '/:prize',
+                    								'defaults' => array(
+                    										'controller' => 'adfabgame_quiz',
+                    										'action'     => 'prize',
+                    								),
+                    						),
+                    				),
+                    		),
+                    ),
                 ),
-            	'prizes' => array(
-           			'type' => 'Literal',
-       				'options' => array(
-   						'route' => '/lots',
-   						'defaults' => array(
- 							'controller' => 'adfabgame_quiz',
- 							'action'     => 'prizes',
-    					),
-       				),
-       				'may_terminate' => true,
-       				'child_routes' => array(
-    					'prize' => array(
-    						'type' => 'Segment',
-        					'options' => array(
-        						'route' => '/:prize',
-        						'defaults' => array(
-        							'controller' => 'adfabgame_quiz',
-        							'action'     => 'prize',
-        						),
-        					),
-        				),
-        			),
-           		),
             ),
 
             'lottery' => array(
@@ -534,30 +534,30 @@ return array(
            					),
            				),
               		),
+                    'prizes' => array(
+                		'type' => 'Literal',
+                		'options' => array(
+            				'route' => '/lots',
+            				'defaults' => array(
+        						'controller' => 'adfabgame_lottery',
+        						'action'     => 'prizes',
+            				),
+                		),
+                		'may_terminate' => true,
+                		'child_routes' => array(
+            				'prize' => array(
+        						'type' => 'Segment',
+        						'options' => array(
+    								'route' => '/:prize',
+    								'defaults' => array(
+										'controller' => 'adfabgame_lottery',
+										'action'     => 'prize',
+    								),
+        						),
+            				),
+                		),
+                    ),
                 ),
-            	'prizes' => array(
-       				'type' => 'Literal',
-       				'options' => array(
-   						'route' => '/lots',
-   						'defaults' => array(
-							'controller' => 'adfabgame_lottery',
-							'action'     => 'prizes',
-   						),
-       				),
-       				'may_terminate' => true,
-       				'child_routes' => array(
-   						'prize' => array(
-							'type' => 'Segment',
-							'options' => array(
-								'route' => '/:prize',
-    							'defaults' => array(
-    								'controller' => 'adfabgame_lottery',
-    								'action'     => 'prize',
-    							),
-        					),
-        				),
-        			),
-           		),
             ),
 
             'instantwin' => array(
