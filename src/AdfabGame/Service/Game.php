@@ -258,7 +258,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         // If someone want to claim... It's time to do it ! used for exemple by AdfabFacebook Module
         $result = $this->getEventManager()->trigger(__FUNCTION__.'.validate', $this, array('game' => $game, 'data' => $data));
-        if (!$result[0]) {
+        if (is_array($result) && !$result[0]) {
             $form->get('fbAppId')->setMessages(array('Vous devez d\'abord désinstaller l\'appli Facebook'));
 
             return false;
