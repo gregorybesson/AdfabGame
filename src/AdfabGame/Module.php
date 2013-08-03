@@ -152,6 +152,7 @@ class Module
                 'adfabgame_lottery_service'           => 'AdfabGame\Service\Lottery',
                 'adfabgame_postvote_service'          => 'AdfabGame\Service\PostVote',
                 'adfabgame_quiz_service'              => 'AdfabGame\Service\Quiz',
+            	'adfabgame_treasurehunt_service'      => 'AdfabGame\Service\TreasureHunt',
                 'adfabgame_instantwin_service'        => 'AdfabGame\Service\InstantWin',
                 'adfabgame_leaderboard_service'       => 'AdfabGame\Service\LeaderBoard',
             	'adfabgame_prize_service'     		  => 'AdfabGame\Service\Prize',
@@ -328,6 +329,15 @@ class Module
 
                     return $mapper;
                 },
+                
+                'adfabgame_treasurehuntstep_mapper' => function ($sm) {
+                	$mapper = new \AdfabGame\Mapper\TreasureHuntStep(
+                			$sm->get('doctrine.entitymanager.orm_default'),
+                			$sm->get('adfabgame_module_options')
+                	);
+                
+                	return $mapper;
+                },
 
                 'adfabgame_game_form' => function($sm) {
                     $translator = $sm->get('translator');
@@ -414,6 +424,24 @@ class Module
                     $form->setInputFilter(new Form\Frontend\ShareMailFilter());
 
                     return $form;
+                },
+                
+                'adfabgame_treasurehunt_form' => function($sm) {
+                	$translator = $sm->get('translator');
+                	$form = new Form\Admin\TreasureHunt(null, $sm, $translator);
+                	$treasurehunt = new Entity\TreasureHunt();
+                	$form->setInputFilter($treasurehunt->getInputFilter());
+                
+                	return $form;
+                },
+                
+                'adfabgame_treasurehuntstep_form' => function($sm) {
+                	$translator = $sm->get('translator');
+                	$form = new Form\Admin\TreasureHuntStep(null, $sm, $translator);
+                	$treasurehuntStep = new Entity\TreasureHuntStep();
+                	$form->setInputFilter($treasurehuntStep->getInputFilter());
+                
+                	return $form;
                 },
             ),
         );
