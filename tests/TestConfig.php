@@ -12,6 +12,7 @@ return array(
    		'AdfabCore',
         'AdfabUser',
    		'AdfabGame',
+        'AdfabPartnership',
         'Application',
     ),
     'module_listener_options' => array(

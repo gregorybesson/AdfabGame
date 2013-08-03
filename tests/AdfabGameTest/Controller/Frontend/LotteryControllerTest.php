@@ -1544,7 +1544,8 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$serviceManager = $this->getApplicationServiceLocator();
     	$serviceManager->setAllowOverride(true);
     
-    	$pluginManager    = $this->getApplicationServiceLocator()->get('ControllerPluginManager');
+    	$pluginManager     = $this->getApplicationServiceLocator()->get('ControllerPluginManager');
+    	$viewHelperManager = $this->getApplicationServiceLocator()->get('ViewHelperManager');
     
     	$game = new GameEntity();
     	$game->setBroadcastPlatform(true);
@@ -1591,6 +1592,13 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$authMock->expects($this->any())
     	->method('getIdentity')
     	->will($this->returnValue($ZfcUserMock));
+    	
+    	$partnerMock = $this->getMock('AdfabPartnership\View\Helper\PartnerSubscriber');
+    	$partnerMock->expects($this->any())
+    	->method('__invoke')
+    	->will($this->returnValue(false));
+    	
+    	$viewHelperManager->setService('partnerSubscriber', $partnerMock);
     
     	$pluginManager->setService('zfcUserAuthentication', $authMock);
     
