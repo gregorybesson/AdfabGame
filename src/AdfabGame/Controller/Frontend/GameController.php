@@ -763,6 +763,12 @@ class GameController extends AbstractActionController
     	return $viewModel;
     }
 
+    public function fangateAction()
+    {
+    	$viewModel = new ViewModel();
+    	return $viewModel;
+    }
+    
     protected function getViewHelper($helperName)
     {
         return $this->getServiceLocator()->get('viewhelpermanager')->get($helperName);

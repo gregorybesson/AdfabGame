@@ -27,6 +27,7 @@
 		"zendframework/zend-loader" : "~2.1",
 		"zendframework/zend-servicemanager" : "~2.1",
 		"adfab/core" : "0.*",
+		"adfab/user" : "0.*",
 		"zendframework/zend-modulemanager" : "~2.1"
 	},
 	"require-dev" : {

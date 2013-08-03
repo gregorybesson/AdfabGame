@@ -561,7 +561,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
      */
     public function checkExistingEntry($game, $user=null, $active=null)
     {
-        $entryMapper = $this->getEntryMapper();
         $entry = false;
 
         if (! is_null($active)) {
@@ -571,7 +570,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         }
 
         if ($user) {
-            $entry = $entryMapper->findOneBy($search);
+            $entry = $this->getEntryMapper()->findOneBy($search);
         }
 
         return $entry;
@@ -608,7 +607,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
      */
     public function play($game, $user)
     {
-        $entryMapper = $this->getEntryMapper();
 
         // certaines participations peuvent rester ouvertes. On autorise alors le joueur à reprendre là ou il en était
         // par exemple les postvote...
@@ -632,7 +630,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
             $entry->setUser($user);
             $entry->setPoints(0);
 
-            $entry = $entryMapper->insert($entry);
+            $entry = $this->getEntryMapper()->insert($entry);
             $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $user, 'game' => $game));
         }
 
@@ -740,19 +738,20 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
      */
     public function allowBonus($game, $user)
     {
-        $entryMapper = $this->getEntryMapper();
 
         if (!$game->getPlayBonus() || $game->getPlayBonus() == 'none') {
             return false;
         } elseif ($game->getPlayBonus() == 'one') {
-            if ($entryMapper->findOneBy(array('game' => $game, 'user' => $user, 'bonus' => 1))) {
+            if ($this->getEntryMapper()->findOneBy(array('game' => $game, 'user' => $user, 'bonus' => 1))) {
                 return false;
+            } else {
+                return true;
             }
         } elseif ($game->getPlayBonus() == 'per_entry') {
-            return $entryMapper->checkBonusEntry($game,$user);
+            return $this->getEntryMapper()->checkBonusEntry($game,$user);
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -765,7 +764,6 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
      */
     public function playBonus($game, $user, $winner = 0)
     {
-        $entryMapper = $this->getEntryMapper();
 
         if ($this->allowBonus($game, $user)) {
             $entry = new Entry();
@@ -776,7 +774,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
             $entry->setBonus(1);
             $entry->setWinner($winner);
 
-            $entry = $entryMapper->insert($entry);
+            $entry = $this->getEntryMapper()->insert($entry);
 
             return true;
         }
@@ -892,16 +890,25 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 	    return $name;
 	}
 
+    /**
+     * TODO : Remove this method from the service
+     */
     public function findBy($array, $sort)
     {
          return $this->getGameMapper()->findBy($array, $sort);
     }
 
+    /**
+     * TODO : Remove this method from the service
+     */
     public function findAll()
     {
         return $this->getGameMapper()->findAll();
     }
 
+    /**
+     * TODO : Remove this method from the service
+     */
     public function findAllEntry()
     {
         return $this->getEntryMapper()->findAll();
