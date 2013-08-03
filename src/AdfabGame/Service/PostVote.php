@@ -263,7 +263,7 @@ class PostVote extends Game implements ServiceManagerAwareInterface
     public function findArrayOfValidatedPosts($game, $filter, $search='')
     {
         //$posts = $this->getPostVotePostMapper()->findBy(array('postvote'=> $game, 'status' => 2));
-        $em = $this->getServiceManager()->get('adfabgame_doctrine_em');
+        $em = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
         $postSort = '';
         $filterSearch = '';
         switch ($filter) {
