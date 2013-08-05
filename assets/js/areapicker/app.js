@@ -21,6 +21,12 @@ var AreaPicker = {
         {
             e.preventDefault();
             
+            var curUrl = $('#iframe-url').val().replace(/http:\/\//, '');
+            if(curUrl.substring(curUrl.length - 1, curUrl.length) == '/') {
+            	curUrl = curUrl.substring(0, curUrl.length - 1);
+            }
+            AreaPicker.result.url = '/' + curUrl.replace(/\//g, '\\/') + '/';
+            
             switch(AreaPicker.step) {
                 case 0 :
                     AreaPicker.nextStep();
@@ -145,10 +151,10 @@ var AreaPicker = {
                 $('#tip3').show();
                 
                 //$('#tip3').html(resultHtml);
-                $('#tip3').html('<h1>Merci</h1>');
+                $('#tip3').html('<h1>Thanks</h1>');
             	if(typeof AreaConfig.urlToSendResult === "string") {
             		AreaPicker.sendResult();
-            	};
+            	}
             }
         );
     },
@@ -206,7 +212,6 @@ var AreaPicker = {
         $('#tip3').hide();
 
         $('.result-content').html('');
-    	//AreaPicker.result.area = null;
         
         $('iframe', '#iframe-wrapper').hide();
         $('#popin-wrapper').show();
@@ -261,8 +266,6 @@ var AreaPicker = {
                     })
                     .addClass('centered')
                     .append(img);
-                
-                console.log(area)
 
                 AreaPicker.result.area.width = area.width;
                 AreaPicker.result.area.height = area.height;
@@ -276,7 +279,9 @@ var AreaPicker = {
     bindTextSelect: function ()
     {
         'use strict';
-        
+
+        AreaPicker.result.area.x = null;
+        AreaPicker.result.area.y = null;
         AreaPicker.result.area.width = null;
         AreaPicker.result.area.height = null;
         
@@ -315,7 +320,6 @@ var AreaPicker = {
             
             function (rpcdata)
             {
-                
             }
         );
     },
@@ -348,7 +352,6 @@ var AreaPicker = {
         'use strict';
         
         AreaPicker.step++;
-        console.log('prev-' + AreaPicker.step);
     },
     
     prevStep: function ()
@@ -356,7 +359,6 @@ var AreaPicker = {
         'use strict';
         
         AreaPicker.step = ((AreaPicker.step-1) > 0) ? (AreaPicker.step-1) : AreaPicker.step;
-        console.log('prev-' + AreaPicker.step);
     },
     
     getEvents: function (e)
@@ -366,6 +368,7 @@ var AreaPicker = {
         AreaPicker.selected = JSON.parse(e);
         AreaPicker.result.area.y = AreaPicker.selected.clientY;
         AreaPicker.result.area.x = AreaPicker.selected.clientX;
+        AreaPicker.result.area.xpath = AreaPicker.selected.xpath;
         return;
     }
 };
