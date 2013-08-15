@@ -30,8 +30,8 @@ if (isset($fm[0]))
 				</a>
         	<?php endif; ?>
 
-        <th></th>
-        <th></th>
+        <th>Hint</th>
+        <th>Position</th>
         <th></th>
         <th></th>
     </tr>
@@ -41,8 +41,8 @@ if (isset($fm[0]))
             <td></td>
             <?php $editLink   = $this->url('zfcadmin/adfabgame/treasurehunt-step-edit', array('gameId' => $gameId, 'stepId' => $step->getId()));?>
             <?php $deleteLink = $this->url('zfcadmin/adfabgame/treasurehunt-step-remove', array('stepId' => $step->getId()));?>
-            <td>ok</td>
-            <td>ok</td>
+            <td><?php echo $step->getHint()?></td>
+            <td><?php echo $step->getPosition()?></td>
             <td>
                 <a href='<?php echo $editLink ?>'><?php echo $this->translate('Edit'); ?></a> | <a href='<?php echo $deleteLink ?>'><?php echo $this->translate('Delete'); ?></a>
             </td>

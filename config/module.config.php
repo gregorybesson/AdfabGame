@@ -291,6 +291,7 @@ return array(
             'adfabgame_instantwin'          => 'AdfabGame\Controller\Frontend\InstantWinController',
             'adfabgame_postvote'            => 'AdfabGame\Controller\Frontend\PostVoteController',
             'adfabgame_prizecategory'       => 'AdfabGame\Controller\Frontend\PrizeCategoryController',
+        	'adfabgame_easyxdm'       		=> 'AdfabGame\Controller\Frontend\EasyXDMController',
             'adfabgameadmin'                => 'AdfabGame\Controller\Admin\AdminController',
             'adfabgame_admin_lottery'       => 'AdfabGame\Controller\Admin\LotteryController',
             'adfabgame_admin_instantwin'    => 'AdfabGame\Controller\Admin\InstantWinController',
@@ -325,6 +326,27 @@ return array(
                     ),
                 ),
             ),
+        	'easyxdmindex' => array(
+        		'type' => 'Zend\Mvc\Router\Http\Segment',
+   				'options' => array(
+        			'route'    => '/easyxdm/index',
+        			'defaults' => array(
+        				'controller' => 'adfabgame_easyxdm',
+        				'action'     => 'index',
+        			),
+   				),     				
+        	),
+        		
+        	'easyxdmname' => array(
+       			'type' => 'Zend\Mvc\Router\Http\Segment',
+   				'options' => array(
+        			'route'    => '/easyxdm/name',
+        			'defaults' => array(
+        				'controller' => 'adfabgame_easyxdm',
+        				'action'     => 'name',
+ 					),
+        		),
+        	),
 
             'quiz' => array(
                 'type' => 'Segment',
