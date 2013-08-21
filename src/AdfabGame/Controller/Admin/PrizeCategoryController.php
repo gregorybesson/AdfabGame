@@ -58,7 +58,7 @@ class PrizeCategoryController extends AbstractActionController
 
         $viewModel = new ViewModel();
         $viewModel->setTemplate('adfab-game/prize-category/prize-category');
-
+ 
         return $viewModel->setVariables(array('form' => $form));
     }
 
