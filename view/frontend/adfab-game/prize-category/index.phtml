@@ -1,0 +1,18 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame');// Pour le texte ?>
+
+<!-- THEMATIQUES -->
+<div id="jeux-concours" class="thematique">
+    <div class="row-fluid">
+        <h1><?php echo $this->prizeCategory->getTitle();?></h1>
+    </div>
+	<?php
+		if(count($this->flashMessages)>0):
+			echo $this->flashMessages[0];
+		else :
+			$this->partialLoop()->setObjectKey('game');
+    		echo $this->partialLoop('adfab-game/partial/game.phtml', $this->games);
+		endif;
+		
+	?>
+</div><!-- END THEMATIQUES -->
+<?php echo $this->paginationControl($this->games, 'Sliding', 'adfab-game/frontend/prize-category/pagination.phtml', array('id' => $this->identifier)); ?>
