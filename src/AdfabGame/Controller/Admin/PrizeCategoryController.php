@@ -57,7 +57,7 @@ class PrizeCategoryController extends AbstractActionController
         }
 
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('prize-category');
+        $viewModel->setTemplate('adfab-game/prize-category/prize-category');
 
         return $viewModel->setVariables(array('form' => $form));
     }
@@ -88,7 +88,7 @@ class PrizeCategoryController extends AbstractActionController
         }
 
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('prize-category');
+        $viewModel->setTemplate('adfab-game/prize-category/prize-category');
 
         return $viewModel->setVariables(array('form' => $form));
     }
