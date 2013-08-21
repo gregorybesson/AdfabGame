@@ -47,7 +47,7 @@ class QuizController extends AbstractActionController
     public function addQuestionAction()
     {
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/quiz/question');
+        $viewModel->setTemplate('quiz/question');
         $service = $this->getAdminGameService();
         $quizId = $this->getEvent()->getRouteMatch()->getParam('quizId');
 
@@ -85,7 +85,7 @@ class QuizController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/quiz/question');
+        $viewModel->setTemplate('quiz/question');
 
         $questionId = $this->getEvent()->getRouteMatch()->getParam('questionId');
         if (!$questionId) {
@@ -139,10 +139,10 @@ class QuizController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/quiz');
+        $viewModel->setTemplate('quiz');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('adfab-game/admin/game-form');
+        $gameForm->setTemplate('game-form');
 
         $quiz = new Quiz();
 
@@ -182,10 +182,10 @@ class QuizController extends AbstractActionController
 
         $game = $service->getGameMapper()->findById($gameId);
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/quiz');
+        $viewModel->setTemplate('quiz');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('adfab-game/admin/game-form');
+        $gameForm->setTemplate('game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_quiz_form');
         $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-quiz', array('gameId' => $gameId)));

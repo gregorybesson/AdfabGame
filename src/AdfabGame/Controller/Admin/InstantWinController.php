@@ -40,10 +40,10 @@ class InstantWinController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/instant-win');
+        $viewModel->setTemplate('instant-win');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('adfab-game/admin/game-form');
+        $gameForm->setTemplate('game-form');
 
         $instantwin = new InstantWin();
 
@@ -88,10 +88,10 @@ class InstantWinController extends AbstractActionController
 
         $game = $service->getGameMapper()->findById($gameId);
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/instant-win');
+        $viewModel->setTemplate('instant-win');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('adfab-game/admin/game-form');
+        $gameForm->setTemplate('game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_instantwin_form');
         $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-instantwin', array('gameId' => $gameId)));
@@ -169,7 +169,7 @@ class InstantWinController extends AbstractActionController
     public function addOccurrenceAction()
     {
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/instant-win/occurrence');
+        $viewModel->setTemplate('instant-win/occurrence');
         $service = $this->getAdminGameService();
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
         if (!$gameId) {
@@ -214,7 +214,7 @@ class InstantWinController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('adfab-game/admin/instant-win/occurrence');
+        $viewModel->setTemplate('instant-win/occurrence');
 
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
         /*if (!$gameId) {
