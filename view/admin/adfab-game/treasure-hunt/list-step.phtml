@@ -54,4 +54,4 @@ if (isset($fm[0]))
 	<li class="btn-admin bottom"><a href="<?php echo $addLink;?>"><?php echo $this->translate('Add new step'); ?></a></li>
 </ul>
 
-<?php echo $this->paginationControl($this->steps, 'Sliding', 'adfab-game/admin/treasure-hunt/pagination_steplist', array('gameId' => $this->gameId, 'filter' => $this->filter)); ?>
+<?php echo $this->paginationControl($this->steps, 'Sliding', 'treasure-hunt/pagination_steplist', array('gameId' => $this->gameId, 'filter' => $this->filter)); ?>
