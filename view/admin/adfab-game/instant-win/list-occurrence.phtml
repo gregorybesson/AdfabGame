@@ -57,4 +57,4 @@ if (isset($fm[0]))
 	<li class="btn-admin bottom"><a href="<?php echo $addLink;?>"><?php echo $this->translate('Add new occurrence'); ?></a></li>
 </ul>
 
-<?php echo $this->paginationControl($this->occurrences, 'Sliding', 'instant-win/pagination_occurencelist', array('gameId' => $this->gameId, 'filter' => $this->filter)); ?>
+<?php echo $this->paginationControl($this->occurrences, 'Sliding', 'adfab-game/instant-win/pagination_occurencelist', array('gameId' => $this->gameId, 'filter' => $this->filter)); ?>
