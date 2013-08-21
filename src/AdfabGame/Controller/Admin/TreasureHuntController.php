@@ -20,10 +20,10 @@ class TreasureHuntController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('treasure-hunt/treasurehunt');
+        $viewModel->setTemplate('adfab-game/treasure-hunt/treasurehunt');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('game-form');
+        $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $treasurehunt = new TreasureHunt();
 
@@ -56,7 +56,7 @@ class TreasureHuntController extends AbstractActionController
     {
     	$viewModel = new ViewModel();
     	$viewModel->setTerminal(true);
-    	$viewModel->setTemplate('treasure-hunt/areapicker');
+    	$viewModel->setTemplate('adfab-game/treasure-hunt/areapicker');
     	return $viewModel;
     }
 
@@ -71,10 +71,10 @@ class TreasureHuntController extends AbstractActionController
 
         $game = $service->getGameMapper()->findById($gameId);
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('treasure-hunt/treasurehunt');
+        $viewModel->setTemplate('adfab-game/treasure-hunt/treasurehunt');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('game-form');
+        $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_treasurehunt_form');
         $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-treasurehunt', array('gameId' => $gameId)));
@@ -152,7 +152,7 @@ class TreasureHuntController extends AbstractActionController
     public function addStepAction()
     {
     	$viewModel = new ViewModel();
-    	$viewModel->setTemplate('treasure-hunt/step');
+    	$viewModel->setTemplate('adfab-game/treasure-hunt/step');
     	$service = $this->getAdminGameService();
     	$gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
     	if (!$gameId) {
@@ -197,7 +197,7 @@ class TreasureHuntController extends AbstractActionController
     {
     	$service = $this->getAdminGameService();
     	$viewModel = new ViewModel();
-    	$viewModel->setTemplate('treasure-hunt/step');
+    	$viewModel->setTemplate('adfab-game/treasure-hunt/step');
     
     	$gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
     	/*if (!$gameId) {

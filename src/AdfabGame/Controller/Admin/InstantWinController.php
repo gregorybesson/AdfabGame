@@ -40,10 +40,10 @@ class InstantWinController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('instant-win');
+        $viewModel->setTemplate('adfab-game/instant-win/instantwin');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('game-form');
+        $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $instantwin = new InstantWin();
 
@@ -88,10 +88,10 @@ class InstantWinController extends AbstractActionController
 
         $game = $service->getGameMapper()->findById($gameId);
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('instant-win');
+        $viewModel->setTemplate('adfab-game/instant-win/instantwin');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('game-form');
+        $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_instantwin_form');
         $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-instantwin', array('gameId' => $gameId)));

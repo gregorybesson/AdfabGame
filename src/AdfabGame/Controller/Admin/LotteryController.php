@@ -20,10 +20,10 @@ class LotteryController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('lottery');
+        $viewModel->setTemplate('adfab-game/lottery/lottery');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('game-form');
+        $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $lottery = new Lottery();
 
@@ -66,10 +66,10 @@ class LotteryController extends AbstractActionController
 
         $game = $service->getGameMapper()->findById($gameId);
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('lottery');
+        $viewModel->setTemplate('adfab-game/lottery/lottery');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('game-form');
+        $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_lottery_form');
         $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-lottery', array('gameId' => $gameId)));

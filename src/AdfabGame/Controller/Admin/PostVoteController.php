@@ -54,10 +54,10 @@ class PostVoteController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('post-vote');
+        $viewModel->setTemplate('adfab-game/post-vote/postvote');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('game-form');
+        $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $postVote = new PostVote();
 
@@ -97,10 +97,10 @@ class PostVoteController extends AbstractActionController
 
         $game = $service->getGameMapper()->findById($gameId);
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('post-vote');
+        $viewModel->setTemplate('adfab-game/post-vote/postvote');
 
         $gameForm = new ViewModel();
-        $gameForm->setTemplate('game-form');
+        $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_postvote_form');
         $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-postvote', array('gameId' => $gameId)));
