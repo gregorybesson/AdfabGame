@@ -169,7 +169,7 @@ class InstantWinController extends AbstractActionController
     public function addOccurrenceAction()
     {
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('instant-win/occurrence');
+        $viewModel->setTemplate('adfab-game/instant-win/occurrence');
         $service = $this->getAdminGameService();
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
         if (!$gameId) {
@@ -214,7 +214,7 @@ class InstantWinController extends AbstractActionController
     {
         $service = $this->getAdminGameService();
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('instant-win/occurrence');
+        $viewModel->setTemplate('adfab-game/instant-win/occurrence');
 
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
         /*if (!$gameId) {
