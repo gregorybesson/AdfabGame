@@ -40,7 +40,7 @@ class QuizController extends GameController
 
         if (! $user) {
             // the user is not registered yet.
-            $redirect = urlencode($this->url()->fromRoute('quiz/play', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
+            $redirect = urlencode($this->url()->fromRoute('frontend/quiz/play', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
 
             return $this->redirect()->toUrl($this->url()->fromRoute('zfcuser/register') . '?redirect='.$redirect);
         }
@@ -50,7 +50,7 @@ class QuizController extends GameController
             // the user has already taken part of this game and the participation limit has been reached
             $this->flashMessenger()->addMessage('Vous avez déjà participé!');
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('quiz/result',array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/quiz/result',array('id' => $identifier)));
         }
 
         $questions = $game->getQuestions();
@@ -125,9 +125,10 @@ class QuizController extends GameController
 
             // TODO : improve it : I don't validate the form in a timer quiz as no answer is mandatory
             if ($game->getTimer() || $form->isValid()) {
+            	unset($data['submitForm']);
                 $entry = $this->getGameService()->createQuizReply($data, $game, $this->zfcUserAuthentication()->getIdentity());
 
-                return $this->redirect()->toUrl($this->url()->fromRoute('quiz/result', array('id' => $game->getIdentifier())));
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/quiz/result', array('id' => $game->getIdentifier())));
             }
         }
 
@@ -158,13 +159,13 @@ class QuizController extends GameController
         }
 
         $secretKey = strtoupper(substr(sha1($user->getId().'####'.time()),0,15));
-        $socialLinkUrl = $this->url()->fromRoute('quiz', array('id' => $game->getIdentifier()), array('force_canonical' => true)).'?key='.$secretKey;
+        $socialLinkUrl = $this->url()->fromRoute('frontend/quiz', array('id' => $game->getIdentifier()), array('force_canonical' => true)).'?key='.$secretKey;
         // With core shortener helper
         $socialLinkUrl = $this->shortenUrl()->shortenUrl($socialLinkUrl);
 
         $lastEntry = $sg->getEntryMapper()->findLastInactiveEntryById($game, $user);
         if (!$lastEntry) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('quiz', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/quiz', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
         }
 
         // je compte les bonnes réponses et le ratio

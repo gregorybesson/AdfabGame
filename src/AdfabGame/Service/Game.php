@@ -645,7 +645,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $from        = $this->getOptions()->getEmailFromAddress();
         $subject     = $this->getOptions()->getShareSubjectLine();
         $renderer    = $this->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
-        $skinUrl     = $renderer->url('home', array(), array('force_canonical' => true));
+        $skinUrl     = $renderer->url('frontend', array(), array('force_canonical' => true));
         $secretKey   = strtoupper(substr(sha1($user->getId().'####'.time()),0,15));
 
 
@@ -685,7 +685,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $to          = $user->getEmail();
         $subject     = $this->getOptions()->getParticipationSubjectLine();
         $renderer    = $this->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
-        $skinUrl     = $renderer->url('home', array(), array('force_canonical' => true));
+        $skinUrl     = $renderer->url('frontend', array(), array('force_canonical' => true));
 
         $message = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'post' => $post, 'skinUrl' => $skinUrl));
         $mailService->send($message);

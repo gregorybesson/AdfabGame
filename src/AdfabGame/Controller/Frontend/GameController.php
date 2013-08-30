@@ -34,7 +34,7 @@ class GameController extends AbstractActionController
         if($game->getFbFan()){
         	$isFan = $sg->checkIsFan($game);
         	if(!$isFan){
-        		return $this->redirect()->toUrl($this->url()->fromRoute($game->getClassType().'/fangate',array('id' => $game->getIdentifier())));
+        		return $this->redirect()->toUrl($this->url()->fromRoute('frontend/' . $game->getClassType().'/fangate',array('id' => $game->getIdentifier())));
         	}
         }
 
@@ -146,7 +146,7 @@ class GameController extends AbstractActionController
 
         if ($lastEntry == null) {
             return $this->redirect()->toUrl($this->url()
-                    ->fromRoute('quiz', array(
+                    ->fromRoute('frontend/quiz', array(
                             'id' => $identifier
                     )));
         }*/
@@ -202,9 +202,9 @@ class GameController extends AbstractActionController
         }
 
         if ($game->getFbShareImage()) {
-            $fbShareImage = $this->url()->fromRoute('home', array(), array('force_canonical' => true)) . $game->getFbShareImage();
+            $fbShareImage = $this->url()->fromRoute('frontend', array(), array('force_canonical' => true)) . $game->getFbShareImage();
         } else {
-            $fbShareImage = $this->url()->fromRoute('home', array(), array('force_canonical' => true)) . $game->getMainImage();
+            $fbShareImage = $this->url()->fromRoute('frontend', array(), array('force_canonical' => true)) . $game->getMainImage();
         }
 
         $secretKey = strtoupper(substr(sha1($user->getId().'####'.time()),0,15));
@@ -547,15 +547,15 @@ class GameController extends AbstractActionController
         }
 
         if ($game->getFbShareImage()) {
-            $fbShareImage = $this->url()->fromRoute('home', array(), array('force_canonical' => true)) . $game->getFbShareImage();
+            $fbShareImage = $this->url()->fromRoute('frontend', array(), array('force_canonical' => true)) . $game->getFbShareImage();
         } else {
-            $fbShareImage = $this->url()->fromRoute('home', array(), array('force_canonical' => true)) . $game->getMainImage();
+            $fbShareImage = $this->url()->fromRoute('frontend', array(), array('force_canonical' => true)) . $game->getMainImage();
         }
 
         $secretKey = strtoupper(substr(sha1($game->getId().'####'.time()),0,15));
 
         // Without bit.ly shortener
-        $socialLinkUrl = $this->url()->fromRoute('quiz', array('id' => $game->getIdentifier()), array('force_canonical' => true));
+        $socialLinkUrl = $this->url()->fromRoute('frontend/quiz', array('id' => $game->getIdentifier()), array('force_canonical' => true));
         // With core shortener helper
         $socialLinkUrl = $this->shortenUrl()->shortenUrl($socialLinkUrl);
 

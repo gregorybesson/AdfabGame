@@ -344,7 +344,7 @@ class PostVoteController extends GameController
         $statusMail = false;
         $mailService = $this->getServiceLocator()->get('adfabgame_message');
         $to = '';
-		$skinUrl = $sg->getServiceManager()->get('ViewRenderer')->url('home', array(), array('force_canonical' => true));
+		$skinUrl = $sg->getServiceManager()->get('ViewRenderer')->url('frontend', array(), array('force_canonical' => true));
         $config = $this->getGameService()->getServiceManager()->get('config');
         if (isset($config['moderation']['email'])) {
             $to = $config['moderation']['email'];
@@ -670,7 +670,7 @@ class PostVoteController extends GameController
         $statusMail = false;
         $mailService = $this->getServiceLocator()->get('adfabgame_message');
         $to = '';
-		$skinUrl = $sg->getServiceManager()->get('ViewRenderer')->url('home', array(), array('force_canonical' => true));
+		$skinUrl = $sg->getServiceManager()->get('ViewRenderer')->url('frontend', array(), array('force_canonical' => true));
         $config = $this->getGameService()->getServiceManager()->get('config');
         if (isset($config['moderation']['email'])) {
             $to = $config['moderation']['email'];

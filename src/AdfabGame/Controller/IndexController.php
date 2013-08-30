@@ -114,7 +114,7 @@ class IndexController extends AbstractActionController
         $leaderBoard = $mapperLeader->findBy(array('user' => $this->zfcUserAuthentication()->getIdentity(), 'game' => $quiz));
 
         if ($leaderBoard == null) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('quiz', array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/quiz', array('id' => $identifier)));
         }
 
         $questions = $quiz->getQuestions();
@@ -163,7 +163,7 @@ class IndexController extends AbstractActionController
                 $entry = $this->getGameService()->createQuizReply($data, $quiz, $this->zfcUserAuthentication()->getIdentity());
 
                 // determine the route where the user should go
-                return $this->redirect()->toUrl($this->url()->fromRoute('quiz') .  '/' . $quiz->getIdentifier() . '/quiz-result');
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/quiz') .  '/' . $quiz->getIdentifier() . '/quiz-result');
             }
         }
 
@@ -198,14 +198,14 @@ class IndexController extends AbstractActionController
         $leaderBoard = $mapperLeader->findBy(array('user' => $this->zfcUserAuthentication()->getIdentity(), 'game' => $quiz));
 
         if ($leaderBoard == null) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('quiz', array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/quiz', array('id' => $identifier)));
         }
 
         // Has the user finished the game ?
         $lastEntry = $this->getGameService()->getEntryMapper()->findBy(array('game' => $quiz, 'user' => $this->zfcUserAuthentication()->getIdentity()), array('created_at' => 'DESC'), 1, 0);
 
         if ($lastEntry == null) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('quiz', array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/quiz', array('id' => $identifier)));
         }
 
         $viewModel = new ViewModel(
@@ -337,7 +337,7 @@ class IndexController extends AbstractActionController
 
             // the user is then registered, I can redirect him to the game
             if ($game->getClassType() == 'quiz') {
-                return $this->redirect()->toUrl($this->url()->fromRoute('quiz') .  '/' . $game->getIdentifier() . '/quiz-questions');
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/quiz') .  '/' . $game->getIdentifier() . '/quiz-questions');
             } else {
                 return $this->redirect()->toUrl($this->url()->fromRoute('game', array('id' => $identifier)));
             }

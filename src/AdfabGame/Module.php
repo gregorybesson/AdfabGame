@@ -330,6 +330,15 @@ class Module
                     return $mapper;
                 },
                 
+                'adfabgame_treasurehunt_mapper' => function ($sm) {
+                	$mapper = new \AdfabGame\Mapper\TreasureHunt(
+                			$sm->get('doctrine.entitymanager.orm_default'),
+                			$sm->get('adfabgame_module_options')
+                	);
+                
+                	return $mapper;
+                },
+                
                 'adfabgame_treasurehuntstep_mapper' => function ($sm) {
                 	$mapper = new \AdfabGame\Mapper\TreasureHuntStep(
                 			$sm->get('doctrine.entitymanager.orm_default'),

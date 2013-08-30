@@ -91,6 +91,11 @@ return array(
                         'col_right'  => 'adfab-game/layout/col-postvote.phtml',
                     ),
                 ),
+            	'adfabgame_treasurehunt'   => array(
+            		'children_views' => array(
+           				'col_right'  => 'adfab-game/layout/col-lottery.phtml',
+           			),
+           		),
                 'adfabgame_prizecategory'   => array(
                     'default_layout' => 'layout/2columns-right',
                     'actions' => array(
@@ -114,85 +119,7 @@ return array(
                                 'col_right'  => 'adfab-game/layout/col-quiz.phtml',
                             ),
                         ),
-                        'photocontestconsultation' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-photocontest.phtml',
-                            ),
-                        ),
-                        'photocontestcreate' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-photocontest.phtml',
-                            ),
-                        ),
-                        'photocontestoverview' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-photocontest.phtml',
-                            ),
-                        ),
-                        'photokitchenconsultation' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-photokitchen.phtml',
-                            ),
-                        ),
-                        'photokitchenparticipate' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-photokitchen.phtml',
-                            ),
-                        ),
-                        'postvote' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-postvote.phtml',
-                            ),
-                        ),
-                        'postvoteconsultation' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-postvote.phtml',
-                            ),
-                        ),
-                        'postvotenotlogged' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-postvote.phtml',
-                            ),
-                        ),
-                        'postvoteparticipationinscription' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-postvote.phtml',
-                            ),
-                        ),
-                        'postvoteparticipation' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-postvote.phtml',
-                            ),
-                        ),
-                        'postvotevalidation' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-postvote.phtml',
-                            ),
-                        ),
-                        'postvoteinvitation' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-postvote.phtml',
-                            ),
-                        ),
-                        'postvoterecirculation' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'adfab-game/layout/col-postvote.phtml',
-                            ),
-                        ),
-                    )
+                    ),
                 ),
             ),
         ),
@@ -226,6 +153,7 @@ return array(
             'adfabgame_quiz'                => 'AdfabGame\Controller\Frontend\QuizController',
             'adfabgame_instantwin'          => 'AdfabGame\Controller\Frontend\InstantWinController',
             'adfabgame_postvote'            => 'AdfabGame\Controller\Frontend\PostVoteController',
+        	'adfabgame_treasurehunt'  		=> 'AdfabGame\Controller\Frontend\TreasureHuntController',
             'adfabgame_prizecategory'       => 'AdfabGame\Controller\Frontend\PrizeCategoryController',
         	'adfabgame_easyxdm'       		=> 'AdfabGame\Controller\Frontend\EasyXDMController',
             'adfabgameadmin'                => 'AdfabGame\Controller\Admin\AdminController',
@@ -239,705 +167,732 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'game' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
-                    'route'    => '/jeu[/:id]',
-                    'defaults' => array(
-                        'controller' => 'adfabgame',
-                        'action'     => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' =>array(
-                    'bounce' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/bounce',
-                            'defaults' => array(
-                                'controller' => 'adfabgame',
-                                'action'     => 'bounce',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        	'easyxdmindex' => array(
-        		'type' => 'Zend\Mvc\Router\Http\Segment',
-   				'options' => array(
-        			'route'    => '/easyxdm/index',
-        			'defaults' => array(
-        				'controller' => 'adfabgame_easyxdm',
-        				'action'     => 'index',
-        			),
-   				),     				
+        	'frontend' => array(
+       			'child_routes' => array(
+		        	'easyxdmindex' => array(
+		        		'type' => 'Zend\Mvc\Router\Http\Segment',
+		   				'options' => array(
+		        			'route'    => 'easyxdm/index',
+		        			'defaults' => array(
+		        				'controller' => 'adfabgame_easyxdm',
+		        				'action'     => 'index',
+		        			),
+		   				),     				
+		        	),
+		        		
+		        	'easyxdmname' => array(
+		       			'type' => 'Zend\Mvc\Router\Http\Segment',
+		   				'options' => array(
+		        			'route'    => 'easyxdm/name',
+		        			'defaults' => array(
+		        				'controller' => 'adfabgame_easyxdm',
+		        				'action'     => 'name',
+		 					),
+		        		),
+		        	),
+		
+		            'quiz' => array(
+		                'type' => 'Segment',
+		                'options' => array(
+		                    'route' => 'quiz[/:id]',
+		                    'defaults' => array(
+		                        'controller' => 'adfabgame_quiz',
+		                        'action'     => 'index'
+		                    ),
+		                ),
+		                'may_terminate' => true,
+		                'child_routes' => array(
+		                    'play' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/jouer',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_quiz',
+		                                'action'     => 'play',
+		                            ),
+		                        ),
+		                    ),
+		                    'result' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/resultat',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_quiz',
+		                                'action'     => 'result',
+		                            ),
+		                        ),
+		                    ),
+		                    'fbshare' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/fbshare',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_quiz',
+		                                'action'     => 'fbshare',
+		                            ),
+		                        ),
+		                    ),
+		                    'tweet' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/tweet',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_quiz',
+		                                'action'     => 'tweet',
+		                            ),
+		                        ),
+		                    ),
+		                    'google' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/google',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_quiz',
+		                                'action'     => 'google',
+		                            ),
+		                        ),
+		                    ),
+		                    'bounce' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/essayez-aussi',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_quiz',
+		                                'action'     => 'bounce'
+		                            ),
+		                        ),
+		                    ),
+		                    'terms' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/reglement',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_quiz',
+		                                'action'     => 'terms'
+		                            ),
+		                        ),
+		                    ),
+		                	'fangate' => array(
+		               			'type' => 'Literal',
+		           				'options' => array(
+		       						'route' => '/fangate',
+		                			'defaults' => array(
+		           						'controller' => 'adfabgame_quiz',
+		                				'action'     => 'fangate',
+		               				),
+		                		),
+		               		),
+		                    'prizes' => array(
+		                    		'type' => 'Literal',
+		                    		'options' => array(
+		                    				'route' => '/lots',
+		                    				'defaults' => array(
+		                    						'controller' => 'adfabgame_quiz',
+		                    						'action'     => 'prizes',
+		                    				),
+		                    		),
+		                    		'may_terminate' => true,
+		                    		'child_routes' => array(
+		                    				'prize' => array(
+		                    						'type' => 'Segment',
+		                    						'options' => array(
+		                    								'route' => '/:prize',
+		                    								'defaults' => array(
+		                    										'controller' => 'adfabgame_quiz',
+		                    										'action'     => 'prize',
+		                    								),
+		                    						),
+		                    				),
+		                    		),
+		                    ),
+		                ),
+		            ),
+		
+		            'lottery' => array(
+		                'type' => 'Segment',
+		                'options' => array(
+		                    'route' => 'loterie[/:id]',
+		                    'defaults' => array(
+		                        'controller' => 'adfabgame_lottery',
+		                        'action'     => 'index'
+		                    ),
+		                ),
+		                'may_terminate' => true,
+		                'child_routes' => array(
+		                    'play' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/jouer',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_lottery',
+		                                'action'     => 'play',
+		                            ),
+		                        ),
+		                    ),
+		                    'result' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/resultat',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_lottery',
+		                                'action'     => 'result',
+		                            ),
+		                        ),
+		                    ),
+		                    'fbshare' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/fbshare',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_lottery',
+		                                'action'     => 'fbshare',
+		                            ),
+		                        ),
+		                    ),
+		                    'tweet' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/tweet',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_lottery',
+		                                'action'     => 'tweet',
+		                            ),
+		                        ),
+		                    ),
+		                    'google' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/google',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_lottery',
+		                                'action'     => 'google',
+		                            ),
+		                        ),
+		                    ),
+		                    'bounce' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/essayez-aussi',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_lottery',
+		                                'action'     => 'bounce'
+		                            ),
+		                        ),
+		                    ),
+		                    'terms' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/reglement',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_lottery',
+		                                'action'     => 'terms'
+		                            ),
+		                        ),
+		                    ),
+		                	'fangate' => array(
+		           				'type' => 'Literal',
+		           				'options' => array(
+		           					'route' => '/fangate',
+		                			'defaults' => array(
+		                				'controller' => 'adfabgame_lottery',
+		               					'action'     => 'fangate',
+		           					),
+		           				),
+		              		),
+		                    'prizes' => array(
+		                		'type' => 'Literal',
+		                		'options' => array(
+		            				'route' => '/lots',
+		            				'defaults' => array(
+		        						'controller' => 'adfabgame_lottery',
+		        						'action'     => 'prizes',
+		            				),
+		                		),
+		                		'may_terminate' => true,
+		                		'child_routes' => array(
+		            				'prize' => array(
+		        						'type' => 'Segment',
+		        						'options' => array(
+		    								'route' => '/:prize',
+		    								'defaults' => array(
+												'controller' => 'adfabgame_lottery',
+												'action'     => 'prize',
+		    								),
+		        						),
+		            				),
+		                		),
+		                    ),
+		                ),
+		            ),
+		
+		            'instantwin' => array(
+		                'type' => 'Segment',
+		                'options' => array(
+		                    'route' => 'instant-gagnant[/:id]',
+		                    'defaults' => array(
+		                        'controller' => 'adfabgame_instantwin',
+		                        'action'     => 'index'
+		                    ),
+		                ),
+		                'may_terminate' => true,
+		                'child_routes' =>array(
+		                    'play' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/jouer',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_instantwin',
+		                                'action'     => 'play',
+		                            ),
+		                        ),
+		                    ),
+		                    'result' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/resultat',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_instantwin',
+		                                'action'     => 'result',
+		                            ),
+		                        ),
+		                    ),
+		                    'fbshare' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/fbshare',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_instantwin',
+		                                'action'     => 'fbshare',
+		                            ),
+		                        ),
+		                    ),
+		                    'tweet' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/tweet',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_instantwin',
+		                                'action'     => 'tweet',
+		                            ),
+		                        ),
+		                    ),
+		                    'google' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/google',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_instantwin',
+		                                'action'     => 'google',
+		                            ),
+		                        ),
+		                    ),
+		                    'bounce' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/essayez-aussi',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_instantwin',
+		                                'action'     => 'bounce'
+		                            ),
+		                        ),
+		                    ),
+		                    'terms' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/reglement',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_instantwin',
+		                                'action'     => 'terms'
+		                            ),
+		                        ),
+		                    ),
+		                	'fangate' => array(
+		               			'type' => 'Literal',
+		           				'options' => array(
+		                			'route' => '/fangate',
+		                			'defaults' => array(
+		   								'controller' => 'adfabgame_instantwin',
+		                				'action'     => 'fangate',
+		                			),
+		               			),
+		               		),
+		                	'prizes' => array(
+		                		'type' => 'Literal',
+		                		'options' => array(
+		       						'route' => '/lots',
+		                			'defaults' => array(
+		               					'controller' => 'adfabgame_instantwin',
+		   								'action'     => 'prizes',
+		                			),
+		                		),
+		                		'may_terminate' => true,
+		                		'child_routes' => array(
+		               				'prize' => array(
+		   								'type' => 'Segment',
+		                				'options' => array(
+		                					'route' => '/:prize',
+		      								'defaults' => array(
+		                						'controller' => 'adfabgame_instantwin',
+		      									'action'     => 'prize',
+		                					),
+		                				),
+		                			),
+		                		),
+		                	),
+		                ),
+		            ),
+		
+		            'postvote' => array(
+		                'type' => 'Segment',
+		                'options' => array(
+		                    'route' => 'post-vote[/:id]',
+		                    'defaults' => array(
+		                        'controller' => 'adfabgame_postvote',
+		                        'action'     => 'index'
+		                    ),
+		                ),
+		                'may_terminate' => true,
+		                'child_routes' => array(
+		                    'list' => array(
+		                        'type' => 'Segment',
+		                        'options' => array(
+		                            'route' => '/liste/:filter',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_postvote',
+		                                'action'     => 'list',
+		                                'filter' 	 => 0,
+		                            ),
+		                        ),
+		                        'may_terminate' => true,
+		                        'child_routes' => array(
+		                            'pagination' => array(
+		                                'type'    => 'Segment',
+		                                'options' => array(
+		                                    'route'    => '[/:p]',
+		                                    'defaults' => array(
+		                                        'controller' => 'adfabgame_postvote',
+		                                        'action'     => 'list',
+		                                    ),
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+		                    'play' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/jouer',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_postvote',
+		                                'action'     => 'play',
+		                            ),
+		                        ),
+		                        'may_terminate' => true,
+		                        'child_routes' => array(
+		                            'preview' => array(
+		                                'type' => 'Literal',
+		                                'options' => array(
+		                                    'route' => '/previsualiser',
+		                                    'defaults' => array(
+		                                        'controller' => 'adfabgame_postvote',
+		                                        'action'     => 'preview',
+		                                    ),
+		                                ),
+		                            ),
+		                            'ajaxupload' => array(
+		                                'type' => 'Literal',
+		                                'options' => array(
+		                                    'route' => '/ajaxupload',
+		                                    'defaults' => array(
+		                                        'controller' => 'adfabgame_postvote',
+		                                        'action'     => 'ajaxupload',
+		                                    ),
+		                                ),
+		                            ),
+		                            'ajaxdelete' => array(
+		                                'type' => 'Literal',
+		                                'options' => array(
+		                                    'route' => '/ajaxdelete',
+		                                    'defaults' => array(
+		                                        'controller' => 'adfabgame_postvote',
+		                                        'action'     => 'ajaxdelete',
+		                                    ),
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+		                    'post' => array(
+		                        'type' => 'Segment',
+		                        'options' => array(
+		                            'route' => '/post/:post',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_postvote',
+		                                'action'     => 'post',
+		                            ),
+		                        ),
+		                        'may_terminate' => true,
+		                        'child_routes' => array(
+		                            'captcha' => array(
+		                                'type'    => 'segment',
+		                                'options' => array(
+		                                    'route'    =>  '/captcha/[:id]',
+		                                    'defaults' => array(
+		                                        'controller' => 'adfabgame_postvote',
+		                                        'action'     => 'captcha',
+		                                    ),
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+		                    'vote' => array(
+		                        'type' => 'Segment',
+		                        'options' => array(
+		                            'route' => '/vote[/:post]',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_postvote',
+		                                'action'     => 'ajaxVote',
+		                            ),
+		                        ),
+		                    ),
+		                    'result' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/resultat',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_postvote',
+		                                'action'     => 'result',
+		                            ),
+		                        ),
+		                    ),
+		                    'fbshare' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/fbshare',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_postvote',
+		                                'action'     => 'fbshare',
+		                            ),
+		                        ),
+		                    ),
+		                    'tweet' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/tweet',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_postvote',
+		                                'action'     => 'tweet',
+		                            ),
+		                        ),
+		                    ),
+		                    'google' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/google',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_postvote',
+		                                'action'     => 'google',
+		                            ),
+		                        ),
+		                    ),
+		                    'bounce' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/essayez-aussi',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_postvote',
+		                                'action'     => 'bounce'
+		                            ),
+		                        ),
+		                    ),
+		                    'terms' => array(
+		                        'type' => 'Literal',
+		                        'options' => array(
+		                            'route' => '/reglement',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_postvote',
+		                                'action'     => 'terms'
+		                            ),
+		                        ),
+		                    ),
+		                	'fangate' => array(
+		                		'type' => 'Literal',
+		               			'options' => array(
+		               				'route' => '/fangate',
+		               				'defaults' => array(
+		              					'controller' => 'adfabgame_postvote',
+		              					'action'     => 'fangate',
+		              				),
+		               			),
+		               		),
+		                	'prizes' => array(
+		                		'type' => 'Literal',
+		                		'options' => array(
+		                			'route' => '/lots',
+		                			'defaults' => array(
+		                				'controller' => 'adfabgame_postvote',
+		                				'action'     => 'prizes',
+		                			),
+		                		),
+		                		'may_terminate' => true,
+		                		'child_routes' => array(
+		                			'prize' => array(
+		                				'type' => 'Segment',
+		                				'options' => array(
+		                					'route' => '/:prize',
+		                					'defaults' => array(
+		                						'controller' => 'adfabgame_postvote',
+		                						'action'     => 'prize',
+		                					),
+		                				),
+		                			),
+		                		),
+		                	),
+		                ),
+		            ),
+       					'treasurehunt' => array(
+       						'type' => 'Segment',
+       						'options' => array(
+       							'route' => 'chasse-au-tresor[/:id]',
+       							'defaults' => array(
+       								'controller' => 'adfabgame_treasurehunt',
+       								'action'     => 'index'
+       							),
+       						),
+       						'may_terminate' => true,
+       						'child_routes' => array(
+       							'play' => array(
+       								'type' => 'Literal',
+       								'options' => array(
+       									'route' => '/jouer',
+       									'defaults' => array(
+       										'controller' => 'adfabgame_treasurehunt',
+       										'action'     => 'play',
+       									),
+       								),
+       							),
+       							'result' => array(
+       								'type' => 'Literal',
+       								'options' => array(
+       									'route' => '/resultat',
+       									'defaults' => array(
+       										'controller' => 'adfabgame_treasurehunt',
+       										'action'     => 'result',
+     									),
+       								),
+       							),
+       								'fbshare' => array(
+       									'type' => 'Literal',
+       									'options' => array(
+       										'route' => '/fbshare',
+       										'defaults' => array(
+       											'controller' => 'adfabgame_treasurehunt',
+       											'action'     => 'fbshare',
+       										),
+       									),
+   									),
+       									'tweet' => array(
+       											'type' => 'Literal',
+       											'options' => array(
+       													'route' => '/tweet',
+       													'defaults' => array(
+       															'controller' => 'adfabgame_treasurehunt',
+       															'action'     => 'tweet',
+       													),
+       											),
+       									),
+       									'google' => array(
+       											'type' => 'Literal',
+       											'options' => array(
+       													'route' => '/google',
+       													'defaults' => array(
+       															'controller' => 'adfabgame_treasurehunt',
+       															'action'     => 'google',
+       													),
+       											),
+       									),
+       									'bounce' => array(
+       											'type' => 'Literal',
+       											'options' => array(
+       													'route' => '/essayez-aussi',
+       													'defaults' => array(
+       															'controller' => 'adfabgame_treasurehunt',
+       															'action'     => 'bounce'
+       													),
+       											),
+       									),
+       									'terms' => array(
+       											'type' => 'Literal',
+       											'options' => array(
+       													'route' => '/reglement',
+       													'defaults' => array(
+       															'controller' => 'adfabgame_treasurehunt',
+       															'action'     => 'terms'
+       													),
+       											),
+       									),
+       									'fangate' => array(
+       										'type' => 'Literal',
+       										'options' => array(
+       											'route' => '/fangate',
+       											'defaults' => array(
+       												'controller' => 'adfabgame_treasurehunt',
+   													'action'     => 'fangate',
+      											),
+       										),
+       									),
+       									'prizes' => array(
+       										'type' => 'Literal',
+       										'options' => array(
+       											'route' => '/lots',
+       											'defaults' => array(
+       												'controller' => 'adfabgame_treasurehunt',
+       												'action'     => 'prizes',
+       											),
+       										),
+       										'may_terminate' => true,
+       										'child_routes' => array(
+       											'prize' => array(
+       												'type' => 'Segment',
+       												'options' => array(
+       													'route' => '/:prize',
+       													'defaults' => array(
+       														'controller' => 'adfabgame_treasurehunt',
+       														'action'     => 'prize',
+       													),
+       												),
+   												),
+    										),
+       									),
+       							),
+       					),
+		            'prizecategories' => array(
+		                'type' => 'Segment',
+		                'options' => array(
+		                    'route' => 'thematiques/:id',
+		                    'constraints' => array(
+		                        'id' => '[a-zA-Z][a-zA-Z0-9_-]*',
+		                    ),
+		                    'defaults' => array(
+		                        'controller' => 'adfabgame_prizecategory',
+		                        'action'     => 'index',
+		                        'id'		 => ''
+		                    ),
+		                ),
+		                'may_terminate' => true,
+		                'child_routes' => array(
+		                    'pagination' => array(
+		                        'type'    => 'Segment',
+		                        'options' => array(
+		                            'route'    => '[/:p]',
+		                            'defaults' => array(
+		                                'controller' => 'adfabgame_prizecategory',
+		                                'action'     => 'index',
+		                            ),
+		                        ),
+		                    ),
+		                ),
+		            ),
+       			),
         	),
-        		
-        	'easyxdmname' => array(
-       			'type' => 'Zend\Mvc\Router\Http\Segment',
-   				'options' => array(
-        			'route'    => '/easyxdm/name',
-        			'defaults' => array(
-        				'controller' => 'adfabgame_easyxdm',
-        				'action'     => 'name',
- 					),
-        		),
-        	),
-
-            'quiz' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/quiz[/:id]',
-                    'defaults' => array(
-                        'controller' => 'adfabgame_quiz',
-                        'action'     => 'index'
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'play' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/jouer',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_quiz',
-                                'action'     => 'play',
-                            ),
-                        ),
-                    ),
-                    'result' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/resultat',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_quiz',
-                                'action'     => 'result',
-                            ),
-                        ),
-                    ),
-                    'fbshare' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/fbshare',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_quiz',
-                                'action'     => 'fbshare',
-                            ),
-                        ),
-                    ),
-                    'tweet' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/tweet',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_quiz',
-                                'action'     => 'tweet',
-                            ),
-                        ),
-                    ),
-                    'google' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/google',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_quiz',
-                                'action'     => 'google',
-                            ),
-                        ),
-                    ),
-                    'bounce' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/essayez-aussi',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_quiz',
-                                'action'     => 'bounce'
-                            ),
-                        ),
-                    ),
-                    'terms' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/reglement',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_quiz',
-                                'action'     => 'terms'
-                            ),
-                        ),
-                    ),
-                	'fangate' => array(
-               			'type' => 'Literal',
-           				'options' => array(
-       						'route' => '/fangate',
-                			'defaults' => array(
-           						'controller' => 'adfabgame_quiz',
-                				'action'     => 'fangate',
-               				),
-                		),
-               		),
-                    'prizes' => array(
-                    		'type' => 'Literal',
-                    		'options' => array(
-                    				'route' => '/lots',
-                    				'defaults' => array(
-                    						'controller' => 'adfabgame_quiz',
-                    						'action'     => 'prizes',
-                    				),
-                    		),
-                    		'may_terminate' => true,
-                    		'child_routes' => array(
-                    				'prize' => array(
-                    						'type' => 'Segment',
-                    						'options' => array(
-                    								'route' => '/:prize',
-                    								'defaults' => array(
-                    										'controller' => 'adfabgame_quiz',
-                    										'action'     => 'prize',
-                    								),
-                    						),
-                    				),
-                    		),
-                    ),
-                ),
-            ),
-
-            'lottery' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/loterie[/:id]',
-                    'defaults' => array(
-                        'controller' => 'adfabgame_lottery',
-                        'action'     => 'index'
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'play' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/jouer',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_lottery',
-                                'action'     => 'play',
-                            ),
-                        ),
-                    ),
-                    'result' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/resultat',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_lottery',
-                                'action'     => 'result',
-                            ),
-                        ),
-                    ),
-                    'fbshare' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/fbshare',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_lottery',
-                                'action'     => 'fbshare',
-                            ),
-                        ),
-                    ),
-                    'tweet' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/tweet',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_lottery',
-                                'action'     => 'tweet',
-                            ),
-                        ),
-                    ),
-                    'google' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/google',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_lottery',
-                                'action'     => 'google',
-                            ),
-                        ),
-                    ),
-                    'bounce' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/essayez-aussi',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_lottery',
-                                'action'     => 'bounce'
-                            ),
-                        ),
-                    ),
-                    'terms' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/reglement',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_lottery',
-                                'action'     => 'terms'
-                            ),
-                        ),
-                    ),
-                	'fangate' => array(
-           				'type' => 'Literal',
-           				'options' => array(
-           					'route' => '/fangate',
-                			'defaults' => array(
-                				'controller' => 'adfabgame_lottery',
-               					'action'     => 'fangate',
-           					),
-           				),
-              		),
-                    'prizes' => array(
-                		'type' => 'Literal',
-                		'options' => array(
-            				'route' => '/lots',
-            				'defaults' => array(
-        						'controller' => 'adfabgame_lottery',
-        						'action'     => 'prizes',
-            				),
-                		),
-                		'may_terminate' => true,
-                		'child_routes' => array(
-            				'prize' => array(
-        						'type' => 'Segment',
-        						'options' => array(
-    								'route' => '/:prize',
-    								'defaults' => array(
-										'controller' => 'adfabgame_lottery',
-										'action'     => 'prize',
-    								),
-        						),
-            				),
-                		),
-                    ),
-                ),
-            ),
-
-            'instantwin' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/instant-gagnant[/:id]',
-                    'defaults' => array(
-                        'controller' => 'adfabgame_instantwin',
-                        'action'     => 'index'
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' =>array(
-                    'play' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/jouer',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_instantwin',
-                                'action'     => 'play',
-                            ),
-                        ),
-                    ),
-                    'result' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/resultat',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_instantwin',
-                                'action'     => 'result',
-                            ),
-                        ),
-                    ),
-                    'fbshare' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/fbshare',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_instantwin',
-                                'action'     => 'fbshare',
-                            ),
-                        ),
-                    ),
-                    'tweet' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/tweet',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_instantwin',
-                                'action'     => 'tweet',
-                            ),
-                        ),
-                    ),
-                    'google' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/google',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_instantwin',
-                                'action'     => 'google',
-                            ),
-                        ),
-                    ),
-                    'bounce' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/essayez-aussi',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_instantwin',
-                                'action'     => 'bounce'
-                            ),
-                        ),
-                    ),
-                    'terms' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/reglement',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_instantwin',
-                                'action'     => 'terms'
-                            ),
-                        ),
-                    ),
-                	'fangate' => array(
-               			'type' => 'Literal',
-           				'options' => array(
-                			'route' => '/fangate',
-                			'defaults' => array(
-   								'controller' => 'adfabgame_instantwin',
-                				'action'     => 'fangate',
-                			),
-               			),
-               		),
-                	'prizes' => array(
-                		'type' => 'Literal',
-                		'options' => array(
-       						'route' => '/lots',
-                			'defaults' => array(
-               					'controller' => 'adfabgame_instantwin',
-   								'action'     => 'prizes',
-                			),
-                		),
-                		'may_terminate' => true,
-                		'child_routes' => array(
-               				'prize' => array(
-   								'type' => 'Segment',
-                				'options' => array(
-                					'route' => '/:prize',
-      								'defaults' => array(
-                						'controller' => 'adfabgame_instantwin',
-      									'action'     => 'prize',
-                					),
-                				),
-                			),
-                		),
-                	),
-                ),
-            ),
-
-            'postvote' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/post-vote[/:id]',
-                    'defaults' => array(
-                        'controller' => 'adfabgame_postvote',
-                        'action'     => 'index'
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'list' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/liste/:filter',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_postvote',
-                                'action'     => 'list',
-                                'filter' 	 => 0,
-                            ),
-                        ),
-                        'may_terminate' => true,
-                        'child_routes' => array(
-                            'pagination' => array(
-                                'type'    => 'Segment',
-                                'options' => array(
-                                    'route'    => '[/:p]',
-                                    'defaults' => array(
-                                        'controller' => 'adfabgame_postvote',
-                                        'action'     => 'list',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                    'play' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/jouer',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_postvote',
-                                'action'     => 'play',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                        'child_routes' => array(
-                            'preview' => array(
-                                'type' => 'Literal',
-                                'options' => array(
-                                    'route' => '/previsualiser',
-                                    'defaults' => array(
-                                        'controller' => 'adfabgame_postvote',
-                                        'action'     => 'preview',
-                                    ),
-                                ),
-                            ),
-                            'ajaxupload' => array(
-                                'type' => 'Literal',
-                                'options' => array(
-                                    'route' => '/ajaxupload',
-                                    'defaults' => array(
-                                        'controller' => 'adfabgame_postvote',
-                                        'action'     => 'ajaxupload',
-                                    ),
-                                ),
-                            ),
-                            'ajaxdelete' => array(
-                                'type' => 'Literal',
-                                'options' => array(
-                                    'route' => '/ajaxdelete',
-                                    'defaults' => array(
-                                        'controller' => 'adfabgame_postvote',
-                                        'action'     => 'ajaxdelete',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                    'post' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/post/:post',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_postvote',
-                                'action'     => 'post',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                        'child_routes' => array(
-                            'captcha' => array(
-                                'type'    => 'segment',
-                                'options' => array(
-                                    'route'    =>  '/captcha/[:id]',
-                                    'defaults' => array(
-                                        'controller' => 'adfabgame_postvote',
-                                        'action'     => 'captcha',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                    'vote' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/vote[/:post]',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_postvote',
-                                'action'     => 'ajaxVote',
-                            ),
-                        ),
-                    ),
-                    'result' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/resultat',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_postvote',
-                                'action'     => 'result',
-                            ),
-                        ),
-                    ),
-                    'fbshare' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/fbshare',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_postvote',
-                                'action'     => 'fbshare',
-                            ),
-                        ),
-                    ),
-                    'tweet' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/tweet',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_postvote',
-                                'action'     => 'tweet',
-                            ),
-                        ),
-                    ),
-                    'google' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/google',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_postvote',
-                                'action'     => 'google',
-                            ),
-                        ),
-                    ),
-                    'bounce' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/essayez-aussi',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_postvote',
-                                'action'     => 'bounce'
-                            ),
-                        ),
-                    ),
-                    'terms' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/reglement',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_postvote',
-                                'action'     => 'terms'
-                            ),
-                        ),
-                    ),
-                	'fangate' => array(
-                		'type' => 'Literal',
-               			'options' => array(
-               				'route' => '/fangate',
-               				'defaults' => array(
-              					'controller' => 'adfabgame_postvote',
-              					'action'     => 'fangate',
-              				),
-               			),
-               		),
-                	'prizes' => array(
-                		'type' => 'Literal',
-                		'options' => array(
-                			'route' => '/lots',
-                			'defaults' => array(
-                				'controller' => 'adfabgame_postvote',
-                				'action'     => 'prizes',
-                			),
-                		),
-                		'may_terminate' => true,
-                		'child_routes' => array(
-                			'prize' => array(
-                				'type' => 'Segment',
-                				'options' => array(
-                					'route' => '/:prize',
-                					'defaults' => array(
-                						'controller' => 'adfabgame_postvote',
-                						'action'     => 'prize',
-                					),
-                				),
-                			),
-                		),
-                	),
-                ),
-            ),
-            'prizecategories' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/thematiques/:id',
-                    'constraints' => array(
-                        'id' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'adfabgame_prizecategory',
-                        'action'     => 'index',
-                        'id'		 => ''
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'pagination' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '[/:p]',
-                            'defaults' => array(
-                                'controller' => 'adfabgame_prizecategory',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            'photocontestconsultation' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/photo-contest-consultation',
-                    'defaults' => array(
-                        'controller' => 'adfabgame',
-                        'action'     => 'photocontestconsultation'
-                    ),
-                ),
-            ),
-            'photocontestcreate' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/photo-contest-create',
-                    'defaults' => array(
-                        'controller' => 'adfabgame',
-                        'action'     => 'photocontestcreate'
-                    ),
-                ),
-            ),
-            'photocontestoverview' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/photo-contest-overview',
-                    'defaults' => array(
-                        'controller' => 'adfabgame',
-                        'action'     => 'photocontestoverview'
-                    ),
-                ),
-            ),
-            'photokitchenconsultation' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/photo-kitchen-consultation',
-                    'defaults' => array(
-                        'controller' => 'adfabgame',
-                        'action'     => 'photokitchenconsultation'
-                    ),
-                ),
-            ),
-            'photokitchenparticipate' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/photo-kitchen-participate',
-                    'defaults' => array(
-                        'controller' => 'adfabgame',
-                        'action'     => 'photokitchenparticipate'
-                    ),
-                ),
-            ),
-            'postvoteconsultation' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/post-vote-consultation',
-                    'defaults' => array(
-                        'controller' => 'adfabgame',
-                        'action'     => 'postvoteconsultation'
-                    ),
-                ),
-            ),
-            'postvotenotlogged' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/post-vote-not-logged',
-                    'defaults' => array(
-                        'controller' => 'adfabgame',
-                        'action'     => 'postvotenotlogged'
-                    ),
-                ),
-            ),
 
             'zfcadmin' => array(
                 'child_routes' => array(
