@@ -22,7 +22,7 @@ class PostVoteController extends AbstractActionController
         $service = $this->getAdminGameService();
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
         if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
         $game = $service->getGameMapper()->findById($gameId);
         $form = $service->getPostVoteFormMapper()->findByGame($game);
@@ -64,7 +64,7 @@ class PostVoteController extends AbstractActionController
         $form = $this->getServiceLocator()->get('adfabgame_postvote_form');
         $form->bind($postVote);
         $form->get('submit')->setAttribute('label', 'Add');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/create-postvote', array('gameId' => 0)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/create-postvote', array('gameId' => 0)));
         $form->setAttribute('method', 'post');
 
         $request = $this->getRequest();
@@ -77,7 +77,7 @@ class PostVoteController extends AbstractActionController
             if ($game) {
                 $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The game was created');
 
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+                return $this->redirect()->toRoute('admin/adfabgame/list');
             }
         }
         $gameForm->setVariables(array('form' => $form));
@@ -92,7 +92,7 @@ class PostVoteController extends AbstractActionController
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
 
         if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/create-postvote');
+            return $this->redirect()->toRoute('admin/adfabgame/create-postvote');
         }
 
         $game = $service->getGameMapper()->findById($gameId);
@@ -103,7 +103,7 @@ class PostVoteController extends AbstractActionController
         $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_postvote_form');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-postvote', array('gameId' => $gameId)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/edit-postvote', array('gameId' => $gameId)));
         $form->setAttribute('method', 'post');
         $form->get('submit')->setLabel('Mettre à jour');
 		
@@ -132,7 +132,7 @@ class PostVoteController extends AbstractActionController
             $result = $service->edit($data, $game, 'adfabgame_postvote_form');
 
             if ($result) {
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+                return $this->redirect()->toRoute('admin/adfabgame/list');
             }
         }
 
@@ -165,12 +165,12 @@ class PostVoteController extends AbstractActionController
         $status = $this->getEvent()->getRouteMatch()->getParam('status');
 
         if (!$postId) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('zfcadmin/postvote/leaderboard', array('gameId' => 0)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('admin/postvote/leaderboard', array('gameId' => 0)));
         }
         $post = $service->getPostVotePostMapper()->findById($postId);
 
         if (! $post) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('zfcadmin/postvote/leaderboard', array('gameId' => 0)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('admin/postvote/leaderboard', array('gameId' => 0)));
         }
         $game = $post->getPostvote();
 
@@ -178,12 +178,12 @@ class PostVoteController extends AbstractActionController
             $post->setStatus(2);
             $service->getPostVotePostMapper()->update($post);
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('zfcadmin/postvote/leaderboard', array('gameId' => $game->getId())));
+            return $this->redirect()->toUrl($this->url()->fromRoute('admin/postvote/leaderboard', array('gameId' => $game->getId())));
         } elseif ($status && $status=='rejection') {
             $post->setStatus(9);
             $service->getPostVotePostMapper()->update($post);
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('zfcadmin/postvote/leaderboard', array('gameId' => $game->getId())));
+            return $this->redirect()->toUrl($this->url()->fromRoute('admin/postvote/leaderboard', array('gameId' => $game->getId())));
         }
 
         return array('game' => $game, 'post' => $post);

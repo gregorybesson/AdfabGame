@@ -8,16 +8,16 @@ if (isset($fm[0]))
 ?>
 
 <ul class="liste-buttons">
-	<li class="btn-admin"><a href="<?php echo $this->url('zfcadmin/adfabgame/create-lottery');?>"><?php echo $this->translate('Add new lottery'); ?></a></li>
-	<li class="btn-admin"><a href="<?php echo $this->url('zfcadmin/adfabgame/create-quiz');?>"><?php echo $this->translate('Add new Quiz'); ?></a></li>
-	<li class="btn-admin"><a href="<?php echo $this->url('zfcadmin/adfabgame/create-instantwin');?>"><?php echo $this->translate('Add new Instant Win'); ?></a></li>
-	<li class="btn-admin"><a href="<?php echo $this->url('zfcadmin/adfabgame/create-postvote');?>"><?php echo $this->translate('Add new Post & Vote'); ?></a></li>
-	<li class="btn-admin"><a href="<?php echo $this->url('zfcadmin/adfabgame/create-treasurehunt');?>"><?php echo $this->translate('Add new Treasure Hunt'); ?></a></li>
+	<li class="btn-admin"><a href="<?php echo $this->url('admin/adfabgame/create-lottery');?>"><?php echo $this->translate('Add new lottery'); ?></a></li>
+	<li class="btn-admin"><a href="<?php echo $this->url('admin/adfabgame/create-quiz');?>"><?php echo $this->translate('Add new Quiz'); ?></a></li>
+	<li class="btn-admin"><a href="<?php echo $this->url('admin/adfabgame/create-instantwin');?>"><?php echo $this->translate('Add new Instant Win'); ?></a></li>
+	<li class="btn-admin"><a href="<?php echo $this->url('admin/adfabgame/create-postvote');?>"><?php echo $this->translate('Add new Post & Vote'); ?></a></li>
+	<li class="btn-admin"><a href="<?php echo $this->url('admin/adfabgame/create-treasurehunt');?>"><?php echo $this->translate('Add new Treasure Hunt'); ?></a></li>
 </ul>
 
 <h1>Liste des jeux</h1>
 
-<div class="sortby-role">Tri par : <a href="<?php echo $this->url('zfcadmin/adfabgame/list', array('type' => 'startDate', 'filter' => 'DESC')); ?>">Date début</a> | <a href="<?php echo $this->url('zfcadmin/adfabgame/list', array('type' => 'activeGames', 'filter' => 'DESC')); ?>">Actif</a> | <a href="<?php echo $this->url('zfcadmin/adfabgame/list', array('type' => 'onlineGames', 'filter' => 'DESC')); ?>">Online</a></div>
+<div class="sortby-role">Tri par : <a href="<?php echo $this->url('admin/adfabgame/list', array('type' => 'startDate', 'filter' => 'DESC')); ?>">Date début</a> | <a href="<?php echo $this->url('admin/adfabgame/list', array('type' => 'activeGames', 'filter' => 'DESC')); ?>">Actif</a> | <a href="<?php echo $this->url('admin/adfabgame/list', array('type' => 'onlineGames', 'filter' => 'DESC')); ?>">Online</a></div>
 
 <table class="table">
     <tr>
@@ -46,28 +46,28 @@ if (isset($fm[0]))
             <td><?php echo $game->getClassType() ?></td>
             <td><?php echo $game->getIdentifier() ?></td>
             <?php if($game->getClassType() == 'quiz'):?>
-                <?php $editLink = $this->url('zfcadmin/adfabgame/edit-quiz', array('gameId' => $game->getId()));?>
+                <?php $editLink = $this->url('admin/adfabgame/edit-quiz', array('gameId' => $game->getId()));?>
             <?php elseif($game->getClassType() == 'lottery'):?>
-                <?php $editLink = $this->url('zfcadmin/adfabgame/edit-lottery', array('gameId' => $game->getId()));?>
+                <?php $editLink = $this->url('admin/adfabgame/edit-lottery', array('gameId' => $game->getId()));?>
             <?php elseif($game->getClassType() == 'instantwin'):?>
-                <?php $editLink = $this->url('zfcadmin/adfabgame/edit-instantwin', array('gameId' => $game->getId()));?>
+                <?php $editLink = $this->url('admin/adfabgame/edit-instantwin', array('gameId' => $game->getId()));?>
             <?php elseif($game->getClassType() == 'postvote'):?>
-                <?php $editLink = $this->url('zfcadmin/adfabgame/edit-postvote', array('gameId' => $game->getId()));?>
+                <?php $editLink = $this->url('admin/adfabgame/edit-postvote', array('gameId' => $game->getId()));?>
             <?php elseif($game->getClassType() == 'treasurehunt'):?>
-                <?php $editLink = $this->url('zfcadmin/adfabgame/edit-treasurehunt', array('gameId' => $game->getId()));?>
+                <?php $editLink = $this->url('admin/adfabgame/edit-treasurehunt', array('gameId' => $game->getId()));?>
             <?php else:?>
-                <?php $editLink = $this->url('zfcadmin/adfabgame/edit', array('gameId' => $game->getId()));?>
+                <?php $editLink = $this->url('admin/adfabgame/edit', array('gameId' => $game->getId()));?>
             <?php endif;?>
-            <?php $deleteLink = $this->url('zfcadmin/adfabgame/remove', array('gameId' => $game->getId()));?>
-            <?php $leaderboardLink = $this->url('zfcadmin/'. $game->getClassType() .'/leaderboard', array('gameId' => $game->getId()));?>
+            <?php $deleteLink = $this->url('admin/adfabgame/remove', array('gameId' => $game->getId()));?>
+            <?php $leaderboardLink = $this->url('admin/'. $game->getClassType() .'/leaderboard', array('gameId' => $game->getId()));?>
             <?php if($game->getClassType() == 'quiz'):?>
-                <?php $optionLink = $this->url('zfcadmin/adfabgame/quiz-question-list', array('quizId' => $game->getId())); ?>
+                <?php $optionLink = $this->url('admin/adfabgame/quiz-question-list', array('quizId' => $game->getId())); ?>
             <?php elseif($game->getClassType() == 'instantwin'):?>
-                <?php $optionLink = $this->url('zfcadmin/adfabgame/instantwin-occurrence-list', array('gameId' => $game->getId())); ?>
+                <?php $optionLink = $this->url('admin/adfabgame/instantwin-occurrence-list', array('gameId' => $game->getId())); ?>
             <?php elseif($game->getClassType() == 'treasurehunt'):?>
-                <?php $optionLink = $this->url('zfcadmin/adfabgame/treasurehunt-step-list', array('gameId' => $game->getId())); ?>
+                <?php $optionLink = $this->url('admin/adfabgame/treasurehunt-step-list', array('gameId' => $game->getId())); ?>
             <?php elseif($game->getClassType() == 'postvote'):?>
-                <?php $optionLink = $this->url('zfcadmin/adfabgame/postvote-form', array('gameId' => $game->getId())); ?>
+                <?php $optionLink = $this->url('admin/adfabgame/postvote-form', array('gameId' => $game->getId())); ?>
             <?php else: ?>
                 <?php $optionLink = ''; ?>
             <?php endif; ?>
@@ -81,10 +81,10 @@ if (isset($fm[0]))
 </table>
 
 <ul class="liste-buttons bottom">
-	<li class="btn-admin bottom"><a href="<?php echo $this->url('zfcadmin/adfabgame/create-lottery');?>"><?php echo $this->translate('Add new lottery'); ?></a></li>
-	<li class="btn-admin bottom"><a href="<?php echo $this->url('zfcadmin/adfabgame/create-quiz');?>"><?php echo $this->translate('Add new Quiz'); ?></a></li>
-	<li class="btn-admin bottom"><a href="<?php echo $this->url('zfcadmin/adfabgame/create-instantwin');?>"><?php echo $this->translate('Add new Instant Win'); ?></a></li>
-	<li class="btn-admin bottom"><a href="<?php echo $this->url('zfcadmin/adfabgame/create-postvote');?>"><?php echo $this->translate('Add new Post & Vote'); ?></a></li>
+	<li class="btn-admin bottom"><a href="<?php echo $this->url('admin/adfabgame/create-lottery');?>"><?php echo $this->translate('Add new lottery'); ?></a></li>
+	<li class="btn-admin bottom"><a href="<?php echo $this->url('admin/adfabgame/create-quiz');?>"><?php echo $this->translate('Add new Quiz'); ?></a></li>
+	<li class="btn-admin bottom"><a href="<?php echo $this->url('admin/adfabgame/create-instantwin');?>"><?php echo $this->translate('Add new Instant Win'); ?></a></li>
+	<li class="btn-admin bottom"><a href="<?php echo $this->url('admin/adfabgame/create-postvote');?>"><?php echo $this->translate('Add new Post & Vote'); ?></a></li>
 </ul>
 
 <?php echo $this->paginationControl($this->games, 'Sliding', 'adfab-game/admin/pagination_gamelist', array('type' => $this->type, 'filter' => $this->filter)); ?>

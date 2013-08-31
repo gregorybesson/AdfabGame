@@ -1,6 +1,6 @@
 <?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame');// Pour le texte ?>
-<?php $validation = $this->url('zfcadmin/adfabgame/postvote-moderation-edit', array('postId' => $post->getId(), 'status' => 'validation'));?>
-<?php $rejection = $this->url('zfcadmin/adfabgame/postvote-moderation-edit', array('postId' => $post->getId(), 'status' => 'rejection'));?>
+<?php $validation = $this->url('admin/adfabgame/postvote-moderation-edit', array('postId' => $post->getId(), 'status' => 'validation'));?>
+<?php $rejection = $this->url('admin/adfabgame/postvote-moderation-edit', array('postId' => $post->getId(), 'status' => 'rejection'));?>
 <?php $data = array();foreach($this->post->getPostElements() as $element):?>
 <?php $data[$element->getPosition()] = $element->getValue();?>
 <?php endforeach;?>

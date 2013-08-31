@@ -23,7 +23,7 @@ class QuizController extends AbstractActionController
         $service = $this->getAdminGameService();
         $quizId = $this->getEvent()->getRouteMatch()->getParam('quizId');
         if (!$quizId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
         $quiz = $service->getGameMapper()->findById($quizId);
         $questions = $service->getQuizQuestionMapper()->findByGameId($quizId);
@@ -52,13 +52,13 @@ class QuizController extends AbstractActionController
         $quizId = $this->getEvent()->getRouteMatch()->getParam('quizId');
 
         if (!$quizId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
 
         $form = $this->getServiceLocator()->get('adfabgame_quizquestion_form');
         $form->get('submit')->setAttribute('label', 'Ajouter');
         $form->get('quiz_id')->setAttribute('value', $quizId);
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/quiz-question-add', array('quizId' => $quizId)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/quiz-question-add', array('quizId' => $quizId)));
         $form->setAttribute('method', 'post');
 
         $question = new QuizQuestion();
@@ -74,7 +74,7 @@ class QuizController extends AbstractActionController
                    // Redirect to list of games
                    $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The question was created');
 
-                   return $this->redirect()->toRoute('zfcadmin/adfabgame/quiz-question-list', array('quizId'=>$quizId));
+                   return $this->redirect()->toRoute('admin/adfabgame/quiz-question-list', array('quizId'=>$quizId));
                }
         }
 
@@ -89,7 +89,7 @@ class QuizController extends AbstractActionController
 
         $questionId = $this->getEvent()->getRouteMatch()->getParam('questionId');
         if (!$questionId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
         $question   = $service->getQuizQuestionMapper()->findById($questionId);
         $quizId     = $question->getQuiz()->getId();
@@ -97,7 +97,7 @@ class QuizController extends AbstractActionController
         $form = $this->getServiceLocator()->get('adfabgame_quizquestion_form');
         $form->get('submit')->setAttribute('label', 'Mettre à jour');
         $form->get('quiz_id')->setAttribute('value', $quizId);
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/quiz-question-edit', array('questionId' => $questionId)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/quiz-question-edit', array('questionId' => $questionId)));
         $form->setAttribute('method', 'post');
 
         $form->bind($question);
@@ -112,7 +112,7 @@ class QuizController extends AbstractActionController
                 // Redirect to list of games
                 $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The question was created');
 
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/quiz-question-list', array('quizId'=>$quizId));
+                return $this->redirect()->toRoute('admin/adfabgame/quiz-question-list', array('quizId'=>$quizId));
             }
         }
 
@@ -124,7 +124,7 @@ class QuizController extends AbstractActionController
         $service = $this->getAdminGameService();
         $questionId = $this->getEvent()->getRouteMatch()->getParam('questionId');
         if (!$questionId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
         $question   = $service->getQuizQuestionMapper()->findById($questionId);
         $quizId     = $question->getQuiz()->getId();
@@ -132,7 +132,7 @@ class QuizController extends AbstractActionController
         $service->getQuizQuestionMapper()->remove($question);
         $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The question was created');
 
-        return $this->redirect()->toRoute('zfcadmin/adfabgame/quiz-question-list', array('quizId'=>$quizId));
+        return $this->redirect()->toRoute('admin/adfabgame/quiz-question-list', array('quizId'=>$quizId));
     }
 
     public function createQuizAction()
@@ -149,7 +149,7 @@ class QuizController extends AbstractActionController
         $form = $this->getServiceLocator()->get('adfabgame_quiz_form');
         $form->bind($quiz);
         $form->get('submit')->setAttribute('label', 'Add');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/create-quiz', array('gameId' => 0)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/create-quiz', array('gameId' => 0)));
         $form->setAttribute('method', 'post');
 
         $request = $this->getRequest();
@@ -162,7 +162,7 @@ class QuizController extends AbstractActionController
             if ($game) {
                 $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The game was created');
 
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+                return $this->redirect()->toRoute('admin/adfabgame/list');
             }
         }
         $gameForm->setVariables(array('form' => $form));
@@ -177,7 +177,7 @@ class QuizController extends AbstractActionController
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
 
         if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/create-quiz');
+            return $this->redirect()->toRoute('admin/adfabgame/create-quiz');
         }
 
         $game = $service->getGameMapper()->findById($gameId);
@@ -188,7 +188,7 @@ class QuizController extends AbstractActionController
         $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_quiz_form');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-quiz', array('gameId' => $gameId)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/edit-quiz', array('gameId' => $gameId)));
         $form->setAttribute('method', 'post');
         $form->get('submit')->setLabel('Edit');
 		
@@ -217,7 +217,7 @@ class QuizController extends AbstractActionController
             $result = $service->edit($data, $game, 'adfabgame_quiz_form');
 
             if ($result) {
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+                return $this->redirect()->toRoute('admin/adfabgame/list');
             }
         }
 

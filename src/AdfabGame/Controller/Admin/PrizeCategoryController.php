@@ -52,7 +52,7 @@ class PrizeCategoryController extends AbstractActionController
             if ($category) {
                 $this->flashMessenger()->setNamespace('adfabgame')->addMessage('la catégorie a été créée');
 
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/prize-category-list');
+                return $this->redirect()->toRoute('admin/adfabgame/prize-category-list');
             }
         }
 
@@ -83,7 +83,7 @@ class PrizeCategoryController extends AbstractActionController
             if ($category) {
                 $this->flashMessenger()->setNamespace('adfabgame')->addMessage('La catégorie a été mise à jour');
 
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/prize-category-list');
+                return $this->redirect()->toRoute('admin/adfabgame/prize-category-list');
             }
         }
 

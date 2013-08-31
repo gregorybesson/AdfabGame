@@ -1,5 +1,5 @@
 <?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame');// Pour le texte ?>
-<?php $downloadLink = $this->url('zfcadmin/'. $this->game->getClassType() .'/download', array('gameId' => $this->game->getId()));?>
+<?php $downloadLink = $this->url('admin/'. $this->game->getClassType() .'/download', array('gameId' => $this->game->getId()));?>
 <?php
 /*$fm = $this->flashMessenger()->setNamespace('adfabgame')->getMessages();
 if (isset($fm[0]))
@@ -29,8 +29,8 @@ if (isset($fm[0]))
             <td><?php echo $entry->getUser()->getOptinPartner(); ?></td>
             <td><?php echo $entry->getWinner(); ?></td>
 
-            <?php //$editLink = $this->url('zfcadmin/adfabgame/edit', array('gameId' => $game->getId()));?>
-            <?php //$deleteLink = $this->url('zfcadmin/adfabgame/remove', array('gameId' => $game->getId()));?>
+            <?php //$editLink = $this->url('admin/adfabgame/edit', array('gameId' => $game->getId()));?>
+            <?php //$deleteLink = $this->url('admin/adfabgame/remove', array('gameId' => $game->getId()));?>
 
             <td></td>
         </tr>

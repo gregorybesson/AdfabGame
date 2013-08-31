@@ -30,7 +30,7 @@ class LotteryController extends AbstractActionController
         $form = $this->getServiceLocator()->get('adfabgame_lottery_form');
         $form->bind($lottery);
         $form->get('submit')->setAttribute('label', 'Add');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/create-lottery', array('gameId' => 0)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/create-lottery', array('gameId' => 0)));
         $form->setAttribute('method', 'post');
 
         $request = $this->getRequest();
@@ -46,7 +46,7 @@ class LotteryController extends AbstractActionController
             if ($game) {
                 $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The game was created');
 
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+                return $this->redirect()->toRoute('admin/adfabgame/list');
             }
         }
         $gameForm->setVariables(array('form' => $form));
@@ -61,7 +61,7 @@ class LotteryController extends AbstractActionController
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
 
         if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/createLottery');
+            return $this->redirect()->toRoute('admin/adfabgame/createLottery');
         }
 
         $game = $service->getGameMapper()->findById($gameId);
@@ -72,7 +72,7 @@ class LotteryController extends AbstractActionController
         $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_lottery_form');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-lottery', array('gameId' => $gameId)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/edit-lottery', array('gameId' => $gameId)));
         $form->setAttribute('method', 'post');
         $form->get('submit')->setLabel('Edit');
         if ($game->getFbAppId()) {
@@ -103,7 +103,7 @@ class LotteryController extends AbstractActionController
             $result = $service->edit($data, $game, 'adfabgame_lottery_form');
 
             if ($result) {
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+                return $this->redirect()->toRoute('admin/adfabgame/list');
             }
         }
 

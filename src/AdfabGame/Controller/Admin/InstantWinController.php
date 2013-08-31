@@ -26,14 +26,14 @@ class InstantWinController extends AbstractActionController
         $service = $this->getAdminGameService();
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
         if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
 
         $game = $service->getGameMapper()->findById($gameId);
         $service->getGameMapper()->remove($game);
         $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The game has been edited');
 
-        return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+        return $this->redirect()->toRoute('admin/adfabgame/list');
     }
 
     public function createInstantWinAction()
@@ -50,7 +50,7 @@ class InstantWinController extends AbstractActionController
         $form = $this->getServiceLocator()->get('adfabgame_instantwin_form');
         $form->bind($instantwin);
         $form->get('submit')->setLabel('Add');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/create-instantwin', array('gameId' => 0)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/create-instantwin', array('gameId' => 0)));
         $form->setAttribute('method', 'post');
 
         $request = $this->getRequest();
@@ -63,7 +63,7 @@ class InstantWinController extends AbstractActionController
             if ($game) {
                 $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The game was created');
 
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+                return $this->redirect()->toRoute('admin/adfabgame/list');
             }
         }
         $gameForm->setVariables(array('form' => $form));
@@ -83,7 +83,7 @@ class InstantWinController extends AbstractActionController
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
 
         if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/create-instantwin');
+            return $this->redirect()->toRoute('admin/adfabgame/create-instantwin');
         }
 
         $game = $service->getGameMapper()->findById($gameId);
@@ -94,7 +94,7 @@ class InstantWinController extends AbstractActionController
         $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_instantwin_form');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-instantwin', array('gameId' => $gameId)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/edit-instantwin', array('gameId' => $gameId)));
         $form->setAttribute('method', 'post');
         $form->get('submit')->setLabel('Edit');
 		
@@ -123,7 +123,7 @@ class InstantWinController extends AbstractActionController
             $result = $service->edit($data, $game, 'adfabgame_instantwin_form');
 
             if ($result) {
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+                return $this->redirect()->toRoute('admin/adfabgame/list');
             }
         }
 
@@ -145,7 +145,7 @@ class InstantWinController extends AbstractActionController
         $filter		= $this->getEvent()->getRouteMatch()->getParam('filter');
 
         if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
 
         //$instantwin = $service->getGameMapper()->findById($gameId);
@@ -173,12 +173,12 @@ class InstantWinController extends AbstractActionController
         $service = $this->getAdminGameService();
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
         if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
 
         $form = $this->getServiceLocator()->get('adfabgame_instantwinoccurrence_form');
         $form->get('submit')->setAttribute('label', 'Add');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/instantwin-occurrence-add', array('gameId' => $gameId)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/instantwin-occurrence-add', array('gameId' => $gameId)));
         $form->setAttribute('method', 'post');
         $form->get('instant_win_id')->setAttribute('value', $gameId);
 
@@ -196,7 +196,7 @@ class InstantWinController extends AbstractActionController
                 // Redirect to list of games
                 $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The occurrence was created');
 
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/instantwin-occurrence-list', array('gameId'=>$gameId));
+                return $this->redirect()->toRoute('admin/adfabgame/instantwin-occurrence-list', array('gameId'=>$gameId));
             }
         }
 
@@ -218,12 +218,12 @@ class InstantWinController extends AbstractActionController
 
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
         /*if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }*/
 
         $occurrenceId = $this->getEvent()->getRouteMatch()->getParam('occurrenceId');
         if (!$occurrenceId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
         $occurrence   = $service->getInstantWinOccurrenceMapper()->findById($occurrenceId);
         $instantwinId     = $occurrence->getInstantWin()->getId();
@@ -244,7 +244,7 @@ class InstantWinController extends AbstractActionController
                 // Redirect to list of games
                 $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The occurrence was created');
 
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/instantwin-occurrence-list', array('gameId'=>$instantwinId));
+                return $this->redirect()->toRoute('admin/adfabgame/instantwin-occurrence-list', array('gameId'=>$instantwinId));
             }
         }
 
@@ -264,7 +264,7 @@ class InstantWinController extends AbstractActionController
         $service = $this->getAdminGameService();
         $occurrenceId = $this->getEvent()->getRouteMatch()->getParam('occurrenceId');
         if (!$occurrenceId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
         $occurrence   = $service->getInstantWinOccurrenceMapper()->findById($occurrenceId);
         $instantwinId = $occurrence->getInstantWin()->getId();
@@ -276,7 +276,7 @@ class InstantWinController extends AbstractActionController
             $this->flashMessenger()->setNamespace('adfabgame')->addMessage('Il y a un participant à cet instant gagnant. Vous ne pouvez plus le supprimer');
         }
 
-        return $this->redirect()->toRoute('zfcadmin/adfabgame/instantwin-occurrence-list', array('gameId'=>$instantwinId));
+        return $this->redirect()->toRoute('admin/adfabgame/instantwin-occurrence-list', array('gameId'=>$instantwinId));
     }
 
     public function leaderboardAction()

@@ -6,15 +6,15 @@ if (isset($fm[0]))
 }*/
 ?>
 <?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame'); ?>
-<?php $addLink = $this->url('zfcadmin/adfabgame/quiz-question-add', array('quizId' => $this->quiz_id)); ?>
+<?php $addLink = $this->url('admin/adfabgame/quiz-question-add', array('quizId' => $this->quiz_id)); ?>
 
 
 <ul class="liste-buttons">
 	<li class="btn-admin"><a href="<?php echo $addLink;?>"><?php echo $this->translate('Add new question'); ?></a></li>
-	<!--<li class="btn-admin"><a href="<?php echo $this->url('zfcadmin/adfabgame/list');?>"><?php echo $this->translate('Retour'); ?></a></li>-->
+	<!--<li class="btn-admin"><a href="<?php echo $this->url('admin/adfabgame/list');?>"><?php echo $this->translate('Retour'); ?></a></li>-->
 </ul>
 
-<h1><a href="<?php echo $this->url('zfcadmin/adfabgame/edit-quiz', array('gameId' => $this->quiz_id)) ?>"><?php echo $this->quiz->getTitle(); ?></a></h1>
+<h1><a href="<?php echo $this->url('admin/adfabgame/edit-quiz', array('gameId' => $this->quiz_id)) ?>"><?php echo $this->quiz->getTitle(); ?></a></h1>
 
 <h3><?php echo $this->translate('Liste des questions'); ?></h3>
 
@@ -27,8 +27,8 @@ if (isset($fm[0]))
     </tr>
     <tbody>
     <?php foreach ($this->questions as $question): ?>
-    	<?php $editLink   = $this->url('zfcadmin/adfabgame/quiz-question-edit', array('questionId' => $question->getId()));?>
-        <?php $deleteLink = $this->url('zfcadmin/adfabgame/quiz-question-remove', array('questionId' => $question->getId()));?>
+    	<?php $editLink   = $this->url('admin/adfabgame/quiz-question-edit', array('questionId' => $question->getId()));?>
+        <?php $deleteLink = $this->url('admin/adfabgame/quiz-question-remove', array('questionId' => $question->getId()));?>
     	<tr class="sortable" id="<?php echo $question->getId() ?>" 
     		data-url="<?php echo $editLink; ?>">
             <!--<td><?php echo $question->getId() ?></td>-->

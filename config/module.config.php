@@ -49,7 +49,7 @@ return array(
 		),
 
 		'routes' => array(
-			'zfcadmin/adfabgame/treasure(.*)' => array(
+			'admin/adfabgame/treasure(.*)' => array(
                 '@admin_treasurehunt_css',
 				'@head_admin_treasurehunt_js',
             ),
@@ -71,6 +71,27 @@ return array(
                 ),*/
             ),
             'controllers' => array(
+            	'adfabgameadmin' => array(
+            		'default_layout' => 'application/layout/admin/admin',
+            	),
+            	'adfabgame_admin_lottery' => array(
+           			'default_layout' => 'application/layout/admin/admin',
+           		),
+           		'adfabgame_admin_postvote' => array(
+           			'default_layout' => 'application/layout/admin/admin',
+           		),
+           		'adfabgame_admin_quiz' => array(
+           			'default_layout' => 'application/layout/admin/admin',
+           		),
+           		'adfabgame_admin_instantwin' => array(
+           			'default_layout' => 'application/layout/admin/admin',
+           		),
+           		'adfabgame_admin_treasurehunt' => array(
+       				'default_layout' => 'application/layout/admin/admin',
+           		),
+            	'adfabgame_admin_prizecategory' => array(
+           			'default_layout' => 'application/layout/admin/admin',
+           		),
                 'adfabgame_lottery'   => array(
                     'children_views' => array(
                         'col_right'  => 'adfab-game/layout/col-lottery.phtml',
@@ -894,7 +915,7 @@ return array(
        			),
         	),
 
-            'zfcadmin' => array(
+            'admin' => array(
                 'child_routes' => array(
                     'quiz' => array(
                         'type' => 'Literal',
@@ -1611,137 +1632,137 @@ return array(
         'admin' => array(
             'adfabgame'     => array(
                 'label'     => 'Les jeux',
-                'route'     => 'zfcadmin/adfabgame/list',
+                'route'     => 'admin/adfabgame/list',
                 'resource'  => 'game',
                 'privilege' => 'list',
                 'pages' => array(
                     'list' => array(
                         'label'     => 'Liste des jeux',
-                        'route'     => 'zfcadmin/adfabgame/list',
+                        'route'     => 'admin/adfabgame/list',
                         'resource'  => 'game',
                         'privilege' => 'list',
                     ),
                     'create-lottery' => array(
                         'label'     => 'Créer un tirage au sort',
-                        'route'     => 'zfcadmin/adfabgame/create-lottery',
+                        'route'     => 'admin/adfabgame/create-lottery',
                         'resource'  => 'game',
                         'privilege' => 'add',
                     ),
                     'edit-lottery' => array(
                         'label'     => 'Editer un tirage au sort',
-                        'route'     => 'zfcadmin/adfabgame/edit-lottery',
+                        'route'     => 'admin/adfabgame/edit-lottery',
                         'privilege' => 'edit',
                     ),
                     'leaderboard-lottery' => array(
 						'label' 	=> 'Participants',
-						'route' 	=> 'zfcadmin/lottery/leaderboard',
+						'route' 	=> 'admin/lottery/leaderboard',
 						'privilege' => 'list',
 					),
                     'create-quiz' => array(
                         'label'     => 'Créer un quiz',
-                        'route'     => 'zfcadmin/adfabgame/create-quiz',
+                        'route'     => 'admin/adfabgame/create-quiz',
                         'resource'  => 'game',
                         'privilege' => 'add',
                     ),
                     'edit-quiz' => array(
                         'label'     => 'Editer un quiz',
-                        'route'     => 'zfcadmin/adfabgame/edit-quiz',
+                        'route'     => 'admin/adfabgame/edit-quiz',
                         'privilege' => 'edit',
                     ),
                     'leaderboard-quiz' => array(
 						'label' 	=> 'Participants',
-						'route' 	=> 'zfcadmin/quiz/leaderboard',
+						'route' 	=> 'admin/quiz/leaderboard',
 						'privilege' => 'list',
 					),
                     'create-postvote' => array(
                         'label'     => 'Créer un Post & Vote',
-                        'route'     => 'zfcadmin/adfabgame/create-postvote',
+                        'route'     => 'admin/adfabgame/create-postvote',
                         'resource'  => 'game',
                         'privilege' => 'add',
                     ),
                     'edit-postvote' => array(
                         'label'     => 'Editer un Post & Vote',
-                        'route'     => 'zfcadmin/adfabgame/edit-postvote',
+                        'route'     => 'admin/adfabgame/edit-postvote',
                         'privilege' => 'edit',
                     ),
                     'leaderboard-postvote' => array(
 						'label' 	=> 'Participants',
-						'route' 	=> 'zfcadmin/postvote/leaderboard',
+						'route' 	=> 'admin/postvote/leaderboard',
 						'privilege' => 'list',
 					),
                     'create-instantwin' => array(
                         'label'     => 'Créer un instant gagnant',
-                        'route'     => 'zfcadmin/adfabgame/create-instantwin',
+                        'route'     => 'admin/adfabgame/create-instantwin',
                         'resource'  => 'game',
                         'privilege' => 'add',
                     ),
                     'edit-instantwin' => array(
                         'label'     => 'Editer un instant gagnant',
-                        'route'     => 'zfcadmin/adfabgame/edit-instantwin',
+                        'route'     => 'admin/adfabgame/edit-instantwin',
                         'privilege' => 'edit',
                     ),
                     'leaderboard-instantwin' => array(
 						'label' 	=> 'Participants',
-						'route' 	=> 'zfcadmin/instantwin/leaderboard',
+						'route' 	=> 'admin/instantwin/leaderboard',
 						'privilege' => 'list',
 					),
                     'quiz-question-list' => array(
                         'label'     => 'Liste des questions',
-                        'route'     => 'zfcadmin/adfabgame/quiz-question-list',
+                        'route'     => 'admin/adfabgame/quiz-question-list',
                         'privilege' => 'list',
                         'pages' => array(
                             'quiz-question-add' => array(
                             	'label'     => 'Ajouter des questions',
-                            	'route'     => 'zfcadmin/adfabgame/quiz-question-add',
+                            	'route'     => 'admin/adfabgame/quiz-question-add',
                             	'privilege' => 'add',
                             ),
                             'quiz-question-edit' => array(
 	                            'label'     => 'Editer une question',
-	                            'route'     => 'zfcadmin/adfabgame/quiz-question-edit',
+	                            'route'     => 'admin/adfabgame/quiz-question-edit',
 	                            'privilege' => 'edit',
                             ),
                         ),
                     ),
                     'list-prizecategory' => array(
                         'label'     => 'Gérer les catégories de gain',
-                        'route'     => 'zfcadmin/adfabgame/prize-category-list',
+                        'route'     => 'admin/adfabgame/prize-category-list',
                         'resource'  => 'game',
                         'privilege' => 'prizecategory_list',
                     ),
                     /*
                     'list-postvotemod' => array(
                         'label'     => 'Posts en attente de modération',
-                        'route'     => 'zfcadmin/adfabgame/postvote-mod-list',
+                        'route'     => 'admin/adfabgame/postvote-mod-list',
                         'resource'  => 'game',
                         'privilege' => 'list',
                     ),
                     */
                     'instantwin-occurence-list' => array(
                         'label'     => 'Liste des instant gagnants',
-                        'route'     => 'zfcadmin/adfabgame/instantwin-occurrence-list',
+                        'route'     => 'admin/adfabgame/instantwin-occurrence-list',
                         'privilege' => 'list',
                         'pages' 	=> array(
                             'instantwin-occurrence-add' => array(
                                 'label'     => 'Créer un instant gagnant',
-                                'route'     => 'zfcadmin/adfabgame/instantwin-occurrence-add',
+                                'route'     => 'admin/adfabgame/instantwin-occurrence-add',
                                 'privilege' => 'add',
                             ),
                             'instantwin-occurrence-edit' => array(
                                 'label'     => 'Editer un instant gagnant',
-                                'route'     => 'zfcadmin/adfabgame/instantwin-occurrence-edit',
+                                'route'     => 'admin/adfabgame/instantwin-occurrence-edit',
                                 'privilege' => 'edit',
                             ),
                         ),
                     ),
                     'postvote-form' => array(
                     	'label'     => 'Options du Post & vote',
-                        'route'     => 'zfcadmin/adfabgame/postvote-form',
+                        'route'     => 'admin/adfabgame/postvote-form',
                         'privilege' => 'list',
                     ),
                 		
                 	'create-treasurehunt' => array(
                			'label'     => 'Créer une chasse au trésor',
-           				'route'     => 'zfcadmin/adfabgame/create-treasurehunt',
+           				'route'     => 'admin/adfabgame/create-treasurehunt',
            				'resource'  => 'game',
            				'privilege' => 'add',
                		),

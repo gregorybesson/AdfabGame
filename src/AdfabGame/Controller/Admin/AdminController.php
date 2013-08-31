@@ -131,7 +131,7 @@ class AdminController extends AbstractActionController
         $service = $this->getAdminGameService();
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
         if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+            return $this->redirect()->toRoute('admin/adfabgame/list');
         }
 
         $game = $service->getGameMapper()->findById($gameId);
@@ -145,7 +145,7 @@ class AdminController extends AbstractActionController
             }
         }
 
-        return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+        return $this->redirect()->toRoute('admin/adfabgame/list');
     }
 
     public function setOptions(ModuleOptions $options)

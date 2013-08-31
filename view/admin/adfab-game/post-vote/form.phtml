@@ -1,6 +1,6 @@
 <?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame'); ?>
 
-<h1><a href="<?php echo $this->url('zfcadmin/adfabgame/edit-postvote', array('gameId' => $this->gameId)) ?>"><?php echo $this->game->getTitle(); ?></a></h1>
+<h1><a href="<?php echo $this->url('admin/adfabgame/edit-postvote', array('gameId' => $this->gameId)) ?>"><?php echo $this->game->getTitle(); ?></a></h1>
 
 <h3><?php echo $this->translate('Options du post & vote'); ?></h3><br/><br/>
 
@@ -31,5 +31,5 @@
 </div>
 <script>
 // basepath global var put by Zend
-var basepath='<?php echo $this->url('zfcadmin'); ?>';
+var basepath='<?php echo $this->url('admin'); ?>';
 </script>

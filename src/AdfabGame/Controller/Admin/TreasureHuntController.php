@@ -30,7 +30,7 @@ class TreasureHuntController extends AbstractActionController
         $form = $this->getServiceLocator()->get('adfabgame_treasurehunt_form');
         $form->bind($treasurehunt);
         $form->get('submit')->setAttribute('label', 'Add');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/create-treasurehunt', array('gameId' => 0)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/create-treasurehunt', array('gameId' => 0)));
         $form->setAttribute('method', 'post');
 
         $request = $this->getRequest();
@@ -43,7 +43,7 @@ class TreasureHuntController extends AbstractActionController
             if ($game) {
                 $this->flashMessenger()->setNamespace('adfabgame')->addMessage('The game was created');
 
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+                return $this->redirect()->toRoute('admin/adfabgame/list');
             }
         }
         $gameForm->setVariables(array('form' => $form));
@@ -66,7 +66,7 @@ class TreasureHuntController extends AbstractActionController
         $gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
 
         if (!$gameId) {
-            return $this->redirect()->toRoute('zfcadmin/adfabgame/createTreasureHunt');
+            return $this->redirect()->toRoute('admin/adfabgame/createTreasureHunt');
         }
 
         $game = $service->getGameMapper()->findById($gameId);
@@ -77,7 +77,7 @@ class TreasureHuntController extends AbstractActionController
         $gameForm->setTemplate('adfab-game/admin/game-form');
 
         $form   = $this->getServiceLocator()->get('adfabgame_treasurehunt_form');
-        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/edit-treasurehunt', array('gameId' => $gameId)));
+        $form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/edit-treasurehunt', array('gameId' => $gameId)));
         $form->setAttribute('method', 'post');
         $form->get('submit')->setLabel('Edit');
         if ($game->getFbAppId()) {
@@ -106,7 +106,7 @@ class TreasureHuntController extends AbstractActionController
             $result = $service->edit($data, $game, 'adfabgame_treasurehunt_form');
 
             if ($result) {
-                return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+                return $this->redirect()->toRoute('admin/adfabgame/list');
             }
         }
 
@@ -124,7 +124,7 @@ class TreasureHuntController extends AbstractActionController
     	$filter		= $this->getEvent()->getRouteMatch()->getParam('filter');
     
     	if (!$gameId) {
-    		return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+    		return $this->redirect()->toRoute('admin/adfabgame/list');
     	}
     
     	//$treasurehunt = $service->getGameMapper()->findById($gameId);
@@ -156,12 +156,12 @@ class TreasureHuntController extends AbstractActionController
     	$service = $this->getAdminGameService();
     	$gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
     	if (!$gameId) {
-    		return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+    		return $this->redirect()->toRoute('admin/adfabgame/list');
     	}
     
     	$form = $this->getServiceLocator()->get('adfabgame_treasurehuntstep_form');
     	$form->get('submit')->setAttribute('label', 'Add');
-    	$form->setAttribute('action', $this->url()->fromRoute('zfcadmin/adfabgame/treasurehunt-step-add', array('gameId' => $gameId)));
+    	$form->setAttribute('action', $this->url()->fromRoute('admin/adfabgame/treasurehunt-step-add', array('gameId' => $gameId)));
     	$form->setAttribute('method', 'post');
     	$form->get('treasurehunt_id')->setAttribute('value', $gameId);
     
@@ -179,7 +179,7 @@ class TreasureHuntController extends AbstractActionController
     			// Redirect to list of games
     			$this->flashMessenger()->setNamespace('adfabgame')->addMessage('The step was created');
     
-    			return $this->redirect()->toRoute('zfcadmin/adfabgame/treasurehunt-step-list', array('gameId'=>$gameId));
+    			return $this->redirect()->toRoute('admin/adfabgame/treasurehunt-step-list', array('gameId'=>$gameId));
     		}
     	}
     
@@ -201,12 +201,12 @@ class TreasureHuntController extends AbstractActionController
     
     	$gameId = $this->getEvent()->getRouteMatch()->getParam('gameId');
     	/*if (!$gameId) {
-    	 return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+    	 return $this->redirect()->toRoute('admin/adfabgame/list');
     	}*/
     
     	$stepId = $this->getEvent()->getRouteMatch()->getParam('stepId');
     	if (!$stepId) {
-    		return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+    		return $this->redirect()->toRoute('admin/adfabgame/list');
     	}
     	$step   = $service->getTreasureHuntStepMapper()->findById($stepId);
     	$treasurehuntId     = $step->getTreasureHunt()->getId();
@@ -227,7 +227,7 @@ class TreasureHuntController extends AbstractActionController
     			// Redirect to list of games
     			$this->flashMessenger()->setNamespace('adfabgame')->addMessage('The step was updated');
     
-    			return $this->redirect()->toRoute('zfcadmin/adfabgame/treasurehunt-step-list', array('gameId'=>$treasurehuntId));
+    			return $this->redirect()->toRoute('admin/adfabgame/treasurehunt-step-list', array('gameId'=>$treasurehuntId));
     		}
     	}
     
@@ -247,7 +247,7 @@ class TreasureHuntController extends AbstractActionController
     	$service = $this->getAdminGameService();
     	$stepId = $this->getEvent()->getRouteMatch()->getParam('stepId');
     	if (!$stepId) {
-    		return $this->redirect()->toRoute('zfcadmin/adfabgame/list');
+    		return $this->redirect()->toRoute('admin/adfabgame/list');
     	}
     	$step   = $service->getTreasureHuntStepMapper()->findById($stepId);
     	$treasurehuntId = $step->getTreasureHunt()->getId();
@@ -255,7 +255,7 @@ class TreasureHuntController extends AbstractActionController
     	$service->getTreasureHuntStepMapper()->remove($step);
     	$this->flashMessenger()->setNamespace('adfabgame')->addMessage('The step was deleted');
     
-    	return $this->redirect()->toRoute('zfcadmin/adfabgame/treasurehunt-step-list', array('gameId'=>$treasurehuntId));
+    	return $this->redirect()->toRoute('admin/adfabgame/treasurehunt-step-list', array('gameId'=>$treasurehuntId));
     }
     
     public function leaderboardAction()

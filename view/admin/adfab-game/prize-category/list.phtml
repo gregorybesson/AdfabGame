@@ -1,7 +1,7 @@
 <?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame'); ?>
 
 <ul class="liste-buttons">
-	<li class="btn-admin"><a href="<?php echo $this->url('zfcadmin/adfabgame/prize-category-add');?>"><?php echo $this->translate('Ajouter une nouvelle catégorie de gain'); ?></a></li>
+	<li class="btn-admin"><a href="<?php echo $this->url('admin/adfabgame/prize-category-add');?>"><?php echo $this->translate('Ajouter une nouvelle catégorie de gain'); ?></a></li>
 </ul>
 
 <h1>Liste des catégories de gain</h1>
@@ -15,8 +15,8 @@
         <th></th>
     </tr>
     <?php foreach ($this->categories as $category): ?>
-        <?php $editLink = $this->url('zfcadmin/adfabgame/prize-category-edit', array('prizeCategoryId' => $category->getId()));?>
-        <?php $deleteLink = $this->url('zfcadmin/adfabgame/remove', array('prizeCategoryId' => $category->getId()));?>
+        <?php $editLink = $this->url('admin/adfabgame/prize-category-edit', array('prizeCategoryId' => $category->getId()));?>
+        <?php $deleteLink = $this->url('admin/adfabgame/remove', array('prizeCategoryId' => $category->getId()));?>
         <tr>
             <td><?php echo $category->getId() ?></td>
             <td><?php echo $category->getTitle() ?></td>
@@ -28,7 +28,7 @@
 </table>
 
 <ul class="liste-buttons bottom">
-	<li class="btn-admin bottom"><a href="<?php echo $this->url('zfcadmin/adfabgame/prize-category-add');?>"><?php echo $this->translate('Ajouter une nouvelle catégorie de gain'); ?></a></li>
+	<li class="btn-admin bottom"><a href="<?php echo $this->url('admin/adfabgame/prize-category-add');?>"><?php echo $this->translate('Ajouter une nouvelle catégorie de gain'); ?></a></li>
 </ul>
 
 <?php //echo $this->paginationControl($this->partners, 'Sliding', 'adfab-partnership/admin/pagination_partnerlist.phtml'); ?>
