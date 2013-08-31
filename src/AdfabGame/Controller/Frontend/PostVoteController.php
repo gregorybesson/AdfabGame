@@ -44,9 +44,9 @@ class PostVoteController extends GameController
 
         if (! $user) {
             // the user is not registered yet.
-            $redirect = urlencode($this->url()->fromRoute('postvote/play', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
+            $redirect = urlencode($this->url()->fromRoute('frontend/postvote/play', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('zfcuser/register') . '?redirect='.$redirect);
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register') . '?redirect='.$redirect);
         }
 
         $entry = $sg->play($game, $user);
@@ -54,7 +54,7 @@ class PostVoteController extends GameController
         if (!$entry) {
             $lastEntry = $sg->getEntryMapper()->findLastInactiveEntryById($game, $user);
             if ($lastEntry == null) {
-                return $this->redirect()->toUrl($this->url()->fromRoute('postvote', array('id' => $identifier)));
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote', array('id' => $identifier)));
             }
 
             $lastEntryId = $lastEntry->getId();
@@ -64,17 +64,17 @@ class PostVoteController extends GameController
                 // the user has already taken part of this game and the participation limit has been reached
                 $this->flashMessenger()->addMessage('Vous avez déjà participé!');
 
-                return $this->redirect()->toUrl($this->url()->fromRoute('postvote/post',array('id' => $identifier, 'post' => $postId)));
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote/post',array('id' => $identifier, 'post' => $postId)));
             } else {
                 $this->flashMessenger()->addMessage('Votre participation est en cours de validation.');
 
-                return $this->redirect()->toUrl($this->url()->fromRoute('postvote/post', array('id' => $identifier, 'post' => $postId)));
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote/post', array('id' => $identifier, 'post' => $postId)));
             }
         }
 
         // TODO : Don't display incomplete post & vote without form...
         if (! $game->getForm()) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('postvote',array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote',array('id' => $identifier)));
         }
 
         $formPV = json_decode($game->getForm()->getForm());
@@ -262,7 +262,7 @@ class PostVoteController extends GameController
 
                 if ($post) {
                     // determine the route where the user should go
-                    $redirectUrl = $this->url()->fromRoute('postvote/play/preview', array('id' => $game->getIdentifier()));
+                    $redirectUrl = $this->url()->fromRoute('frontend/postvote/play/preview', array('id' => $game->getIdentifier()));
 
                     return $this->redirect()->toUrl($redirectUrl);
                 }
@@ -295,14 +295,14 @@ class PostVoteController extends GameController
         $entry = $sg->getEntryMapper()->findLastActiveEntryById($game, $user);
         if (!$entry) {
             // the user has already taken part of this game and the participation limit has been reached
-            return $this->redirect()->toUrl($this->url()->fromRoute('postvote/bounce',array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote/bounce',array('id' => $identifier)));
         }
 
         // Je recherche le post associé à entry + status == 0. Si non trouvé, je redirige vers home du jeu.
         $post = $sg->getPostVotePostMapper()->findOneBy(array('entry' => $entry, 'status' => 0));
 
         if (! $post) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('postvote',array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote',array('id' => $identifier)));
         }
 
         if ($this->getRequest()->isPost()) {
@@ -312,7 +312,7 @@ class PostVoteController extends GameController
             if ($post) {
 		        // send mail for participation
 		        $this->getGameService()->sendGameMail($game, $user, $post, 'postvote');
-                $redirectUrl = $this->url()->fromRoute('postvote/result', array('id' => $game->getIdentifier()));
+                $redirectUrl = $this->url()->fromRoute('frontend/postvote/result', array('id' => $game->getIdentifier()));
 
                 return $this->redirect()->toUrl($redirectUrl);
             }
@@ -363,7 +363,7 @@ class PostVoteController extends GameController
         $post = $sg->getPostVotePostMapper()->findById($postId);
 
         if (! $post) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('postvote',array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote',array('id' => $identifier)));
         }
 
         $formModeration = new Form();
@@ -377,7 +377,7 @@ class PostVoteController extends GameController
             ),
         ));
 
-        $form = new \AdfabGame\Form\Frontend\PostVoteVote($this->url()->fromRoute('postvote/post/captcha',array('id' => $identifier, 'post' => $postId)));
+        $form = new \AdfabGame\Form\Frontend\PostVoteVote($this->url()->fromRoute('frontend/postvote/post/captcha',array('id' => $identifier, 'post' => $postId)));
 
         if ($user) {
             $form->remove('captcha');
@@ -458,14 +458,14 @@ class PostVoteController extends GameController
         /*$leaderBoard = $mapperLeader->findBy(array('user' => $this->zfcUserAuthentication()->getIdentity(), 'game' => $game));
 
         /*if ($leaderBoard == null) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('postvote', array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote', array('id' => $identifier)));
         }*/
 
         // Has the user finished the game ?
         $lastEntry = $this->getGameService()->getEntryMapper()->findLastInactiveEntryById($game, $user);
 
         if ($lastEntry == null) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('postvote', array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote', array('id' => $identifier)));
         }
 
         $form = $this->getServiceLocator()->get('adfabgame_sharemail_form');

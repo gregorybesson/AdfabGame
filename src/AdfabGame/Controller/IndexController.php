@@ -346,7 +346,7 @@ class IndexController extends AbstractActionController
             //$this->flashMessenger()->addMessage('Please login or register to subscribe to this game');
             $redirect = $this->url()->fromRoute('game', array('id' => $identifier));
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('zfcuser/register') . ($redirect ? '?redirect='.$redirect : ''));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register') . ($redirect ? '?redirect='.$redirect : ''));
         }
     }
 

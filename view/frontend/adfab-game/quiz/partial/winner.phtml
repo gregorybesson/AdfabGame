@@ -2,7 +2,7 @@
 			
 <div class="backgrey row-fluid rounded <?php if($this->prediction):?>prediction<?php endif; ?>">
 	<div class="span2">
-		<img src="<?php echo $this->basePath('images/common/round-valid.png')?>" alt="Gagné" />
+		<img src="<?php echo $this->frontendAssetPath('images/common/round-valid.png')?>" alt="Gagné" />
 	</div>
 	<div class="span10">
 		<?php if(count($this->flashMessages)>0):?>

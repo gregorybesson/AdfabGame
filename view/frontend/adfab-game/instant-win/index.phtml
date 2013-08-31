@@ -1,6 +1,6 @@
 <?php $this->plugin('translate')->setTranslatorTextDomain('adfabgame');// Pour le texte ?>
-<!-- GAME QUIZ -->
-<div class="game-quiz row-fluid welcome">
+ 
+<div class="game-instantwin row-fluid welcome">
 	<h1><?php echo $this->game->getTitle(); ?></h1>
 
 	<!-- BLOCK GAME START -->
@@ -12,11 +12,12 @@
 		<div class="welcome-block<?php if($this->layout()->facebooktemplate): echo ' fb-target'; endif ?>"><?php echo $this->game->getWelcomeBlock(); ?></div>
 		<?php if($game->isStarted()):?>
 		<div class="center">
-			<div class="btn btn-warning"><a href="<?php echo $this->url('frontend/quiz/play', array('id' => $this->game->getIdentifier()))?>" class="arrow-right"><?php echo $this->translate('Participer'); ?></a></div>
+			<?php if($game->getTermsOptin):?>
+				J'accepte le règlement
+			<?php endif;?>
+			<div class="btn btn-warning"><a href="<?php echo $this->url('frontend/instantwin/play', array('id' => $this->game->getIdentifier()))?>" class="arrow-right">Participer</a></div>
 		</div>
 		<?php endif;?>
 	</div>
-	<p id="reglement"><a href="<?php echo $this->url('frontend/quiz/terms', array('id' => $this->game->getIdentifier()))?>" target="_blank"><?php echo $this->translate('Règlement'); ?></a></p>
-
+	<p id="reglement"><a href="<?php echo $this->url('frontend/instantwin/terms', array('id' => $this->game->getIdentifier()))?>" target="_blank"><?php echo $this->translate('Règlement'); ?></a></p>
 </div>
-<!-- END GAME QUIZ -->

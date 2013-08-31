@@ -22,7 +22,7 @@
 				<?php endif;?>
 			<?php else :?>
 				<div class="logo-sponsor">		
-					<img src="<?php echo $this->basePath('images/common/logo-game-start.png')?>" width="83" height="81" border="0" alt="logo" />
+					<img src="<?php echo $this->frontendAssetPath('images/common/logo-game-start.png')?>" width="83" height="81" border="0" alt="logo" />
 				</div>
 			<?php endif;?>
 			
@@ -55,7 +55,7 @@
             	<?php if(count($this->flashMessages)>0):?>
 					<p class="already-play"><?php echo $this->flashMessages[0];?></p>
 			    <?php endif;?>
-           		<?php echo $this->partial('adfab-game/frontend/postvote/templates/' . $this->game->getTemplate(), array('data'=>$data, 'post' => $post->getId()));?>
+           		<?php echo $this->partial('adfab-game/postvote/templates/' . $this->game->getTemplate(), array('data'=>$data, 'post' => $post->getId()));?>
 				<?php echo $this->partial('adfab-game/partial/name.phtml', array('post' => $post->getUser(), 'game' => $game, 'urlPost' => $this->url('postvote/post', array('id' => $this->game->getIdentifier(),  'post' => $post->getId()), array('force_canonical' => true)), 'postTitle' => $data[1]));?>
        		</div>
        		<?php if($game->isStarted()):?>
@@ -90,9 +90,9 @@
 	            <div class="row-fluid <?php if($this->zfcUserIdentity()): ?>logged<?php endif ?> nb-votes<?php echo ($this->voted)?'-check':'';?>">
 	            	<?php if($this->alreadyVoted) : ?><div class="already-voted"><?php echo $this->alreadyVoted; ?></div><?php endif; ?>
 	                <?php if($this->voted):?>
-	                    <img src="<?php echo $this->basePath('images/common/icon-check.png');?>" />
+	                    <img src="<?php echo $this->frontendAssetPath('images/common/icon-check.png');?>" />
 	                <?php else:?>
-	                    <input type="image" src="<?php echo $this->basePath('images/common/round-vote.png');?>" alt="Voter">
+	                    <input type="image" src="<?php echo $this->frontendAssetPath('images/common/round-vote.png');?>" alt="Voter">
 	                <?php endif;?>
 	
 	                <div class="bn-votes text-warning"><span class="nb-post-vote-number"><?php echo count($this->post->getVotes())?></span> <?php echo (count($this->post->getVotes()) > 1) ? 'votes' : 'vote'; ?></div>

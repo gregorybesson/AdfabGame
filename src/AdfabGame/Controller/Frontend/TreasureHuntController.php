@@ -28,7 +28,7 @@ class TreasureHuntController extends GameController
             // the user is not registered yet.
             $redirect = urlencode($this->url()->fromRoute('frontend/treasurehunt/play', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('zfcuser/register') . '?redirect='.$redirect);
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register') . '?redirect='.$redirect);
         }
 
         $entry = $sg->play($game, $user);

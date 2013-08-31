@@ -72,25 +72,25 @@ return array(
             ),
             'controllers' => array(
             	'adfabgameadmin' => array(
-            		'default_layout' => 'application/layout/admin/admin',
+            		'default_layout' => 'layout/admin',
             	),
             	'adfabgame_admin_lottery' => array(
-           			'default_layout' => 'application/layout/admin/admin',
+           			'default_layout' => 'layout/admin',
            		),
            		'adfabgame_admin_postvote' => array(
-           			'default_layout' => 'application/layout/admin/admin',
+           			'default_layout' => 'layout/admin',
            		),
            		'adfabgame_admin_quiz' => array(
-           			'default_layout' => 'application/layout/admin/admin',
+           			'default_layout' => 'layout/admin',
            		),
            		'adfabgame_admin_instantwin' => array(
-           			'default_layout' => 'application/layout/admin/admin',
+           			'default_layout' => 'layout/admin',
            		),
            		'adfabgame_admin_treasurehunt' => array(
-       				'default_layout' => 'application/layout/admin/admin',
+       				'default_layout' => 'layout/admin',
            		),
             	'adfabgame_admin_prizecategory' => array(
-           			'default_layout' => 'application/layout/admin/admin',
+           			'default_layout' => 'layout/admin',
            		),
                 'adfabgame_lottery'   => array(
                     'children_views' => array(

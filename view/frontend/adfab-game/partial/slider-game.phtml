@@ -10,16 +10,16 @@
 <div class="item <?php if(isset($first)): ?>active<?php $first=false;endif; ?> ">
     <div class="span12">
         <div class="img-content">
-            <a href="<?php echo $this->url($game->getClassType()) . '/' . $game->getIdentifier(); ?>"><img src="<?php echo $this->basePath($game->getMainImage());?>" border="0" alt="<?php echo $game->getTitle(); ?>" /></a>
+            <a href="<?php echo $this->url('frontend/' . $game->getClassType()) . '/' . $game->getIdentifier(); ?>"><img src="<?php echo $this->basePath($game->getMainImage());?>" border="0" alt="<?php echo $game->getTitle(); ?>" /></a>
             <div class="dark-overlay row-fluid">
-                <h1 class="title-promo"><a href="<?php echo $this->url($game->getClassType()) . '/' . $game->getIdentifier(); ?>"><?php echo $game->getTitle(); ?></a></h1>
+                <h1 class="title-promo"><a href="<?php echo $this->url('frontend/' . $game->getClassType()) . '/' . $game->getIdentifier(); ?>"><?php echo $game->getTitle(); ?></a></h1>
                 <?php if($game->isStarted()):?>
                 	<div class="button-wrap">
-                    	<div class="btn btn-warning"><a href="<?php echo $this->url($game->getClassType()) . '/' . $game->getIdentifier(); ?>" class="arrow-right-big">Jouer</a></div>
+                    	<div class="btn btn-warning"><a href="<?php echo $this->url('frontend/' . $game->getClassType()) . '/' . $game->getIdentifier(); ?>" class="arrow-right-big">Jouer</a></div>
                     </div>
                 <?php elseif($game->isOpen() && !$game->isFinished() ):?>
                 	<div class="button-wrap">
-                    	<div class="btn btn-warning"><a href="<?php echo $this->url($game->getClassType()) . '/' . $game->getIdentifier(); ?>" class="arrow-right-big">Bientôt</a></div>
+                    	<div class="btn btn-warning"><a href="<?php echo $this->url('frontend/' . $game->getClassType()) . '/' . $game->getIdentifier(); ?>" class="arrow-right-big">Bientôt</a></div>
                     </div>
                 <?php endif;?>
             </div>
@@ -35,12 +35,12 @@
     					<span><?php echo $game->getPartner()->getName();?></span>
     				<?php endif;?>
             	<?php else :?>
-            		<img src="<?php echo $this->basePath('images/common/logo-game-start.png');?>" height="33" border="0" alt="Logo" />
+            		<img src="<?php echo $this->frontendAssetPath('images/common/logo-game-start.png');?>" height="33" border="0" alt="Logo" />
             	<?php endif;?>
             </div>
 
             <?php if(!$game->isFinished()):?>
-            	<?php echo $this->partial('adfab-game/partial/share.phtml', array( 'color' => 'dark','game'=>$this->game, 'url'=>$this->url($game->getClassType(), array('id' => $this->game->getIdentifier()), array('force_canonical' => true))));?>
+            	<?php echo $this->partial('adfab-game/partial/share.phtml', array( 'color' => 'dark','game'=>$this->game, 'url'=>$this->url('frontend/' . $game->getClassType(), array('id' => $this->game->getIdentifier()), array('force_canonical' => true))));?>
             <?php endif; ?>
         </div>
         <?php if($game->isFinished()):?>

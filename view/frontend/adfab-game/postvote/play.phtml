@@ -23,7 +23,7 @@ $form->setAttribute('action', $this->url('postvote/play', array('id' => $this->g
 				<?php endif;?>
 			<?php else :?>
 				<div class="logo-sponsor">		
-					<img src="<?php echo $this->basePath('images/common/logo-game-start.png')?>" width="83" height="81" border="0" alt="logo" />
+					<img src="<?php echo $this->frontendAssetPath('images/common/logo-game-start.png')?>" width="83" height="81" border="0" alt="logo" />
 				</div>
 			<?php endif;?>
 			
@@ -94,7 +94,7 @@ $form->setAttribute('action', $this->url('postvote/play', array('id' => $this->g
 		                	
 
 		                <?php elseif ($element instanceof Zend\Form\Element\File): ?>
-		                    <div class="photo-file" data-url="<?php echo $this->url('postvote/play/ajaxupload', array('id' => $this->game->getIdentifier()))?>" data-canonical="<?php echo $this->url('home', array(), array('force_canonical' => true)) ?>">
+		                    <div class="photo-file" data-url="<?php echo $this->url('postvote/play/ajaxupload', array('id' => $this->game->getIdentifier()))?>" data-canonical="<?php echo $this->url('frontend', array(), array('force_canonical' => true)) ?>">
 		                    	
 		    					<label class="span4">
 		    						<b><?php echo ($element->getLabel()) ? $this->formLabel($element) . ' ' . $requiredContent :''; ?></b><br/>
@@ -106,11 +106,11 @@ $form->setAttribute('action', $this->url('postvote/play', array('id' => $this->g
 		                               <img class="preview" src="<?php echo $this->basePath($element->getValue());?>"/>
 		                               <ul class="picto">
 		                                	<!--<li class="star">
-		                                		<img src="<?php echo $this->basePath('images/common/star.png');?>" alt="" height="35" width="37" />
+		                                		<img src="<?php echo $this->frontendAssetPath('images/common/star.png');?>" alt="" height="35" width="37" />
 		                                	</li>-->
 		                                	<li class="trash" data-delete="<?php echo $this->url('postvote/play/ajaxdelete', array('id' => $this->game->getIdentifier()))?>" data-name="<?php echo $element->getName() ?>">
 		                                		
-		                                		<a href="#"><img src="<?php echo $this->basePath('images/common/trash.png');?>" alt="Supprimer" height="35" width="37" /></a>
+		                                		<a href="#"><img src="<?php echo $this->frontendAssetPath('images/common/trash.png');?>" alt="Supprimer" height="35" width="37" /></a>
 		                                	</li>
 		                                </ul>
 		                            <?php endif;?>

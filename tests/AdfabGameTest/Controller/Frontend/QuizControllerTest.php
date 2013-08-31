@@ -123,7 +123,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('index');
-    	$this->assertMatchedRouteName('quiz');
+    	$this->assertMatchedRouteName('frontend/quiz');
 
     	$this->assertRedirectTo('/quiz/gameid/fangate');
 
@@ -199,7 +199,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('index');
-    	$this->assertMatchedRouteName('quiz');
+    	$this->assertMatchedRouteName('frontend/quiz');
 
     }
 
@@ -272,7 +272,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('index');
-    	$this->assertMatchedRouteName('quiz');
+    	$this->assertMatchedRouteName('frontend/quiz');
     }
 
     public function testResultActionNonExistentGame()
@@ -320,7 +320,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('quiz/result');
+    	$this->assertMatchedRouteName('frontend/quiz/result');
     	$this->assertResponseStatusCode(404);
     }
 
@@ -387,7 +387,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertActionName('result');
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
-    	$this->assertMatchedRouteName('quiz/result');
+    	$this->assertMatchedRouteName('frontend/quiz/result');
 
     	$this->assertRedirectTo('/quiz/gameid');
     }
@@ -437,7 +437,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('quiz/play');
+    	$this->assertMatchedRouteName('frontend/quiz/play');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -488,7 +488,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('quiz/play');
+    	$this->assertMatchedRouteName('frontend/quiz/play');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -540,7 +540,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('play');
-    	$this->assertMatchedRouteName('quiz/play');
+    	$this->assertMatchedRouteName('frontend/quiz/play');
     	
     	$this->assertRedirectTo('/mon-compte/inscription?redirect=%2Fquiz%2Fgameid%2Fjouer');
     }
@@ -599,7 +599,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('play');
-    	$this->assertMatchedRouteName('quiz/play');
+    	$this->assertMatchedRouteName('frontend/quiz/play');
     	 
     	$this->assertRedirectTo('/quiz/gameid/resultat');
     }
@@ -674,7 +674,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
 //     	$this->assertControllerName('adfabgame_quiz');
 //     	$this->assertControllerClass('QuizController');
 //     	$this->assertActionName('play');
-//     	$this->assertMatchedRouteName('quiz/play');
+//     	$this->assertMatchedRouteName('frontend/quiz/play');
     
 //     	$this->assertRedirectTo('/quiz/gameid/resultat');
 //     }
@@ -733,7 +733,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('fbshare');
-    	$this->assertMatchedRouteName('quiz/fbshare');
+    	$this->assertMatchedRouteName('frontend/quiz/fbshare');
     	
     	//TODO : check content of json response
     }
@@ -796,7 +796,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('fbshare');
-    	$this->assertMatchedRouteName('quiz/fbshare');
+    	$this->assertMatchedRouteName('frontend/quiz/fbshare');
     	 
     	//TODO : check content of json response
     }
@@ -859,7 +859,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('fbshare');
-    	$this->assertMatchedRouteName('quiz/fbshare');
+    	$this->assertMatchedRouteName('frontend/quiz/fbshare');
     
     	//TODO : check content of json response
     }
@@ -939,7 +939,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('fbshare');
-    	$this->assertMatchedRouteName('quiz/fbshare');
+    	$this->assertMatchedRouteName('frontend/quiz/fbshare');
     
     	//TODO : check content of json response
     }
@@ -1020,7 +1020,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('fbshare');
-    	$this->assertMatchedRouteName('quiz/fbshare');
+    	$this->assertMatchedRouteName('frontend/quiz/fbshare');
     
     	//TODO : check content of json response
     }
@@ -1079,7 +1079,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('tweet');
-    	$this->assertMatchedRouteName('quiz/tweet');
+    	$this->assertMatchedRouteName('frontend/quiz/tweet');
     	 
     	//TODO : check content of json response
     }
@@ -1142,7 +1142,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('tweet');
-    	$this->assertMatchedRouteName('quiz/tweet');
+    	$this->assertMatchedRouteName('frontend/quiz/tweet');
     
     	//TODO : check content of json response
     }
@@ -1205,7 +1205,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('tweet');
-    	$this->assertMatchedRouteName('quiz/tweet');
+    	$this->assertMatchedRouteName('frontend/quiz/tweet');
     
     	//TODO : check content of json response
     }
@@ -1285,7 +1285,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('tweet');
-    	$this->assertMatchedRouteName('quiz/tweet');
+    	$this->assertMatchedRouteName('frontend/quiz/tweet');
     
     	//TODO : check content of json response
     }
@@ -1366,7 +1366,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('tweet');
-    	$this->assertMatchedRouteName('quiz/tweet');
+    	$this->assertMatchedRouteName('frontend/quiz/tweet');
     
     	//TODO : check content of json response
     }
@@ -1425,7 +1425,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('google');
-    	$this->assertMatchedRouteName('quiz/google');
+    	$this->assertMatchedRouteName('frontend/quiz/google');
     
     	//TODO : check content of json response
     }
@@ -1488,7 +1488,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('google');
-    	$this->assertMatchedRouteName('quiz/google');
+    	$this->assertMatchedRouteName('frontend/quiz/google');
     
     	//TODO : check content of json response
     }
@@ -1551,7 +1551,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('google');
-    	$this->assertMatchedRouteName('quiz/google');
+    	$this->assertMatchedRouteName('frontend/quiz/google');
     
     	//TODO : check content of json response
     }
@@ -1627,7 +1627,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('google');
-    	$this->assertMatchedRouteName('quiz/google');
+    	$this->assertMatchedRouteName('frontend/quiz/google');
     
     	//TODO : check content of json response
     }
@@ -1708,7 +1708,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('google');
-    	$this->assertMatchedRouteName('quiz/google');
+    	$this->assertMatchedRouteName('frontend/quiz/google');
     
     	//TODO : check content of json response
     }
@@ -1758,7 +1758,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('quiz/bounce');
+    	$this->assertMatchedRouteName('frontend/quiz/bounce');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -1809,7 +1809,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('quiz/bounce');
+    	$this->assertMatchedRouteName('frontend/quiz/bounce');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -1882,7 +1882,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('bounce');
-    	$this->assertMatchedRouteName('quiz/bounce');
+    	$this->assertMatchedRouteName('frontend/quiz/bounce');
     }
     
     public function testTermsActionNonExistentGame()
@@ -1930,7 +1930,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('quiz/terms');
+    	$this->assertMatchedRouteName('frontend/quiz/terms');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -1987,7 +1987,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('terms');
-    	$this->assertMatchedRouteName('quiz/terms');
+    	$this->assertMatchedRouteName('frontend/quiz/terms');
     }
     
     public function testFangateAction()
@@ -1999,7 +1999,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('fangate');
-    	$this->assertMatchedRouteName('quiz/fangate');
+    	$this->assertMatchedRouteName('frontend/quiz/fangate');
     }
     
     public function testPrizesActionNonExistentGame()
@@ -2047,7 +2047,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('quiz/prizes');
+    	$this->assertMatchedRouteName('frontend/quiz/prizes');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -2099,7 +2099,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('quiz/prizes');
+    	$this->assertMatchedRouteName('frontend/quiz/prizes');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -2163,7 +2163,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('prizes');
-    	$this->assertMatchedRouteName('quiz/prizes');
+    	$this->assertMatchedRouteName('frontend/quiz/prizes');
 
     }
     
@@ -2212,7 +2212,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('quiz/prizes/prize');
+    	$this->assertMatchedRouteName('frontend/quiz/prizes/prize');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -2282,7 +2282,7 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('quiz/prizes/prize');
+    	$this->assertMatchedRouteName('frontend/quiz/prizes/prize');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -2358,6 +2358,6 @@ class QuizControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_quiz');
     	$this->assertControllerClass('QuizController');
     	$this->assertActionName('prize');
-    	$this->assertMatchedRouteName('quiz/prizes/prize');
+    	$this->assertMatchedRouteName('frontend/quiz/prizes/prize');
     }
 }

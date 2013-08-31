@@ -31,7 +31,7 @@ class InstantWinController extends GameController
         if (!$user) {
             $redirect = urlencode($this->url()->fromRoute('instantwin/play', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('zfcuser/register') . '?redirect='.$redirect);
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register') . '?redirect='.$redirect);
         }
 
         $viewModel = $this->buildView($game);
@@ -105,7 +105,7 @@ class InstantWinController extends GameController
         if (!$user) {
             $redirect = urlencode($this->url()->fromRoute('instantwin', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('zfcuser/register') . '?redirect='.$redirect);
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register') . '?redirect='.$redirect);
         }
 
         $lastEntry = $sg->getEntryMapper()->findLastInactiveEntryById($game, $user);

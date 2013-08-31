@@ -123,7 +123,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('index');
-    	$this->assertMatchedRouteName('lottery');
+    	$this->assertMatchedRouteName('frontend/lottery');
 
     	$this->assertRedirectTo('/loterie/gameid/fangate');
 
@@ -197,7 +197,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('index');
-    	$this->assertMatchedRouteName('lottery');
+    	$this->assertMatchedRouteName('frontend/lottery');
 
     	//$postData = array('title' => 'Led Zeppelin III', 'artist' => 'Led Zeppelin');
     	//$this->dispatch('/album/add', 'POST', $postData);
@@ -273,7 +273,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('index');
-    	$this->assertMatchedRouteName('lottery');
+    	$this->assertMatchedRouteName('frontend/lottery');
 
     	//$postData = array('title' => 'Led Zeppelin III', 'artist' => 'Led Zeppelin');
     	//$this->dispatch('/album/add', 'POST', $postData);
@@ -325,7 +325,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('lottery/result');
+    	$this->assertMatchedRouteName('frontend/lottery/result');
     	$this->assertResponseStatusCode(404);
     }
 
@@ -392,7 +392,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertActionName('result');
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
-    	$this->assertMatchedRouteName('lottery/result');
+    	$this->assertMatchedRouteName('frontend/lottery/result');
 
     	$this->assertRedirectTo('/loterie/gameid');
     }
@@ -442,7 +442,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('lottery/play');
+    	$this->assertMatchedRouteName('frontend/lottery/play');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -493,7 +493,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('lottery/play');
+    	$this->assertMatchedRouteName('frontend/lottery/play');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -545,7 +545,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('play');
-    	$this->assertMatchedRouteName('lottery/play');
+    	$this->assertMatchedRouteName('frontend/lottery/play');
     	
     	$this->assertRedirectTo('/mon-compte/inscription?redirect=%2Floterie%2Fgameid%2Fjouer');
     }
@@ -602,7 +602,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('play');
-    	$this->assertMatchedRouteName('lottery/play');
+    	$this->assertMatchedRouteName('frontend/lottery/play');
     	 
     	$this->assertRedirectTo('/loterie/gameid/resultat');
     }
@@ -675,7 +675,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('play');
-    	$this->assertMatchedRouteName('lottery/play');
+    	$this->assertMatchedRouteName('frontend/lottery/play');
     
     	$this->assertRedirectTo('/loterie/gameid/resultat');
     }
@@ -734,7 +734,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('fbshare');
-    	$this->assertMatchedRouteName('lottery/fbshare');
+    	$this->assertMatchedRouteName('frontend/lottery/fbshare');
     	
     	//TODO : check content of json response
     }
@@ -797,7 +797,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('fbshare');
-    	$this->assertMatchedRouteName('lottery/fbshare');
+    	$this->assertMatchedRouteName('frontend/lottery/fbshare');
     	 
     	//TODO : check content of json response
     }
@@ -860,7 +860,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('fbshare');
-    	$this->assertMatchedRouteName('lottery/fbshare');
+    	$this->assertMatchedRouteName('frontend/lottery/fbshare');
     
     	//TODO : check content of json response
     }
@@ -928,7 +928,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('fbshare');
-    	$this->assertMatchedRouteName('lottery/fbshare');
+    	$this->assertMatchedRouteName('frontend/lottery/fbshare');
     
     	//TODO : check content of json response
     }
@@ -987,7 +987,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('tweet');
-    	$this->assertMatchedRouteName('lottery/tweet');
+    	$this->assertMatchedRouteName('frontend/lottery/tweet');
     	 
     	//TODO : check content of json response
     }
@@ -1050,7 +1050,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('tweet');
-    	$this->assertMatchedRouteName('lottery/tweet');
+    	$this->assertMatchedRouteName('frontend/lottery/tweet');
     
     	//TODO : check content of json response
     }
@@ -1113,7 +1113,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('tweet');
-    	$this->assertMatchedRouteName('lottery/tweet');
+    	$this->assertMatchedRouteName('frontend/lottery/tweet');
     
     	//TODO : check content of json response
     }
@@ -1181,7 +1181,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('tweet');
-    	$this->assertMatchedRouteName('lottery/tweet');
+    	$this->assertMatchedRouteName('frontend/lottery/tweet');
     
     	//TODO : check content of json response
     }
@@ -1240,7 +1240,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('google');
-    	$this->assertMatchedRouteName('lottery/google');
+    	$this->assertMatchedRouteName('frontend/lottery/google');
     
     	//TODO : check content of json response
     }
@@ -1303,7 +1303,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('google');
-    	$this->assertMatchedRouteName('lottery/google');
+    	$this->assertMatchedRouteName('frontend/lottery/google');
     
     	//TODO : check content of json response
     }
@@ -1366,7 +1366,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('google');
-    	$this->assertMatchedRouteName('lottery/google');
+    	$this->assertMatchedRouteName('frontend/lottery/google');
     
     	//TODO : check content of json response
     }
@@ -1434,7 +1434,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('google');
-    	$this->assertMatchedRouteName('lottery/google');
+    	$this->assertMatchedRouteName('frontend/lottery/google');
     
     	//TODO : check content of json response
     }
@@ -1484,7 +1484,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('lottery/bounce');
+    	$this->assertMatchedRouteName('frontend/lottery/bounce');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -1535,7 +1535,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('lottery/bounce');
+    	$this->assertMatchedRouteName('frontend/lottery/bounce');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -1608,7 +1608,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('bounce');
-    	$this->assertMatchedRouteName('lottery/bounce');
+    	$this->assertMatchedRouteName('frontend/lottery/bounce');
     }
     
     public function testTermsActionNonExistentGame()
@@ -1656,7 +1656,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('lottery/terms');
+    	$this->assertMatchedRouteName('frontend/lottery/terms');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -1713,7 +1713,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('terms');
-    	$this->assertMatchedRouteName('lottery/terms');
+    	$this->assertMatchedRouteName('frontend/lottery/terms');
     }
     
     public function testFangateAction()
@@ -1725,7 +1725,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('fangate');
-    	$this->assertMatchedRouteName('lottery/fangate');
+    	$this->assertMatchedRouteName('frontend/lottery/fangate');
     }
     
     public function testPrizesActionNonExistentGame()
@@ -1773,7 +1773,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('lottery/prizes');
+    	$this->assertMatchedRouteName('frontend/lottery/prizes');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -1825,7 +1825,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('lottery/prizes');
+    	$this->assertMatchedRouteName('frontend/lottery/prizes');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -1889,7 +1889,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('prizes');
-    	$this->assertMatchedRouteName('lottery/prizes');
+    	$this->assertMatchedRouteName('frontend/lottery/prizes');
 
     }
     
@@ -1938,7 +1938,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('lottery/prizes/prize');
+    	$this->assertMatchedRouteName('frontend/lottery/prizes/prize');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -2008,7 +2008,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('not-found');
-    	$this->assertMatchedRouteName('lottery/prizes/prize');
+    	$this->assertMatchedRouteName('frontend/lottery/prizes/prize');
     	$this->assertResponseStatusCode(404);
     }
     
@@ -2084,6 +2084,6 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	$this->assertControllerName('adfabgame_lottery');
     	$this->assertControllerClass('LotteryController');
     	$this->assertActionName('prize');
-    	$this->assertMatchedRouteName('lottery/prizes/prize');
+    	$this->assertMatchedRouteName('frontend/lottery/prizes/prize');
     }
 }

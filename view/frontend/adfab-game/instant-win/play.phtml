@@ -56,7 +56,7 @@
 
 		<div class="row-fluid">
 			<div class="center">
-				<div class="btn btn-warning-inactive <?php if($this->winner):?>success<?php endif;?>"><a href="<?php echo ($this->winner) ? '#': $this->url('instantwin/result', array('id' => $this->game->getIdentifier()));?>" class="arrow-right">Continuer</a></div>
+				<div class="btn btn-warning-inactive <?php if($this->winner):?>success<?php endif;?>"><a href="<?php echo ($this->winner) ? '#': $this->url('frontend/instantwin/result', array('id' => $this->game->getIdentifier()));?>" class="arrow-right">Continuer</a></div>
 			</div>
 		</div>
 	</div>

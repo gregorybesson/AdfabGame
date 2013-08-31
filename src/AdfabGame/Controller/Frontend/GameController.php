@@ -128,9 +128,9 @@ class GameController extends AbstractActionController
         $subscription = $sg->checkExistingEntry($game, $user, false);
             if (!$subscription) {
             // the user is not registered yet.
-            $redirect = urlencode($this->url()->fromRoute('lottery', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
+            $redirect = urlencode($this->url()->fromRoute('frontend/lottery', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('zfcuser/register') . '?redirect='.$redirect);
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register') . '?redirect='.$redirect);
         }
 
         /*
@@ -210,7 +210,7 @@ class GameController extends AbstractActionController
         $secretKey = strtoupper(substr(sha1($user->getId().'####'.time()),0,15));
 
         // Without bit.ly shortener
-        $socialLinkUrl = $this->url()->fromRoute('lottery', array('id' => $game->getIdentifier()), array('force_canonical' => true)).'?key='.$secretKey;
+        $socialLinkUrl = $this->url()->fromRoute('frontend/lottery', array('id' => $game->getIdentifier()), array('force_canonical' => true)).'?key='.$secretKey;
         // With core shortener helper
         $socialLinkUrl = $this->shortenUrl()->shortenUrl($socialLinkUrl);
 
