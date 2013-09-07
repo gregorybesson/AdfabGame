@@ -394,7 +394,7 @@ class PostVoteController extends GameController
 				if ($formModeration->isValid()) {
 	                $from = $to;
 	                $subject= 'Moderation Post and Vote';
-	                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data, 'skinUrl' => $skinUrl));
+	                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/email/moderation', array('data' => $data, 'skinUrl' => $skinUrl));
 					$mailService->send($result);
 	                if ($result) {
 	                    $statusMail = true;
@@ -713,7 +713,7 @@ class PostVoteController extends GameController
             if (isset($data['moderation'])) {
                 $from = $to;
                 $subject= 'Moderation Post and Vote';
-                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/moderation', array('data' => $data, 'skinUrl' => $skinUrl));
+                $result = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/email/moderation', array('data' => $data, 'skinUrl' => $skinUrl));
 				$mailService->send($result);
                 if ($result) {
                     $statusMail = true;

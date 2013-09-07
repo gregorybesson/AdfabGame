@@ -655,17 +655,17 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         if ($data['email1']) {
             $mailSent = true;
-            $message = $mailService->createHtmlMessage($from, $data['email1'], $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl, 'userTimer' => $userTimer));
+            $message = $mailService->createHtmlMessage($from, $data['email1'], $subject, 'adfab-game/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl, 'userTimer' => $userTimer));
             $mailService->send($message);
         }
         if ($data['email2'] && $data['email2'] != $data['email1']) {
             $mailSent = true;
-            $message = $mailService->createHtmlMessage($from, $data['email2'], $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl, 'userTimer' => $userTimer));
+            $message = $mailService->createHtmlMessage($from, $data['email2'], $subject, 'adfab-game/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl, 'userTimer' => $userTimer));
             $mailService->send($message);
         }
         if ($data['email3'] && $data['email3'] != $data['email2'] && $data['email3'] != $data['email1']) {
             $mailSent = true;
-            $message = $mailService->createHtmlMessage($from, $data['email3'], $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl, 'userTimer' => $userTimer));
+            $message = $mailService->createHtmlMessage($from, $data['email3'], $subject, 'adfab-game/email/'.$template, array('game' => $game, 'email' => $user->getEmail(), 'secretKey' => $secretKey, 'skinUrl' => $skinUrl, 'userTimer' => $userTimer));
             $mailService->send($message);
         }
         if ($mailSent) {
@@ -687,7 +687,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $renderer    = $this->getServiceManager()->get('Zend\View\Renderer\RendererInterface');
         $skinUrl     = $renderer->url('frontend', array(), array('force_canonical' => true));
 
-        $message = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/frontend/email/'.$template, array('game' => $game, 'post' => $post, 'skinUrl' => $skinUrl));
+        $message = $mailService->createHtmlMessage($from, $to, $subject, 'adfab-game/email/'.$template, array('game' => $game, 'post' => $post, 'skinUrl' => $skinUrl));
         $mailService->send($message);
     }
 
@@ -810,7 +810,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         //foreach ($contacts as $contact) {
             //$message = $mailService->createTextMessage('titi@test.com', 'gbesson@test.com', 'sujetcron', 'adfab-user/email/forgot', array());
-            $message = $mailService->createTextMessage($from, $to, $subject, 'adfab-game/frontend/email/share_reminder', array('game' => $game));
+            $message = $mailService->createTextMessage($from, $to, $subject, 'adfab-game/email/share_reminder', array('game' => $game));
 
             $mailService->send($message);
         //}

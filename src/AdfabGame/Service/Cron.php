@@ -63,7 +63,7 @@ class Cron extends EventProvider implements ServiceManagerAwareInterface
 
         //foreach ($contacts as $contact) {
             //$message = $mailService->createTextMessage('titi@test.com', 'gbesson@test.com', 'sujetcron', 'adfab-user/email/forgot', array());
-            $message = $mailService->createTextMessage($from, $to, $subject, 'adfab-game/frontend/email/share_reminder', array('game' => $game));
+            $message = $mailService->createTextMessage($from, $to, $subject, 'adfab-game/email/share_reminder', array('game' => $game));
 
             $mailService->send($message);
         //}
@@ -104,7 +104,7 @@ class Cron extends EventProvider implements ServiceManagerAwareInterface
         foreach ($arrayUsers as $k => $entry) {
             $user = $entry['user'];
             $game = $entry['game'];
-            $message = $mailService->createHtmlMessage($from, $user->getEmail(), $subject, 'adfab-game/frontend/email/game_instantwin_reminder', array('game' => $game, 'user' => $user));
+            $message = $mailService->createHtmlMessage($from, $user->getEmail(), $subject, 'adfab-game/email/game_instantwin_reminder', array('game' => $game, 'user' => $user));
             $mailService->send($message);
         }
     }
