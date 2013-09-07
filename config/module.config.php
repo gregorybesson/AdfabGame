@@ -70,6 +70,11 @@ return array(
                     'description' => 'layout à 2 colonnes à droite'
                 ),*/
             ),
+        		'channel' => array(
+        				'facebook' => array(
+        						'default_layout' => 'adfab-game/layout/1column-facebook',
+        				),
+        		),
             'controllers' => array(
             	'adfabgameadmin' => array(
             		'default_layout' => 'layout/admin',
@@ -211,15 +216,28 @@ return array(
 		 					),
 		        		),
 		        	),
+     				/*'game' => array(
+       					'type' => 'Zend\Mvc\Router\Http\Regex',
+       					'options' => array(
+       						'regex'    => 'game/(?<controller>[a-zA-Z0-9-]+)_(?<id>[a-zA-Z0-9-]+)(_)?(?<action>[a-zA-Z0-9-]+)?(_)?(?<channel>[embed|facebook|platform|mobile]+)?(\.html)?',
+       						'defaults' => array(
+      							'controller' => 'quiz',
+      							'action'     => 'index',
+       						),
+       						'spec' => 'game/%controller%_%id%_%channel%_%action%.html',
+       					),
+       				),*/
 		
 		            'quiz' => array(
 		                'type' => 'Segment',
 		                'options' => array(
+		                	//'regex'    => 'quiz/(?<id>[a-zA-Z0-9-]+)(\/)?(?<action>[a-zA-Z0-9-]+)?(_)?(?<channel>[embed|facebook|platform|mobile]+)?(\.html)?',
 		                    'route' => 'quiz[/:id]',
 		                    'defaults' => array(
 		                        'controller' => 'adfabgame_quiz',
 		                        'action'     => 'index'
 		                    ),
+		                	//'spec' => 'quiz/%id%/%action%%channel%.html',
 		                ),
 		                'may_terminate' => true,
 		                'child_routes' => array(

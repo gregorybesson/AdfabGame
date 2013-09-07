@@ -29,9 +29,9 @@ class InstantWinController extends GameController
         }
 
         if (!$user) {
-            $redirect = urlencode($this->url()->fromRoute('instantwin/play', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
+            $redirect = urlencode($this->url()->fromRoute('frontend/instantwin/play', array('id' => $game->getIdentifier(), 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel')), array('force_canonical' => true)));
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register') . '?redirect='.$redirect);
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register', array('channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))) . '?redirect='.$redirect);
         }
 
         $viewModel = $this->buildView($game);
@@ -43,19 +43,19 @@ class InstantWinController extends GameController
         $this->layout()->setTemplate($beforeLayout);
         // Le formulaire est validé, il renvoie true et non un ViewModel
         if (!($form instanceof \Zend\View\Model\ViewModel)) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('instantwin/result', array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/instantwin/result', array('id' => $identifier, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
         }
 
         if ($this->getRequest()->isPost()) {
             // En post, je reçois la maj du form pour les gagnants. Je n'ai pas à créer une nouvelle participation mais vérifier la précédente
             $lastEntry = $sg->getEntryMapper()->findLastInactiveEntryById($game, $user);
             if (!$lastEntry) {
-                return $this->redirect()->toUrl($this->url()->fromRoute('instantwin', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/instantwin', array('id' => $game->getIdentifier(), 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel')), array('force_canonical' => true)));
             }
             $winner = $lastEntry->getWinner();
             // if not winner, I'm not authorized to call this page in POST mode.
             if (!$winner) {
-                return $this->redirect()->toUrl($this->url()->fromRoute('instantwin', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/instantwin', array('id' => $game->getIdentifier(), 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel')), array('force_canonical' => true)));
             }
 
             // si la requete est POST et que j'arrive ici, c'est que le formulaire contient une erreur. Donc je prépare la vue formulaire sans le grattage
@@ -67,7 +67,7 @@ class InstantWinController extends GameController
                 // the user has already taken part of this game and the participation limit has been reached
                 $this->flashMessenger()->addMessage('Vous avez déjà participé');
 
-                return $this->redirect()->toUrl($this->url()->fromRoute('instantwin/result',array('id' => $identifier)));
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/instantwin/result',array('id' => $identifier, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
             }
 
             // update the winner attribute in entry.
@@ -98,19 +98,19 @@ class InstantWinController extends GameController
         }
 
         $secretKey = strtoupper(substr(sha1($user->getId().'####'.time()),0,15));
-        $socialLinkUrl = $this->url()->fromRoute('instantwin', array('id' => $game->getIdentifier()), array('force_canonical' => true)).'?key='.$secretKey;
+        $socialLinkUrl = $this->url()->fromRoute('frontend/instantwin', array('id' => $game->getIdentifier(), 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel')), array('force_canonical' => true)).'?key='.$secretKey;
         // With core shortener helper
         $socialLinkUrl = $this->shortenUrl()->shortenUrl($socialLinkUrl);
 
         if (!$user) {
-            $redirect = urlencode($this->url()->fromRoute('instantwin', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
+            $redirect = urlencode($this->url()->fromRoute('frontend/instantwin', array('id' => $game->getIdentifier(), 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel')), array('force_canonical' => true)));
 
             return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register') . '?redirect='.$redirect);
         }
 
         $lastEntry = $sg->getEntryMapper()->findLastInactiveEntryById($game, $user);
         if (!$lastEntry) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('instantwin', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/instantwin', array('id' => $game->getIdentifier(), 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel')), array('force_canonical' => true)));
         }
 
         $winner = $lastEntry->getWinner();

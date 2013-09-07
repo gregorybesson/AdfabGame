@@ -44,9 +44,9 @@ class PostVoteController extends GameController
 
         if (! $user) {
             // the user is not registered yet.
-            $redirect = urlencode($this->url()->fromRoute('frontend/postvote/play', array('id' => $game->getIdentifier()), array('force_canonical' => true)));
+            $redirect = urlencode($this->url()->fromRoute('frontend/postvote/play', array('id' => $game->getIdentifier(), 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel')), array('force_canonical' => true)));
 
-            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register') . '?redirect='.$redirect);
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/zfcuser/register', array('channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))) . '?redirect='.$redirect);
         }
 
         $entry = $sg->play($game, $user);
@@ -54,7 +54,7 @@ class PostVoteController extends GameController
         if (!$entry) {
             $lastEntry = $sg->getEntryMapper()->findLastInactiveEntryById($game, $user);
             if ($lastEntry == null) {
-                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote', array('id' => $identifier)));
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote', array('id' => $identifier, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
             }
 
             $lastEntryId = $lastEntry->getId();
@@ -64,17 +64,17 @@ class PostVoteController extends GameController
                 // the user has already taken part of this game and the participation limit has been reached
                 $this->flashMessenger()->addMessage('Vous avez déjà participé!');
 
-                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote/post',array('id' => $identifier, 'post' => $postId)));
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote/post',array('id' => $identifier, 'post' => $postId, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
             } else {
                 $this->flashMessenger()->addMessage('Votre participation est en cours de validation.');
 
-                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote/post', array('id' => $identifier, 'post' => $postId)));
+                return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote/post', array('id' => $identifier, 'post' => $postId, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
             }
         }
 
         // TODO : Don't display incomplete post & vote without form...
         if (! $game->getForm()) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote',array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote',array('id' => $identifier, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
         }
 
         $formPV = json_decode($game->getForm()->getForm());
@@ -262,7 +262,7 @@ class PostVoteController extends GameController
 
                 if ($post) {
                     // determine the route where the user should go
-                    $redirectUrl = $this->url()->fromRoute('frontend/postvote/play/preview', array('id' => $game->getIdentifier()));
+                    $redirectUrl = $this->url()->fromRoute('frontend/postvote/play/preview', array('id' => $game->getIdentifier(), 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel')));
 
                     return $this->redirect()->toUrl($redirectUrl);
                 }
@@ -295,14 +295,14 @@ class PostVoteController extends GameController
         $entry = $sg->getEntryMapper()->findLastActiveEntryById($game, $user);
         if (!$entry) {
             // the user has already taken part of this game and the participation limit has been reached
-            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote/bounce',array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote/bounce',array('id' => $identifier, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
         }
 
         // Je recherche le post associé à entry + status == 0. Si non trouvé, je redirige vers home du jeu.
         $post = $sg->getPostVotePostMapper()->findOneBy(array('entry' => $entry, 'status' => 0));
 
         if (! $post) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote',array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote',array('id' => $identifier, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
         }
 
         if ($this->getRequest()->isPost()) {
@@ -312,7 +312,7 @@ class PostVoteController extends GameController
             if ($post) {
 		        // send mail for participation
 		        $this->getGameService()->sendGameMail($game, $user, $post, 'postvote');
-                $redirectUrl = $this->url()->fromRoute('frontend/postvote/result', array('id' => $game->getIdentifier()));
+                $redirectUrl = $this->url()->fromRoute('frontend/postvote/result', array('id' => $game->getIdentifier(), 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel')));
 
                 return $this->redirect()->toUrl($redirectUrl);
             }
@@ -344,7 +344,7 @@ class PostVoteController extends GameController
         $statusMail = false;
         $mailService = $this->getServiceLocator()->get('adfabgame_message');
         $to = '';
-		$skinUrl = $sg->getServiceManager()->get('ViewRenderer')->url('frontend', array(), array('force_canonical' => true));
+		$skinUrl = $sg->getServiceManager()->get('ViewRenderer')->url('frontend', array('channel' => $this->getEvent()->getRouteMatch()->getParam('channel')), array('force_canonical' => true));
         $config = $this->getGameService()->getServiceManager()->get('config');
         if (isset($config['moderation']['email'])) {
             $to = $config['moderation']['email'];
@@ -363,7 +363,7 @@ class PostVoteController extends GameController
         $post = $sg->getPostVotePostMapper()->findById($postId);
 
         if (! $post) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote',array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote',array('id' => $identifier, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
         }
 
         $formModeration = new Form();
@@ -377,7 +377,7 @@ class PostVoteController extends GameController
             ),
         ));
 
-        $form = new \AdfabGame\Form\Frontend\PostVoteVote($this->url()->fromRoute('frontend/postvote/post/captcha',array('id' => $identifier, 'post' => $postId)));
+        $form = new \AdfabGame\Form\Frontend\PostVoteVote($this->url()->fromRoute('frontend/postvote/post/captcha',array('id' => $identifier, 'post' => $postId, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
 
         if ($user) {
             $form->remove('captcha');
@@ -465,7 +465,7 @@ class PostVoteController extends GameController
         $lastEntry = $this->getGameService()->getEntryMapper()->findLastInactiveEntryById($game, $user);
 
         if ($lastEntry == null) {
-            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote', array('id' => $identifier)));
+            return $this->redirect()->toUrl($this->url()->fromRoute('frontend/postvote', array('id' => $identifier, 'channel' => $this->getEvent()->getRouteMatch()->getParam('channel'))));
         }
 
         $form = $this->getServiceLocator()->get('adfabgame_sharemail_form');
@@ -670,7 +670,7 @@ class PostVoteController extends GameController
         $statusMail = false;
         $mailService = $this->getServiceLocator()->get('adfabgame_message');
         $to = '';
-		$skinUrl = $sg->getServiceManager()->get('ViewRenderer')->url('frontend', array(), array('force_canonical' => true));
+		$skinUrl = $sg->getServiceManager()->get('ViewRenderer')->url('frontend', array('channel' => $this->getEvent()->getRouteMatch()->getParam('channel')), array('force_canonical' => true));
         $config = $this->getGameService()->getServiceManager()->get('config');
         if (isset($config['moderation']['email'])) {
             $to = $config['moderation']['email'];
