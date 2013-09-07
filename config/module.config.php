@@ -70,10 +70,10 @@ return array(
                     'description' => 'layout à 2 colonnes à droite'
                 ),*/
             ),
-        		'channel' => array(
-        				'facebook' => array(
-        						'default_layout' => 'adfab-game/layout/1column-facebook',
-        				),
+       		'channel' => array(
+        			'facebook' => array(
+        				'default_layout' => 'adfab-game/layout/1column-facebook',
+        			),
         		),
             'controllers' => array(
             	'adfabgameadmin' => array(
