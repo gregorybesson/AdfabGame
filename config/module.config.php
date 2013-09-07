@@ -216,7 +216,7 @@ return array(
 		 					),
 		        		),
 		        	),
-<<<<<<< HEAD
+       				
      				/*'game' => array(
        					'type' => 'Zend\Mvc\Router\Http\Regex',
        					'options' => array(
@@ -224,16 +224,6 @@ return array(
        						'defaults' => array(
       							'controller' => 'quiz',
       							'action'     => 'index',
-=======
-       				
-       				/*'game' => array(
-       		  		 'type' => 'Zend\Mvc\Router\Http\Regex',
-       					'options' => array(
-      						'regex'    => 'game/(?<controller>[a-zA-Z0-9-]+)_(?<id>[a-zA-Z0-9-]+)(_)?(?<action>[a-zA-Z0-9-]+)?(_)?(?<channel>[embed|facebook|platform|mobile]+)?(\.html)?',
-       						'defaults' => array(
-       							'controller' => 'quiz',
-       							'action'     => 'index',
->>>>>>> branch 'master' of ssh://git@github.com/gregorybesson/AdfabGame.git
        						),
        						'spec' => 'game/%controller%_%id%_%channel%_%action%.html',
        					),
