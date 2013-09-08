@@ -1593,7 +1593,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('getIdentity')
     	->will($this->returnValue($ZfcUserMock));
     	
-    	$partnerMock = $this->getMock('AdfabPartnership\View\Helper\PartnerSubscriber');
+    	$partnerMock = $this->getMock('PlaygroundPartnership\View\Helper\PartnerSubscriber');
     	$partnerMock->expects($this->any())
     	->method('__invoke')
     	->will($this->returnValue(false));

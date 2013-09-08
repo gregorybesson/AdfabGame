@@ -142,7 +142,7 @@ class Module
         return array(
             'aliases' => array(
                 // An alias for linking a partner service with AdfabGame without adherence
-                'adfabgame_partner_service' => 'adfabpartnership_partner_service',
+                'adfabgame_partner_service' => 'playgroundpartnership_partner_service',
                 'adfabgame_message'         => 'adfabcore_message',
 
             ),

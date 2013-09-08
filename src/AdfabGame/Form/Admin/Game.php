@@ -561,9 +561,9 @@ class Game extends ProvidesEventsForm
     }
 
     /**
-     * An event is triggered so that the module AdfabPartnership if installed,
+     * An event is triggered so that the module PlaygroundPartnership if installed,
      * can add the partners list without adherence between the 2 modules
-     * AdfabGame and AdfabPartnership
+     * AdfabGame and PlaygroundPartnership
      *
      * @return array
      */

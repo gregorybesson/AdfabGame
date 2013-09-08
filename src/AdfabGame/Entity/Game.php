@@ -34,7 +34,7 @@ class Game implements InputFilterAwareInterface
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\AdfabPartnership\Entity\Partner")
+     * @ORM\ManyToOne(targetEntity="\PlaygroundPartnership\Entity\Partner")
      */
     protected $partner;
 

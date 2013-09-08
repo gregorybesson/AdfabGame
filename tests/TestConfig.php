@@ -11,7 +11,7 @@ return array(
    		'AdfabCore',
         'AdfabUser',
    		'AdfabGame',
-        'AdfabPartnership',
+        'PlaygroundPartnership',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
