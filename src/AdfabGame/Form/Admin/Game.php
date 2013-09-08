@@ -590,9 +590,9 @@ class Game extends ProvidesEventsForm
     }
 
     /**
-     * An event is triggered so that the module AdfabFacebook if installed,
+     * An event is triggered so that the module PlaygroundFacebook if installed,
      * can add the Facebook apps list without adherence between the 2 modules
-     * AdfabGame and AdfabFacebook
+     * AdfabGame and PlaygroundFacebook
      *
      * @return array
      */

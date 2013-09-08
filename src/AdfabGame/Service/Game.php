@@ -256,7 +256,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
 
         $form->setData($data);
 
-        // If someone want to claim... It's time to do it ! used for exemple by AdfabFacebook Module
+        // If someone want to claim... It's time to do it ! used for exemple by PlaygroundFacebook Module
         $result = $this->getEventManager()->trigger(__FUNCTION__.'.validate', $this, array('game' => $game, 'data' => $data));
         if (is_array($result) && !$result[0]) {
             $form->get('fbAppId')->setMessages(array('Vous devez d\'abord désinstaller l\'appli Facebook'));
