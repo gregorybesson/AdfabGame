@@ -22,7 +22,7 @@ class LeaderBoard
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="AdfabUser\Entity\User")
+     * @ORM\ManyToOne(targetEntity="PlaygroundUser\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
      **/
     protected $user;

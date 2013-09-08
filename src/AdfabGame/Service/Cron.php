@@ -46,7 +46,7 @@ class Cron extends EventProvider implements ServiceManagerAwareInterface
         $sm->get('ModuleManager')->loadModules();
         $sm->get('Application')->bootstrap();
 
-        $mailService = $sm->get('adfabuser_message');
+        $mailService = $sm->get('playgrounduser_message');
         $gameService = $sm->get('adfabgame_quiz_service');
         $options = $sm->get('adfabgame_module_options');
 
@@ -62,7 +62,7 @@ class Cron extends EventProvider implements ServiceManagerAwareInterface
         //$contacts = getQuizUsersNotSharing();
 
         //foreach ($contacts as $contact) {
-            //$message = $mailService->createTextMessage('titi@test.com', 'gbesson@test.com', 'sujetcron', 'adfab-user/email/forgot', array());
+            //$message = $mailService->createTextMessage('titi@test.com', 'gbesson@test.com', 'sujetcron', 'playground-user/email/forgot', array());
             $message = $mailService->createTextMessage($from, $to, $subject, 'adfab-game/email/share_reminder', array('game' => $game));
 
             $mailService->send($message);
@@ -80,7 +80,7 @@ class Cron extends EventProvider implements ServiceManagerAwareInterface
         $sm->get('ModuleManager')->loadModules();
         $sm->get('Application')->bootstrap();
 
-        $mailService = $sm->get('adfabuser_message');
+        $mailService = $sm->get('playgrounduser_message');
         $gameService = $sm->get('adfabgame_instantwin_service');
         $options = $sm->get('adfabgame_module_options');
 

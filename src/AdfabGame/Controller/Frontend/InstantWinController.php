@@ -36,8 +36,8 @@ class InstantWinController extends GameController
 
         $viewModel = $this->buildView($game);
         $beforeLayout = $this->layout()->getTemplate();
-        // je délègue la responsabilité du formulaire à AdfabUser, y compris dans sa gestion des erreurs
-        $form = $this->forward()->dispatch('adfabuser_user', array('action' => 'address'));
+        // je délègue la responsabilité du formulaire à PlaygroundUser, y compris dans sa gestion des erreurs
+        $form = $this->forward()->dispatch('playgrounduser_user', array('action' => 'address'));
 
         // TODO : suite au forward, le template de layout a changé, je dois le rétablir...
         $this->layout()->setTemplate($beforeLayout);

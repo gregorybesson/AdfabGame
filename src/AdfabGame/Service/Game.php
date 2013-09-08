@@ -602,7 +602,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
      *     -2 : limit entry games for this user reached
      *
      * @param  AdfabGame\Entity\Game $game
-     * @param  AdfabUser\Entity\UserInterface $user
+     * @param  PlaygroundUser\Entity\UserInterface $user
      * @return number|unknown
      */
     public function play($game, $user)
@@ -793,7 +793,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         $sm->get('ModuleManager')->loadModules();
         $sm->get('Application')->bootstrap();
 
-        $mailService = $sm->get('adfabuser_message');
+        $mailService = $sm->get('playgrounduser_message');
         $gameService = $sm->get('adfabgame_quiz_service');
         $options = $sm->get('adfabgame_module_options');
 
@@ -809,7 +809,7 @@ class Game extends EventProvider implements ServiceManagerAwareInterface
         //$contacts = getQuizUsersNotSharing();
 
         //foreach ($contacts as $contact) {
-            //$message = $mailService->createTextMessage('titi@test.com', 'gbesson@test.com', 'sujetcron', 'adfab-user/email/forgot', array());
+            //$message = $mailService->createTextMessage('titi@test.com', 'gbesson@test.com', 'sujetcron', 'playground-user/email/forgot', array());
             $message = $mailService->createTextMessage($from, $to, $subject, 'adfab-game/email/share_reminder', array('game' => $game));
 
             $mailService->send($message);

@@ -301,7 +301,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
      	->method('checkGame')
      	->will($this->returnValue(false));
 
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
 
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -418,7 +418,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
      	->method('checkGame')
      	->will($this->returnValue(false));
 
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
 
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -469,7 +469,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -521,7 +521,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -574,7 +574,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -633,7 +633,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -706,7 +706,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue(false));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -765,7 +765,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -828,7 +828,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -891,7 +891,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -959,7 +959,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue(false));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1018,7 +1018,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1081,7 +1081,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1144,7 +1144,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1212,7 +1212,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue(false));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1271,7 +1271,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1334,7 +1334,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1397,7 +1397,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1460,7 +1460,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue(false));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1511,7 +1511,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1577,7 +1577,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('getServiceManager')
     	->will($this->returnValue($serviceManager));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1632,7 +1632,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue(false));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1689,7 +1689,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1749,7 +1749,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue(false));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1801,7 +1801,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1865,7 +1865,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('getServiceManager')
     	->will($this->returnValue($serviceManager));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1914,7 +1914,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue(false));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -1984,7 +1984,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('checkGame')
     	->will($this->returnValue($game));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
@@ -2060,7 +2060,7 @@ class LotteryControllerTest extends AbstractHttpControllerTestCase
     	->method('getServiceManager')
     	->will($this->returnValue($serviceManager));
     
-    	$ZfcUserMock = $this->getMock('AdfabUser\Entity\User');
+    	$ZfcUserMock = $this->getMock('PlaygroundUser\Entity\User');
     
     	$ZfcUserMock->expects($this->any())
     	->method('getId')
